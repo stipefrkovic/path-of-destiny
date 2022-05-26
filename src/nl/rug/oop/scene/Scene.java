@@ -9,7 +9,7 @@ public class Scene implements Serializable {
 
     private String image;
     private String description;
-    private HashMap<Action, Scene> actions;
+    protected HashMap<Action, Scene> actions;
 
     public Scene(String image, String description, HashMap<Action, Scene> actions){
         this.actions = actions;
@@ -22,6 +22,9 @@ public class Scene implements Serializable {
     }
 
     public Scene takeAction(Action action){
+        if(!action.isEnabled()){
+            return this;
+        }
         return actions.get(action);
     }
 

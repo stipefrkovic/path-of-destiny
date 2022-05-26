@@ -1,6 +1,7 @@
 package nl.rug.oop.npc;
 
 import nl.rug.oop.player.Player;
+import nl.rug.oop.scene.Action;
 import nl.rug.oop.scene.Scene;
 
 import java.io.Serializable;
@@ -17,5 +18,10 @@ public abstract class NPC extends Entity implements Serializable {
         return type;
     }
 
-    public abstract void takeActions(Player player, Scene currentScene);
+    public abstract String takeActions(Player player, Scene currentScene, Action action);
+
+    protected String addSelfToString(String action){
+        return "The " + getType() +" '"+ getName() + "' " + action;
+    }
+
 }

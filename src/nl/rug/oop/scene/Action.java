@@ -1,6 +1,7 @@
 package nl.rug.oop.scene;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * A possible action that can be taken, identified by its name, with a boolean indicating whether this action is enabled.
@@ -35,5 +36,22 @@ public class Action implements Serializable {
 
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public void setEnabled(boolean enabled){
+        this.enabled = enabled;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Action action = (Action) o;
+        return actionName.equals(action.getActionName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(actionName);
     }
 }
