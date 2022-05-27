@@ -45,7 +45,13 @@ public class FightScene extends Scene implements Serializable {
                 onlyShowSpecifiedActionsByName(new ArrayList<>(Arrays.asList("Fight", "Inventory", "Flee")));
                 break;
         }
-        
+        if(player.getFightActions().contains(action)){
+            int target = action.getTarget();
+            if(target<0 || target>=enemies.size()){
+                target = 0;
+            }
+            enemiesResponse(player.attack(action, enemies.get(target), new ArrayList<>(enemies), this), action);
+        }
         return super.takeAction(action);
     }
 
@@ -60,10 +66,37 @@ public class FightScene extends Scene implements Serializable {
 
     private void enemiesResponse(String newDescription, Action action){
         StringBuilder descriptionBuilder = new StringBuilder(newDescription);
+        descriptionBuilder.append(isEnemyDefeated());
         for (NPC enemy:enemies) {
             descriptionBuilder.append(enemy.takeActions(player, this, action));
         }
         setDescription(descriptionBuilder.toString());
+    }
+
+    private String isEnemyDefeated(){
+        List<NPC> deleteEnemies = new ArrayList<>(enemies);
+        for (NPC enemy:enemies) {
+            if(enemy.getHealth()<=0){
+                player.addKill(enemy.getType());
+                deleteEnemies.add(enemy);
+            }
+        }
+        StringBuilder defeatMessage = new StringBuilder();
+        for (int i=0; i<deleteEnemies.size(); i++) {
+            defeatMessage.append(deleteEnemies.get(i));
+            if(deleteEnemies.size()-2==i){
+                defeatMessage.append(" and ");
+            }else if(deleteEnemies.size()-1>i){
+                defeatMessage.append(", ");
+            }
+        }
+        if(deleteEnemies.size()>1){
+            defeatMessage.append(" were defeated. ");
+        }else if(deleteEnemies.size()==1){
+            defeatMessage.append(" was defeated.");
+        }
+        enemies.removeAll(deleteEnemies);
+        return defeatMessage.toString();
     }
 
     private void onlyShowSpecifiedActions(List<Action> specifiedActions){

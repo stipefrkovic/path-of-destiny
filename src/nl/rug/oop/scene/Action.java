@@ -11,21 +11,19 @@ public class Action implements Serializable {
 
     private String actionName;
     private boolean enabled;
+    private int target;
 
-    /**
-     * A constructor that sets all attributes.
-     * @param actionName The name of the action.
-     * @param enabled If the action is enabled or not.
-     */
-    public Action(String actionName, boolean enabled){
+
+    public Action(String actionName, boolean enabled, int target){
         this.actionName = actionName;
         this.enabled = enabled;
+        this.target = target;
     }
 
-    /**
-     * A constructor to define the name of the action, with enabled being set to true.
-     * @param actionName The name of the action.
-     */
+    public Action(String actionName, boolean enabled){
+        this(actionName, enabled, -1);
+    }
+
     public Action(String actionName){
         this(actionName, true);
     }
@@ -40,6 +38,14 @@ public class Action implements Serializable {
 
     public void setEnabled(boolean enabled){
         this.enabled = enabled;
+    }
+
+    public int getTarget() {
+        return target;
+    }
+
+    public void setTarget(int target) {
+        this.target = target;
     }
 
     @Override

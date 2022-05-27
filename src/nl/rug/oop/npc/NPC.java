@@ -20,8 +20,8 @@ public abstract class NPC extends Entity implements Serializable {
 
     public abstract String takeActions(Player player, Scene currentScene, Action action);
 
-    protected String addSelfToString(String action){
-        return "The " + getType() +" '"+ getName() + "' " + action;
+    public String getFullName(){
+        return "The " + getType() +" '"+ getName() + "' ";
     }
 
 }
