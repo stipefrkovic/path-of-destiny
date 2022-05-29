@@ -17,6 +17,7 @@ public abstract class Entity implements Serializable {
     private ArrayList<Effect> effects = new ArrayList<>();
     private ArrayList<Effect> removeEffects = new ArrayList<>();
 
+
     protected void updateEffects(){
         for (Effect effect:effects) {
             effect.update(this);
