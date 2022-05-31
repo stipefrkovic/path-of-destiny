@@ -13,6 +13,7 @@ import java.util.List;
  */
 public abstract class Player extends Entity {
 
+    //Do NPCs also have gold?
     private int gold;
 
     public int getGold() {
@@ -20,14 +21,13 @@ public abstract class Player extends Entity {
     }
 
 
-    //abstract class
+    //Just because I put abstract methods in here does not mean that they have to be abstract
     public abstract List<Action> getFightActions();
 
     //non-abstract class
     public abstract List<String> getInventory();
 
     //The String is supposed to say what the player did
-    //abstract class
     public abstract String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene);
 
     //non-abstract class
