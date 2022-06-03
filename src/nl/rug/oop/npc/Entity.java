@@ -7,13 +7,14 @@ import java.util.ArrayList;
 
 /**
  * Abstract class that is the super class of the player and NPCs, which allows for both of them being affected by Effects.
+ * @author Jonas Scholz
  */
 public abstract class Entity implements Serializable {
 
-    private String name;
-    private int health;
-    private int maxHealth;
-    private float strength;
+    protected String name;
+    protected int health;
+    protected int maxHealth;
+    protected float strength;
     private ArrayList<Effect> effects = new ArrayList<>();
     private ArrayList<Effect> removeEffects = new ArrayList<>();
 

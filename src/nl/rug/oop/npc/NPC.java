@@ -12,13 +12,13 @@ import java.io.Serializable;
  */
 public abstract class NPC extends Entity implements Serializable {
 
-    private String type;
+    protected String type;
 
     public String getType() {
         return type;
     }
 
-    public abstract String takeActions(Player player, Scene currentScene, Action action);
+    public abstract String takeActions(Player player, Scene currentScene, Action action, boolean isFightAction);
 
     public String getFullName(){
         return "The " + getType() +" '"+ getName() + "' ";

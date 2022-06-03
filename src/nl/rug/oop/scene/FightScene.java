@@ -11,7 +11,6 @@ import java.util.List;
 public class FightScene extends Scene implements Serializable {
 
     private ArrayList<NPC> enemies;
-    private Scene winScene;
     private Scene fleeScene;
     private Player player;
     private double retreatChance = 0.5;
@@ -22,8 +21,11 @@ public class FightScene extends Scene implements Serializable {
         for (Action action:player.getFightActions()) {
             this.addAction(action, this);
         }
+        for (String item:player.getInventory()) {
+            this.addAction(new Action(item), this);
+        }
         this.addAction(new Action("Flee"), fleeScene);
-        this.winScene = winScene;
+        this.addAction(new Action("Continue", false), winScene);
         this.fleeScene = fleeScene;
         this.enemies = enemies;
     }
@@ -51,6 +53,14 @@ public class FightScene extends Scene implements Serializable {
                 target = 0;
             }
             enemiesResponse(player.attack(action, enemies.get(target), new ArrayList<>(enemies), this), action);
+            if(enemies.size()==0){
+                ArrayList<String> nextActions = new ArrayList<>();
+                nextActions.add("Continue");
+                this.onlyShowSpecifiedActionsByName(nextActions);
+            }
+        }
+        if(player.getInventory().contains(action.getActionName())){
+            enemiesResponse(player.useItem(action.getActionName()), action);
         }
         return super.takeAction(action);
     }
@@ -68,7 +78,7 @@ public class FightScene extends Scene implements Serializable {
         StringBuilder descriptionBuilder = new StringBuilder(newDescription);
         descriptionBuilder.append(isEnemyDefeated());
         for (NPC enemy:enemies) {
-            descriptionBuilder.append(enemy.takeActions(player, this, action));
+            descriptionBuilder.append(enemy.takeActions(player, this, action, true));
         }
         setDescription(descriptionBuilder.toString());
     }

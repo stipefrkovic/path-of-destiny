@@ -32,4 +32,6 @@ public abstract class Player extends Entity {
 
     //non-abstract class
     public abstract void addKill(String type);
+
+    public abstract String useItem(String itemName);
 }
