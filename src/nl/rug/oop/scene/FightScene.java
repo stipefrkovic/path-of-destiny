@@ -1,5 +1,6 @@
 package nl.rug.oop.scene;
 
+import nl.rug.oop.items.Item;
 import nl.rug.oop.npc.NPC;
 import nl.rug.oop.player.Player;
 
@@ -8,9 +9,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FightScene extends Scene implements Serializable {
+public class FightScene extends Scene implements Serializable, NPCScene {
 
     private ArrayList<NPC> enemies;
+    private ArrayList<Item> loot;
+    private int lootGold = 0;
     private Scene fleeScene;
     private Player player;
     private double retreatChance = 0.5;
@@ -18,6 +21,7 @@ public class FightScene extends Scene implements Serializable {
     public FightScene(String image, String description, Player player, Scene fleeScene, Scene winScene, ArrayList<NPC> enemies) {
         super(image, description);
         this.player = player;
+        this.loot = new ArrayList<>();
         for (Action action:player.getFightActions()) {
             this.addAction(action, this);
         }
@@ -77,6 +81,11 @@ public class FightScene extends Scene implements Serializable {
     private void enemiesResponse(String newDescription, Action action){
         StringBuilder descriptionBuilder = new StringBuilder(newDescription);
         descriptionBuilder.append(isEnemyDefeated());
+        if(enemies.size()==0){
+            descriptionBuilder.append(player.addLoot(lootGold, loot));
+            lootGold = 0;
+            loot.clear();
+        }
         for (NPC enemy:enemies) {
             descriptionBuilder.append(enemy.takeActions(player, this, action, true));
         }
@@ -88,6 +97,8 @@ public class FightScene extends Scene implements Serializable {
         for (NPC enemy:enemies) {
             if(enemy.getHealth()<=0){
                 player.addKill(enemy.getType());
+                loot.addAll(enemy.getLoot());
+                lootGold += enemy.getGold();
                 deleteEnemies.add(enemy);
             }
         }
@@ -119,5 +130,14 @@ public class FightScene extends Scene implements Serializable {
         for (Action action:actions.keySet()) {
             action.setEnabled(specifiedActions.contains(action.getActionName()));
         }
+    }
+
+    @Override
+    public List<NPC> getNPCs() {
+        List<NPC> npcs = new ArrayList<>();
+        for (NPC enemy:enemies) {
+            npcs.add(enemy.clone());
+        }
+        return npcs;
     }
 }

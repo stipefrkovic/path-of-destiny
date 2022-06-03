@@ -15,6 +15,9 @@ public abstract class Entity implements Serializable {
     protected int health;
     protected int maxHealth;
     protected float strength;
+    private int gold;
+
+
     private ArrayList<Effect> effects = new ArrayList<>();
     private ArrayList<Effect> removeEffects = new ArrayList<>();
 
@@ -41,5 +44,22 @@ public abstract class Entity implements Serializable {
 
     public float getStrength() {
         return strength;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    /**
+     * Can be used to change the amount of gold an Entity has.
+     * @param amount The amount by which the amount of gold is changed.
+     * @return If the transaction was successful or if the change would have left the entity in the minus.
+     */
+    public boolean changeGoldAmount(int amount){
+        if(gold+amount>=0){
+            gold += amount;
+            return true;
+        }
+        return false;
     }
 }
