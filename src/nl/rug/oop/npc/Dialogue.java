@@ -17,6 +17,10 @@ public class Dialogue {
         this.whichSceneNext = whichSceneNext;
     }
 
+    public void addAnswer(String text, Dialogue dialogue){
+        this.possibleAnswers.put(text, dialogue);
+    }
+
     public String getText() {
         return text;
     }

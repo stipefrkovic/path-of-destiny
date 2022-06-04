@@ -24,6 +24,8 @@ public abstract class Player extends Entity {
     //non-abstract class
     public abstract List<String> getInventory();
 
+    public abstract List<Item> getInventoryItems();
+
     //The String is supposed to say what the player did
     public abstract String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene);
 

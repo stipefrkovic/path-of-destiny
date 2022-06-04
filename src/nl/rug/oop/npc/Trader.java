@@ -4,9 +4,6 @@ import nl.rug.oop.player.Player;
 import nl.rug.oop.scene.Action;
 import nl.rug.oop.scene.Scene;
 
-import java.util.HashMap;
-import java.util.List;
-
 public class Trader extends TalkingNPC{
 
     public Trader(String name, String type, int maxHealth, int strength, Dialogue dialogue) {
@@ -16,7 +13,24 @@ public class Trader extends TalkingNPC{
     @Override
     public String takeActions(Player player, Scene currentScene, Action action, boolean isFightAction) {
         String description = super.takeActions(player, currentScene, action, isFightAction);
-
+        if(currentDialogue instanceof Transaction){
+            performTransaction(player);
+        }
         return description;
     }
+
+    private String performTransaction(Player player){
+        Transaction transaction = (Transaction) currentDialogue;
+        if(transaction.getGoldTransfer() <= player.getGold() && hasPlayerRequiredItems(transaction, player)){
+            //TODO: Finish this function
+        }
+        return null;
+    }
+
+    private boolean hasPlayerRequiredItems(Transaction transaction, Player player){
+        //TODO: Finish this function
+        return false;
+    }
+
+
 }
