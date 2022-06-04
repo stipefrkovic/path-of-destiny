@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TalkingNPC extends NPC{
 
-    private Dialogue currentDialogue;
+    protected Dialogue currentDialogue;
 
     public TalkingNPC(String name, String type, int maxHealth, int strength, Dialogue dialogue){
         this.name = name;
