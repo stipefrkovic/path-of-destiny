@@ -14,15 +14,14 @@ import java.util.List;
  */
 public abstract class Player extends Entity {
 
-    //Do NPCs also have gold?
-
-
-
     //Just because I put abstract methods in here does not mean that they have to be abstract
     public abstract List<Action> getFightActions();
 
     //non-abstract class
-    public abstract List<String> getInventory();
+    public List<String> getInventory(){
+
+        return null;
+    }
 
     public abstract List<Item> getInventoryItems();
 
@@ -30,10 +29,14 @@ public abstract class Player extends Entity {
     public abstract String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene);
 
     //non-abstract class
-    public abstract void addKill(String type);
+    public void addKill(String type){
+
+    }
 
     public abstract String useItem(String itemName);
 
-    //The String is supposed to return what actually happend, so for example: You gained 12 Gold and 3 Healing potions.
-    public abstract String addLoot(int gold, List<Item> items);
+    //The String is supposed to return what actually happened, so for example: You gained 12 Gold and 3 Healing potions.
+    public String addLoot(int gold, List<Item> items){
+        return "You gained " + gold + "and " + items + ".";
+    }
 }
