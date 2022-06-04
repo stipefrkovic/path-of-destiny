@@ -43,4 +43,9 @@ public class Mage extends Player{
     public void addKill(String type) {
 
     }
+
+    @Override
+    public String useItem(String itemName) {
+        return null;
+    }
 }
