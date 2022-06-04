@@ -15,7 +15,7 @@ public abstract class Entity implements Serializable {
     protected int health;
     protected int maxHealth;
     protected float strength;
-    private int gold;
+    protected int gold;
 
 
     private ArrayList<Effect> effects = new ArrayList<>();
