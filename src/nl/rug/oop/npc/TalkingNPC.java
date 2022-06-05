@@ -11,8 +11,8 @@ public class TalkingNPC extends NPC{
     protected Dialogue currentDialogue;
 
     public TalkingNPC(String name, String type, int maxHealth, int strength, Dialogue dialogue){
+        super(name, type, maxHealth, strength);
         this.name = name;
-        this.type = type;
         this.maxHealth = maxHealth;
         this.strength = strength;
         this.currentDialogue = dialogue;
@@ -31,11 +31,11 @@ public class TalkingNPC extends NPC{
     }
 
     protected String takeFightAction(Player player, Scene currentScene, Action action){
-        return this.getFullName()+"cowers in fear.";
+        return this.getName()+"cowers in fear.";
     }
 
     public String getCurrentDescription(){
-        return this.getFullName() + ": \"" + currentDialogue.getText() + "\"";
+        return this.getName() + ": \"" + currentDialogue.getText() + "\"";
     }
 
     public List<String> getPossibleAnswers(){
