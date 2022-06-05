@@ -6,7 +6,7 @@ import nl.rug.oop.scene.Scene;
 
 public class StandardFighter extends NPC{
 
-    protected StandardFighter(String name, String type, int maxHealth, float strength) {
+    public StandardFighter(String name, String type, int maxHealth, float strength) {
         super(name, type, maxHealth, strength);
     }
 
