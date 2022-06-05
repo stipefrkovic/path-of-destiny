@@ -36,6 +36,11 @@ public abstract class Entity implements Serializable {
         removeEffects.clear();
     }
 
+    public String addEffect(Effect effect){
+        effects.add(effect);
+        return getName() + " is " + effect.getEffectAdjective()+ ".";
+    }
+
     public void removeEffect(Effect effect){
         removeEffects.add(effect);
     }
