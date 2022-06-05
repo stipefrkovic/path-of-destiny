@@ -15,7 +15,7 @@ public abstract class Entity implements Serializable {
     protected int health;
     protected int maxHealth;
     protected float strength;
-    private int gold;
+    protected int gold;
 
     protected Entity(String name, int maxHealth, float strength){
         this.name = name;

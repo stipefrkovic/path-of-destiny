@@ -6,6 +6,7 @@ import nl.rug.oop.npc.NPC;
 import nl.rug.oop.scene.Action;
 import nl.rug.oop.scene.Scene;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,8 +20,9 @@ public abstract class Player extends Entity {
 
     //non-abstract class
     public List<String> getInventory(){
-
-        return null;
+        List<String> inventory = new ArrayList<>();
+        //get the inventory somehow? Probably dependent on the actual inventory?
+        return inventory;
     }
 
     public abstract List<Item> getInventoryItems();
@@ -30,13 +32,20 @@ public abstract class Player extends Entity {
 
     //non-abstract class
     public void addKill(String type){
-
+        //use counters to add the kills?
+        //add kill to type kill? Maybe with if statement? Hashmap or library?
+        //if type is friendly: add to friendly kill / or set friendly types
+        //if type is evil: add to enemy kill / or set enemy types
     }
+
 
     //The String is supposed to return what actually happened, so for example: You lost 3 Healing potions and 2 Mana potions.
     public abstract String removeSpecifiedItems(List<Item> itemsToRemove);
 
-    public abstract String useItem(String itemName);
+    public String useItem(String itemName){
+        //if useItem is called, pass the item on to the inventory to delete it
+        return null;
+    }
 
     //The String is supposed to return what actually happened, so for example: You gained 12 Gold and 3 Healing potions.
     //The amount of gold might be negative, so then the message should change

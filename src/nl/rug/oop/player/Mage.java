@@ -16,6 +16,14 @@ public class Mage extends Player{
     private int mana;
     private final int maxMana = 50;
 
+    public Mage(int mana, int health, int maxHealth, float strength, int gold) {
+        this.mana = mana;
+        this.health = health;
+        this.maxHealth = maxHealth;
+        this.strength = strength;
+        this.gold = gold;
+    }
+
     public int getMana() {
         return mana;
     }
