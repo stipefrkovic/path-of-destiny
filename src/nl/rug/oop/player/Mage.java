@@ -1,5 +1,6 @@
 package nl.rug.oop.player;
 
+import nl.rug.oop.items.Item;
 import nl.rug.oop.npc.NPC;
 import nl.rug.oop.scene.Action;
 import nl.rug.oop.scene.Scene;
@@ -7,14 +8,14 @@ import nl.rug.oop.scene.Scene;
 import java.util.List;
 
 /**
- * Class extended from the Player class. Implements the possible player class mage
+ * Class extends the Player class. Implements the possible player class mage
  * @author Joni Baarda
  */
 public class Mage extends Player{
     //health = 80; strength = 5; mana = 50
     //actions: mana bolt (basic), heal (defense), chain lightning (empowered)
     private int mana;
-    private final int maxMana = 50;
+    private int maxMana;
 
     public Mage(int mana, int health, int maxHealth, float strength, int gold) {
         this.mana = mana;
@@ -39,6 +40,11 @@ public class Mage extends Player{
 
     @Override
     public List<String> getInventory() {
+        return null;
+    }
+
+    @Override
+    public List<Item> getInventoryItems() {
         return null;
     }
 
