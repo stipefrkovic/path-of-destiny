@@ -32,8 +32,7 @@ public abstract class Player extends Entity {
 
     //The String is supposed to say what the player did
     public abstract String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene);
-
-    //non-abstract class
+    
     public void addKill(String type){
         //use counters to add the kills?
         //add kill to type kill? Maybe with if statement? Hashmap or library?
@@ -43,9 +42,14 @@ public abstract class Player extends Entity {
 
 
     //The String is supposed to return what actually happened, so for example: You lost 3 Healing potions and 2 Mana potions.
-    //iterate over list to get items
+    //done ish
     public String removeSpecifiedItems(List<Item> itemsToRemove){
-        return "You lost " + itemsToRemove;
+        StringBuilder StringItemsToRemove = new StringBuilder();
+        for (Item item:itemsToRemove) {
+            StringItemsToRemove.append(item.toString()).append(", ");
+        }
+        String temp = StringItemsToRemove.toString();
+        return "You lost " + (temp.substring(0, temp.length()-2)) + ".";
     }
 
     public String useItem(String itemName){
@@ -55,12 +59,16 @@ public abstract class Player extends Entity {
 
     //The String is supposed to return what actually happened, so for example: You gained 12 Gold and 3 Healing potions.
     //The amount of gold might be negative, so then the message should change
-    //iterate over items
     public String addLoot(int gold, List<Item> items){
+        StringBuilder stringOfItems = new StringBuilder();
+        for (Item item:items) {
+            stringOfItems.append(item.toString()).append(", ");
+        }
+        String temp = stringOfItems.toString();
         if(gold>=0) {
-            return "You gained " + gold + " and " + items + ".";
+            return "You gained " + gold + " and " + temp + ".";
         }else{
-            return "You lost " + gold + " and gained " + items + ".";
+            return "You lost " + gold + " and gained " + temp + ".";
         }
     }
 }

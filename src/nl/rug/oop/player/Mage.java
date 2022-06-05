@@ -5,6 +5,7 @@ import nl.rug.oop.npc.NPC;
 import nl.rug.oop.scene.Action;
 import nl.rug.oop.scene.Scene;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +16,8 @@ public class Mage extends Player{
     //health = 80; strength = 5; mana = 50
     //actions: mana bolt (basic), heal (defense), chain lightning (empowered)
     private int mana;
-    private int maxMana;
+    private final int maxMana = 50;
+    private List<Action> fightActions;
 
     public Mage(int mana, int health, int maxHealth, float strength, int gold) {
         this.mana = mana;
@@ -23,6 +25,10 @@ public class Mage extends Player{
         this.maxHealth = maxHealth;
         this.strength = strength;
         this.gold = gold;
+        fightActions = new ArrayList<>();
+        fightActions.add(new Action("mana bolt"));
+        fightActions.add(new Action("heal"));
+        fightActions.add(new Action("chain lightning"));
     }
 
     public int getMana() {
@@ -35,7 +41,7 @@ public class Mage extends Player{
 
     @Override
     public List<Action> getFightActions() {
-        return null;
+        return fightActions;
     }
 
     @Override
@@ -50,7 +56,56 @@ public class Mage extends Player{
 
     @Override
     public String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene) {
-        return null;
+        return switch (action.getActionName()) {
+            case "mana bolt" -> manaBoltAction(target);
+            case "heal" -> healAction();
+            case "chain lightning" -> chainLightningAction(allEnemies);
+            default -> null;
+        };
+    }
+
+    private String manaBoltAction(NPC target){
+        int cost = 5;
+        float damage = 5;
+        if(cost > mana){
+            return "Not enough mana!";
+        }else{
+            mana -= cost;
+            damage *= strength;
+            target.takeDamage((int)damage);
+        }
+        return "You used mana bolt on " + target.getName() + " for " + damage + " damage.";
+    }
+
+    private String healAction(){
+        int cost = 15;
+        int healing = 15;
+        if(cost > mana){
+            return "Not enough mana!";
+        }else{
+            mana -= cost;
+            healing *= strength;
+            health += healing;
+            if(health > maxHealth){
+                health = maxHealth;
+            }
+        }
+        return "You healed for " + healing + ". Your current health is " + getHealth() + ".";
+    }
+
+    private String chainLightningAction(List<NPC> allEnemies){
+        int cost = 25;
+        float damage = 25;
+        if(cost > mana){
+            return "Not enough mana!";
+        }else{
+            mana -= cost;
+            damage *= strength;
+            for (NPC npc:allEnemies) {
+                npc.takeDamage((int)damage);
+            }
+        }
+        return "You hit all enemies with lightning chain for " + damage + " damage.";
     }
 
     @Override
