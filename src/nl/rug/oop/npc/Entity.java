@@ -17,6 +17,12 @@ public abstract class Entity implements Serializable {
     protected float strength;
     protected int gold;
 
+    protected Entity(String name, int maxHealth, float strength){
+        this.name = name;
+        this.maxHealth = maxHealth;
+        this.health = maxHealth;
+        this.strength = strength;
+    }
 
     private ArrayList<Effect> effects = new ArrayList<>();
     private ArrayList<Effect> removeEffects = new ArrayList<>();
@@ -48,6 +54,14 @@ public abstract class Entity implements Serializable {
 
     public int getGold() {
         return gold;
+    }
+
+    public String takeDamage(int damage){
+        health -= damage;
+        if(health<0){
+            health = 0;
+        }
+        return this.getName()+" has lost "+ damage + " health.";
     }
 
     /**

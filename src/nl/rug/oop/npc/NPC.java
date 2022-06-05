@@ -15,8 +15,13 @@ import java.util.List;
  */
 public abstract class NPC extends Entity implements Serializable, Cloneable {
 
-    protected String type;
+    private String type;
     protected List<Item> loot = new ArrayList<>();
+
+    protected NPC(String name, String type, int maxHealth, float strength) {
+        super(name, maxHealth, strength);
+        this.type = type;
+    }
 
     public String getType() {
         return type;
@@ -24,8 +29,9 @@ public abstract class NPC extends Entity implements Serializable, Cloneable {
 
     public abstract String takeActions(Player player, Scene currentScene, Action action, boolean isFightAction);
 
-    public String getFullName(){
-        return "The " + getType() +" '"+ getName() + "' ";
+    @Override
+    public String getName(){
+        return "The " + getType() +" '"+ super.getName() + "' ";
     }
 
     public List<Item> getLoot(){

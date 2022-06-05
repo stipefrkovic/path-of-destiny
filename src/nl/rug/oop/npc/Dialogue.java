@@ -17,6 +17,10 @@ public class Dialogue {
         this.whichSceneNext = whichSceneNext;
     }
 
+    protected void removeAllAnswers(){
+        this.possibleAnswers.clear();
+    }
+
     public void addAnswer(String text, Dialogue dialogue){
         this.possibleAnswers.put(text, dialogue);
     }

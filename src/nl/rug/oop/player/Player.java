@@ -38,12 +38,17 @@ public abstract class Player extends Entity {
         //if type is evil: add to enemy kill / or set enemy types
     }
 
+
+    //The String is supposed to return what actually happened, so for example: You lost 3 Healing potions and 2 Mana potions.
+    public abstract String removeSpecifiedItems(List<Item> itemsToRemove);
+
     public String useItem(String itemName){
         //if useItem is called, pass the item on to the inventory to delete it
         return null;
     }
 
     //The String is supposed to return what actually happened, so for example: You gained 12 Gold and 3 Healing potions.
+    //The amount of gold might be negative, so then the message should change
     public String addLoot(int gold, List<Item> items){
         return "You gained " + gold + "and " + items + ".";
     }
