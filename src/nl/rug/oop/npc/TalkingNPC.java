@@ -12,9 +12,6 @@ public class TalkingNPC extends NPC{
 
     public TalkingNPC(String name, String type, int maxHealth, int strength, Dialogue dialogue){
         super(name, type, maxHealth, strength);
-        this.name = name;
-        this.maxHealth = maxHealth;
-        this.strength = strength;
         this.currentDialogue = dialogue;
     }
 

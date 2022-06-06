@@ -54,7 +54,7 @@ public  class Warrior extends Player{
         }else{
             stamina -= cost;
             damage *= strength;
-            target.takeDamage((int)damage);
+            target.takeDamage(this, (int)damage);
         }
         return "You hit " + target.getName() + " on the head for " + damage + " damage.";
     }
@@ -79,7 +79,7 @@ public  class Warrior extends Player{
         } else{
             stamina -= cost;
             damage *= strength;
-            target.takeDamage((int)damage);
+            target.takeDamage(this, (int)damage);
         }
         return "You slash " + target.getName() + " for " + damage + " damage.";
     }

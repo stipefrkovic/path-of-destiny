@@ -15,6 +15,10 @@ public class Spider extends StandardFighter{
         this(name, "Spider", maxHealth, strength);
     }
 
+    public Spider(String name){
+        this(name, 24, 5);
+    }
+
     @Override
     protected String attack(Player player, Scene currentScene, Action action) {
         String description = super.attack(player, currentScene, action);

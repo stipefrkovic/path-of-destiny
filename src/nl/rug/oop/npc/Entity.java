@@ -61,12 +61,12 @@ public abstract class Entity implements Serializable {
         return gold;
     }
 
-    public String takeDamage(int damage){
+    public String takeDamage(Entity attacker, int damage){
         health -= damage;
         if(health<0){
             health = 0;
         }
-        return this.getName()+" has lost "+ damage + " health.";
+        return attacker.getName()+" has attacked "+ this.getName() + " for " +  damage + " damage.";
     }
 
     /**

@@ -72,7 +72,7 @@ public class Mage extends Player{
         }else{
             mana -= cost;
             damage *= strength;
-            target.takeDamage((int)damage);
+            target.takeDamage(this, (int)damage);
         }
         return "You used mana bolt on " + target.getName() + " for " + damage + " damage.";
     }
@@ -102,7 +102,7 @@ public class Mage extends Player{
             mana -= cost;
             damage *= strength;
             for (NPC npc:allEnemies) {
-                npc.takeDamage((int)damage);
+                npc.takeDamage(this, (int)damage);
             }
         }
         return "You hit all enemies with lightning chain for " + damage + " damage.";
