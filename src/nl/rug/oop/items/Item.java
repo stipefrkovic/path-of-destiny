@@ -1,4 +1,13 @@
 package nl.rug.oop.items;
 
-public abstract class Item {
+import nl.rug.oop.player.Player;
+
+/**
+ *
+ * @author Andro Erdelez
+ */
+public interface Item {
+    void use(Player player);
+
+    String getItemAdjective();
 }

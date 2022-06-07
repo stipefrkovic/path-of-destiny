@@ -121,7 +121,13 @@ public  class Warrior extends Player{
 
     @Override
     public String useItem(String itemName) {
+        //Is there a max for stamina?
+        stamina += 10;
         return null;
     }
 
+    @Override
+    public void consumeAppropriately() {
+        stamina = Math.min(MAX_STAMINA, stamina + 10);
+    }
 }

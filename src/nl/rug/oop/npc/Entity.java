@@ -62,10 +62,7 @@ public abstract class Entity implements Serializable {
     }
 
     public String takeDamage(Entity attacker, int damage){
-        health -= damage;
-        if(health<0){
-            health = 0;
-        }
+        health = Math.max(0, health - damage);
         return attacker.getName()+" has attacked "+ this.getName() + " for " +  damage + " damage.";
     }
 

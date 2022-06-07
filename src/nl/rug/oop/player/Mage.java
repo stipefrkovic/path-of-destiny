@@ -111,6 +111,13 @@ public class Mage extends Player{
 
     @Override
     public String useItem(String itemName) {
+        //Is there max for mana?
+        mana += 10;
         return null;
+    }
+
+    @Override
+    public void consumeAppropriately() {
+        mana = Math.min(MAX_MANA, mana + 10);
     }
 }

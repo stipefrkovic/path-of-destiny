@@ -73,10 +73,24 @@ public abstract class Player extends Entity implements Serializable {
         return "You lost " + (temp.substring(0, temp.length()-2)) + ".";
     }
 
+    //public abstract String useItem(String itemName);
     public String useItem(String itemName){
+        switch (itemName) {
+            case "effect":
+                //removes effect based on user's choice
+                break;
+            case "health":
+                health = Math.min(health + 10, maxHealth);
+                break;
+            default:
+                consumeAppropriately();
+        }
+
         //if useItem is called, pass the item on to the inventory to delete it
         return null;
     }
+
+    public abstract void consumeAppropriately();
 
     //The String is supposed to return what actually happened, so for example: You gained 12 Gold and 3 Healing potions.
     //The amount of gold might be negative, so then the message should change
