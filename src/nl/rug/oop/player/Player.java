@@ -22,6 +22,12 @@ public abstract class Player extends Entity {
     private int totalKills = 0;
 
 
+    protected Player(String name, int health, int maxHealth, float strength, int gold) {
+        super(name, maxHealth, strength);
+        this.health = health;
+        this.gold = gold;
+    }
+
     public HashMap<String, Integer> getKillCounter() {
         return killCounter;
     }

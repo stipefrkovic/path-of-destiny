@@ -16,15 +16,12 @@ public class Mage extends Player{
     //health = 80; strength = 5; mana = 50
     //actions: mana bolt (basic), heal (defense), chain lightning (empowered)
     private int mana;
-    private final int maxMana = 50;
+    private final int MAX_MANA = 50;
     private List<Action> fightActions;
 
-    public Mage(int mana, int health, int maxHealth, float strength, int gold) {
+    public Mage(String name, int mana, int health, int maxHealth, int gold, float strength) {
+        super(name, health, maxHealth, strength, gold);
         this.mana = mana;
-        this.health = health;
-        this.maxHealth = maxHealth;
-        this.strength = strength;
-        this.gold = gold;
         fightActions = new ArrayList<>();
         fightActions.add(new Action("mana bolt"));
         fightActions.add(new Action("heal"));

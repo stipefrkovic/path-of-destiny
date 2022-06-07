@@ -17,16 +17,13 @@ public  class Warrior extends Player{
     //actions: hit (basic), block (defense), slash (empowered)
     //For the actions I need: name, cost, strength multiplier
     private int stamina;
-    private final int maxStamina = 50;
+    private final int MAX_STAMINA = 50;
     private boolean blockAction = false;
     private List<Action> fightActions;
 
-    public Warrior(int stamina, int health, int maxHealth, float strength, int gold) {
+    public Warrior(String name, int stamina, int health, int maxHealth, int gold, float strength) {
+        super(name, health, maxHealth, strength, gold);
         this.stamina = stamina;
-        this.health = health;
-        this.maxHealth = maxHealth;
-        this.strength = strength;
-        this.gold = gold;
         fightActions = new ArrayList<>();
         fightActions.add(new Action("hit"));
         fightActions.add(new Action("block"));
@@ -39,6 +36,14 @@ public  class Warrior extends Player{
 
     public void setStamina(int stamina) {
         this.stamina = stamina;
+    }
+
+    public boolean isBlockAction() {
+        return blockAction;
+    }
+
+    public void setBlockAction(boolean blockAction) {
+        this.blockAction = blockAction;
     }
 
     @Override
