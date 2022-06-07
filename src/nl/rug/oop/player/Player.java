@@ -7,6 +7,7 @@ import nl.rug.oop.scene.Action;
 import nl.rug.oop.scene.Scene;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -17,6 +18,17 @@ public abstract class Player extends Entity {
 
     //Just because I put abstract methods in here does not mean that they have to be abstract
     public abstract List<Action> getFightActions();
+    private HashMap<String, Integer> killCounter = new HashMap<>();
+    private int totalKills = 0;
+
+
+    public HashMap<String, Integer> getKillCounter() {
+        return killCounter;
+    }
+
+    public int getTotalKills() {
+        return totalKills;
+    }
 
     //non-abstract class
     public List<String> getInventory(){
@@ -34,10 +46,12 @@ public abstract class Player extends Entity {
     public abstract String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene);
 
     public void addKill(String type){
-        //use counters to add the kills?
-        //add kill to type kill? Maybe with if statement? Hashmap or library?
-        //if type is friendly: add to friendly kill / or set friendly types
-        //if type is evil: add to enemy kill / or set enemy types
+        if(killCounter.containsKey(type)){
+            killCounter.put(type, killCounter.get(type) + 1);
+        } else{
+            killCounter.put(type, 1);
+        }
+        totalKills += 1;
     }
 
 
