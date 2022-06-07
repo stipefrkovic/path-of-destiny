@@ -32,7 +32,7 @@ public abstract class Player extends Entity {
 
     //The String is supposed to say what the player did
     public abstract String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene);
-    
+
     public void addKill(String type){
         //use counters to add the kills?
         //add kill to type kill? Maybe with if statement? Hashmap or library?
