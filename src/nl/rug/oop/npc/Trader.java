@@ -14,6 +14,10 @@ public class Trader extends TalkingNPC{
         super(name, type, maxHealth, strength, dialogue);
     }
 
+    public Trader(String name, Dialogue dialogue){
+        this(name, "Trader", 10, 5, dialogue);
+    }
+
     @Override
     public String takeActions(Player player, Scene currentScene, Action action, boolean isFightAction) {
         String description = super.takeActions(player, currentScene, action, isFightAction);
