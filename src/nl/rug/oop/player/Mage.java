@@ -14,7 +14,6 @@ import java.util.List;
  */
 public class Mage extends Player{
     //health = 80; strength = 5; mana = 50
-    //actions: mana bolt (basic), heal (defense), chain lightning (empowered)
     private int mana;
     private final int MAX_MANA = 50;
     private List<Action> fightActions;

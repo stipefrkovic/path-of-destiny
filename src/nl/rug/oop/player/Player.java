@@ -6,6 +6,7 @@ import nl.rug.oop.npc.NPC;
 import nl.rug.oop.scene.Action;
 import nl.rug.oop.scene.Scene;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  * Abstract class that defines the basic features of the player
  * @author Joni Baarda
  */
-public abstract class Player extends Entity {
+public abstract class Player extends Entity implements Serializable {
 
     //Just because I put abstract methods in here does not mean that they have to be abstract
     public abstract List<Action> getFightActions();

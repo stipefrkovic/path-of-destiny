@@ -1,6 +1,7 @@
 package nl.rug.oop.player;
 
 import nl.rug.oop.items.Item;
+import nl.rug.oop.npc.Entity;
 import nl.rug.oop.npc.NPC;
 import nl.rug.oop.scene.Action;
 import nl.rug.oop.scene.Scene;
@@ -14,8 +15,6 @@ import java.util.List;
  */
 public  class Warrior extends Player{
     //health = 100; strength = 5; stamina = 50
-    //actions: hit (basic), block (defense), slash (empowered)
-    //For the actions I need: name, cost, strength multiplier
     private int stamina;
     private final int MAX_STAMINA = 50;
     private boolean blockAction = false;
@@ -36,14 +35,6 @@ public  class Warrior extends Player{
 
     public void setStamina(int stamina) {
         this.stamina = stamina;
-    }
-
-    public boolean isBlockAction() {
-        return blockAction;
-    }
-
-    public void setBlockAction(boolean blockAction) {
-        this.blockAction = blockAction;
     }
 
     @Override
@@ -87,6 +78,20 @@ public  class Warrior extends Player{
             target.takeDamage(this, (int)damage);
         }
         return "You slash " + target.getName() + " for " + damage + " damage.";
+    }
+
+    @Override
+    public String takeDamage(Entity attacker, int damage){
+        if(blockAction){
+            blockAction = false;
+            return "You have successfully blocked the damage!";
+        } else{
+            health -= damage;
+            if(health<0){
+                health = 0;
+            }
+            return attacker.getName()+" has attacked "+ this.getName() + " for " +  damage + " damage.";
+        }
     }
 
     @Override
