@@ -15,8 +15,8 @@ public class TalkScene extends Scene implements Serializable, NPCScene {
     private Scene previousScene;
     private Player player;
 
-    public TalkScene(String image, String description, Scene nextScene, Scene previousScene, TalkingNPC npc, Player player) {
-        super(image, description);
+    public TalkScene(String image, Scene nextScene, Scene previousScene, TalkingNPC npc, Player player) {
+        super(image, "");
         this.nextScene = nextScene;
         this.previousScene = previousScene;
         this.person = npc;
@@ -25,6 +25,10 @@ public class TalkScene extends Scene implements Serializable, NPCScene {
         enemies.add(person);
         this.addAction(new Action("Attack"), new FightScene(image, "You have initiated the fight, you are fighting against "+person.getName(), player, previousScene, nextScene, enemies));
         this.setDescription(this.person.getCurrentDescription());
+    }
+
+    public void setPreviousScene(Scene previousScene){
+        this.previousScene = previousScene;
     }
 
     @Override

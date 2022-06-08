@@ -38,11 +38,11 @@ public class Scene implements Serializable {
         return actionStrings;
     }
 
-    protected void addAction(Action action, Scene scene){
+    public void addAction(Action action, Scene scene){
         actions.put(action, scene);
     }
 
-    protected void addActions(HashMap<Action, Scene> actions){
+    public void addActions(HashMap<Action, Scene> actions){
         this.actions.putAll(actions);
     }
 

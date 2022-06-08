@@ -51,10 +51,10 @@ public class SceneFactory {
         }
     }
 
-    public TalkScene createTalkScene(String type, String image, String description, Scene nextScene, Scene previousScene, TalkingNPC npc, Player player){
+    public TalkScene createTalkScene(String type, String image, Scene nextScene, Scene previousScene, TalkingNPC npc, Player player){
         try {
             Class npcType = register.get(type);
-            return (TalkScene) npcType.getDeclaredConstructor(String.class, String.class, Scene.class, Scene.class, TalkingNPC.class, Player.class).newInstance(image, description, nextScene, previousScene, npc, player);
+            return (TalkScene) npcType.getDeclaredConstructor(String.class, Scene.class, Scene.class, TalkingNPC.class, Player.class).newInstance(image, nextScene, previousScene, npc, player);
         } catch (Exception e) {
             return null;
         }

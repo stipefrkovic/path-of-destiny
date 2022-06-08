@@ -34,6 +34,11 @@ public class FightScene extends Scene implements Serializable, NPCScene {
         this.enemies = enemies;
     }
 
+    public void setFleeScene(Scene fleeScene){
+        this.fleeScene = fleeScene;
+        this.addAction(new Action("Flee"), fleeScene);
+    }
+
     @Override
     public Scene takeAction(Action action) {
         switch (action.getActionName()){
@@ -61,6 +66,9 @@ public class FightScene extends Scene implements Serializable, NPCScene {
                 ArrayList<String> nextActions = new ArrayList<>();
                 nextActions.add("Continue");
                 this.onlyShowSpecifiedActionsByName(nextActions);
+            }
+            if(player.getHealth()<=0){
+                return new Scene("GameOver", "You are struck down, your vision grows hazy. You feel your blood flowing out of your body. You have failed in your quest. YOU DIED!");
             }
         }
         if(player.getInventory().contains(action.getActionName())){
