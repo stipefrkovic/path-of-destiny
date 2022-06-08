@@ -7,6 +7,7 @@ import java.util.HashMap;
 public class NPCFactory {
 
     private HashMap<String, Class> register = new HashMap();
+    private static String[] namePool = new String[]{"John", "Amelie", "Elizabeth", "James", "Lucifer", "Gabriel", "Uriel", "Jacob", "Anna", "Kevin", "Johanna", "Jan", "Richard", "Lisa", "Rumpelstilzchen", "Gretel", "Hänsel", "Pier", "Naut", "Floris", "Kai", "Simone", "Thorn", "Alexa", "Hildegard", "Romulus", "Beatrix", "Maggard", "Ophelia", "Maxim", "Sid", "Manni", "Ursula", "Brie", "Lucia", "Lucinda", "Scarlet", "Suriel", "Sofie", "Mammon", "Asmodeus", "Leviathan", "Beelzebub", "Satan", "Belphegor", "Daktocaez", "Pryrzod", "Icnagneeq", "Aiwin", "Llewel", "Elrond", "Barnaby", "Zach", "Jaxson", "Remy", "Johnny","Mollie", "Daisy", "Lacie", "Rene", "Jasmine", "Nicole", "Vanessa", "Elena", "Zoe", "Junior", "Ernie", "Bart" };
 
     public void registerNPC(String type, Class npcClass){
         register.put(type, npcClass);

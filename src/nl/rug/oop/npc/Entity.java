@@ -66,6 +66,10 @@ public abstract class Entity implements Serializable {
         return attacker.getName()+" has attacked "+ this.getName() + " for " +  damage + " damage.";
     }
 
+    public void changeHealth(int healthChange){
+        this.health = Math.min(Math.max(0, this.health - healthChange), this.maxHealth);
+    }
+
     /**
      * Can be used to change the amount of gold an Entity has.
      * @param amount The amount by which the amount of gold is changed.

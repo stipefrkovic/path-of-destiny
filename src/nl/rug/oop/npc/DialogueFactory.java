@@ -11,6 +11,11 @@ public class DialogueFactory {
 
     private HashMap<String, Class> register = new HashMap();
 
+    public DialogueFactory(){
+        registerDialogue("Dialogue", Dialogue.class);
+        registerDialogue("Transaction", Transaction.class);
+    }
+
     public void registerDialogue(String type, Class npcClass){
         register.put(type, npcClass);
     }
@@ -34,7 +39,7 @@ public class DialogueFactory {
     }
 
     /**
-     * Creates a linear dialogue, where
+     * Creates a linear dialogue, so the player does not have a choice on what to do.
      * @param texts The texts of the dialogue must have the same size as the answers.
      * @param answers The answers must have the same size as the answers.
      * @return The start of the dialogue.
