@@ -16,6 +16,8 @@ public abstract class Entity implements Serializable {
     protected int maxHealth;
     protected float strength;
     protected int gold;
+    protected boolean isConfused = false;
+    protected boolean isStunned = false;
 
     protected Entity(String name, int maxHealth, float strength){
         this.name = name;
@@ -64,6 +66,23 @@ public abstract class Entity implements Serializable {
     public String takeDamage(Entity attacker, int damage){
         health = Math.max(0, health - damage);
         return attacker.getName()+" has attacked "+ this.getName() + " for " +  damage + " damage.";
+    }
+
+    public void executeEffect(String effect) {
+        switch (effect) {
+            case "confusion":
+                isConfused = true;
+                break;
+            case "poison":
+                health = Math.max(0, health - 10);
+                break;
+            case "weakness":
+                strength = Math.max(0, strength - 10);
+                break;
+            case "stun":
+                isStunned = true;
+                break;
+        }
     }
 
     public void changeHealth(int healthChange){

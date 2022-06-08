@@ -21,6 +21,7 @@ public abstract class Player extends Entity implements Serializable {
     public abstract List<Action> getFightActions();
     private HashMap<String, Integer> killCounter = new HashMap<>();
     private int totalKills = 0;
+    List<Item> inventoryItems = new ArrayList<>();
 
 
     protected Player(String name, int health, int maxHealth, float strength, int gold) {
@@ -39,20 +40,20 @@ public abstract class Player extends Entity implements Serializable {
 
 
     public int getKillsForType(String type){
-        //TODO: Implement this
-        return 0;
+        return killCounter.get(type);
     }
 
     //non-abstract class
     public List<String> getInventory(){
         List<String> inventory = new ArrayList<>();
-        //get the inventory somehow? Probably dependent on the actual inventory?
+        for (Item item:inventoryItems) {
+            inventory.add(item.getItemAdjective());
+        }
         return inventory;
     }
 
     public List<Item> getInventoryItems(){
-
-        return null;
+        return inventoryItems;
     }
 
     //The String is supposed to say what the player did
@@ -72,8 +73,11 @@ public abstract class Player extends Entity implements Serializable {
     //done ish
     public String removeSpecifiedItems(List<Item> itemsToRemove){
         StringBuilder StringItemsToRemove = new StringBuilder();
+        //int counter = 0;
+        //probably do the other for statement to be able to compare items
         for (Item item:itemsToRemove) {
-            StringItemsToRemove.append(item.toString()).append(", ");
+            inventoryItems.remove(item);
+            StringItemsToRemove.append(item.getItemAdjective()).append(", ");
         }
         String temp = StringItemsToRemove.toString();
         return "You lost " + (temp.substring(0, temp.length()-2)) + ".";
@@ -84,26 +88,47 @@ public abstract class Player extends Entity implements Serializable {
         switch (itemName) {
             case "effect":
                 //removes effect based on user's choice
-                break;
+                //inventoryItems.remove();
+                return "You used an effect remove potion and removed " + "effect" + ".";
             case "health":
                 health = Math.min(health + 10, maxHealth);
-                break;
+                //inventoryItems.remove();
+                return "You used a health potion and gained 10 health";
             default:
-                consumeAppropriately();
+                //inventoryItems.remove(itemName);
+                return consumeAppropriately();
         }
 
-        //if useItem is called, pass the item on to the inventory to delete it
-        return null;
     }
 
-    public abstract void consumeAppropriately();
+    public abstract String consumeAppropriately();
 
     //The String is supposed to return what actually happened, so for example: You gained 12 Gold and 3 Healing potions.
     //The amount of gold might be negative, so then the message should change
+    //sort the lists
     public String addLoot(int gold, List<Item> items){
+        int healthPotionCount = 0; int manaPotionCount = 0; int staminaPotionCount = 0; int removeEffectPotionCount = 0;
+        this.gold += gold;
         StringBuilder stringOfItems = new StringBuilder();
+        /*for (Item item:items) {
+            switch (item.getItemAdjective()) {
+                case "health potion" -> healthPotionCount += 1;
+                case "mana potion" -> manaPotionCount += 1;
+                case "stamina potion" -> staminaPotionCount += 1;
+                case "potion removes an effect" -> removeEffectPotionCount += 1;
+                default -> {
+                }
+            }
+            inventoryItems.add(item);
+        }
+        if(gold>=0) {
+            return "You gained " + gold + " and " + healthPotionCount + " health potions and " + manaPotionCount + " mana potions and " + staminaPotionCount + " stamina potions and " + removeEffectPotionCount + " remove effects potions.";
+        }else{
+            return "You lost " + gold + " and gained " + healthPotionCount + " health potions and " + manaPotionCount + " mana potions and " + staminaPotionCount + " stamina potions and " + removeEffectPotionCount + " remove effects potions.";
+        }*/
         for (Item item:items) {
-            stringOfItems.append(item.toString()).append(", ");
+            inventoryItems.add(item);
+            stringOfItems.append(item.getItemAdjective()).append(", ");
         }
         String temp = stringOfItems.toString();
         if(gold>=0) {

@@ -81,10 +81,7 @@ public class Mage extends Player{
         }else{
             mana -= cost;
             healing *= strength;
-            health += healing;
-            if(health > maxHealth){
-                health = maxHealth;
-            }
+            health = Math.min(maxHealth, health + healing);
         }
         return "You healed for " + healing + ". Your current health is " + getHealth() + ".";
     }
@@ -111,13 +108,12 @@ public class Mage extends Player{
 
     @Override
     public String useItem(String itemName) {
-        //Is there max for mana?
-        mana += 10;
         return null;
     }
 
     @Override
-    public void consumeAppropriately() {
+    public String consumeAppropriately() {
         mana = Math.min(MAX_MANA, mana + 10);
+        return "You used a mana potion and gained 10 mana.";
     }
 }
