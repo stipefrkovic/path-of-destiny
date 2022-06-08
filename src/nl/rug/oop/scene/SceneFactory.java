@@ -20,8 +20,8 @@ public class SceneFactory {
         registerSceneType("TalkScene", TalkScene.class);
     }
 
-    public void registerSceneType(String type, Class npcClass){
-        register.put(type, npcClass);
+    public void registerSceneType(String type, Class sceneClass){
+        register.put(type, sceneClass);
     }
 
     public Scene createSimpleScene(String type, String image, String description){

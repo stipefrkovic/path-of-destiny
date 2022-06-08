@@ -16,10 +16,12 @@ import java.util.List;
 public abstract class NPC extends Entity implements Serializable, Cloneable {
 
     private String type;
-    protected List<Item> loot = new ArrayList<>();
+    protected List<Item> loot;
 
-    protected NPC(String name, String type, int maxHealth, float strength) {
+    protected NPC(String name, String type, int maxHealth, float strength, int minGold, int maxGold, ArrayList<Item> lootItems) {
         super(name, maxHealth, strength);
+        this.gold = (int) Math.round((Math.random()*(maxGold-minGold))+minGold);
+        this.loot = lootItems;
         this.type = type;
     }
 

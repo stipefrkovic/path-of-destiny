@@ -1,6 +1,7 @@
 package nl.rug.oop.npc;
 
 import nl.rug.oop.effects.PoisonEffect;
+import nl.rug.oop.items.ItemFactory;
 import nl.rug.oop.player.Player;
 import nl.rug.oop.scene.Action;
 import nl.rug.oop.scene.Scene;
@@ -9,8 +10,8 @@ import java.util.HashMap;
 
 public class SpiderBoss extends BossNPC{
 
-    public SpiderBoss() {
-        super("Wren", "Weaver", 200, 8, new Dialogue("You will never defeat me.", new HashMap<>(), 0));
+    public SpiderBoss(ItemFactory factory) {
+        super("Wren", "Weaver", 200, 8, new Dialogue("You will never defeat me.", new HashMap<>(), 0), 10, 30, factory.createRandomItems(2,4));
     }
 
     @Override

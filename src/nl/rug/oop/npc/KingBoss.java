@@ -1,18 +1,20 @@
 package nl.rug.oop.npc;
 
 import nl.rug.oop.effects.WeaknessEffect;
+import nl.rug.oop.items.ItemFactory;
 import nl.rug.oop.player.Player;
 import nl.rug.oop.scene.Action;
 import nl.rug.oop.scene.Scene;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class KingBoss extends BossNPC{
 
     private boolean reflectDamage = false;
 
-    public KingBoss() {
-        super("Leopold", "King", 400, 12, new Dialogue("You think that you can defeat me.", new HashMap<>(), 0));
+    public KingBoss(ItemFactory factory) {
+        super("Wilhelm II.", "King", 400, 12, new Dialogue("You think that you can defeat me.", new HashMap<>(), 0), 1000000,1000000, factory.createRandomItems(2));
     }
 
     @Override

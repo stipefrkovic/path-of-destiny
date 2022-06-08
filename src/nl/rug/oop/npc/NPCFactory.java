@@ -1,5 +1,7 @@
 package nl.rug.oop.npc;
 
+import nl.rug.oop.items.ItemFactory;
+
 import java.util.HashMap;
 
 public class NPCFactory {
@@ -10,19 +12,28 @@ public class NPCFactory {
         register.put(type, npcClass);
     }
 
-    public NPC createSimpleNPC(String type, String name){
+    public NPC createSimpleNPC(String type, String name, ItemFactory factory){
         try {
             Class npcType = register.get(type);
-            return (NPC) npcType.getDeclaredConstructor(String.class).newInstance(name);
+            return (NPC) npcType.getDeclaredConstructor(String.class, ItemFactory.class).newInstance(name, factory);
         } catch (Exception e) {
             return null;
         }
     }
 
-    public TalkingNPC createTalkingNPC(String type, String name, Dialogue dialogue){
+    public TalkingNPC createTalkingNPC(String type, String name, Dialogue dialogue, ItemFactory factory){
         try {
             Class npcType = register.get(type);
-            return (TalkingNPC) npcType.getDeclaredConstructor(String.class, Dialogue.class).newInstance(name, dialogue);
+            return (TalkingNPC) npcType.getDeclaredConstructor(String.class, Dialogue.class, ItemFactory.class).newInstance(name, dialogue, factory);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public BossNPC createBossNPC(String type, ItemFactory factory){
+        try {
+            Class npcType = register.get(type);
+            return (BossNPC) npcType.getDeclaredConstructor(String.class, ItemFactory.class).newInstance(factory);
         } catch (Exception e) {
             return null;
         }

@@ -15,8 +15,8 @@ public class Transaction extends Dialogue{
     private Dialogue nextDialogue;
     private Dialogue previousDialogue;
 
-    public Transaction(String text, Dialogue nextDialogue, int whichSceneNext, int goldTransfer, List<Item> playerGains, List<Item> playerLosses) {
-        super(text, new HashMap<>(), whichSceneNext);
+    public Transaction(Dialogue nextDialogue, int whichSceneNext, int goldTransfer, List<Item> playerGains, List<Item> playerLosses) {
+        super("", new HashMap<>(), whichSceneNext);
         this.playerGains = playerGains;
         this.playerLosses = playerLosses;
         this.goldTransfer = goldTransfer;

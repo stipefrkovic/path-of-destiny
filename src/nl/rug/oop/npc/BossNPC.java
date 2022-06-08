@@ -1,8 +1,11 @@
 package nl.rug.oop.npc;
 
+import nl.rug.oop.items.Item;
 import nl.rug.oop.player.Player;
 import nl.rug.oop.scene.Action;
 import nl.rug.oop.scene.Scene;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -14,8 +17,8 @@ public abstract class BossNPC extends TalkingNPC{
     private boolean healthBelow50 = false;
     private boolean healthBelow25 = false;
 
-    public BossNPC(String name, String type, int maxHealth, int strength, Dialogue dialogue) {
-        super(name, type, maxHealth, strength, dialogue);
+    public BossNPC(String name, String type, int maxHealth, int strength, Dialogue dialogue, int minGold, int maxGold, ArrayList<Item> lootItems) {
+        super(name, type, maxHealth, strength, dialogue, minGold, maxGold, lootItems);
     }
 
     @Override
