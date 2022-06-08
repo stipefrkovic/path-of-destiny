@@ -2,14 +2,18 @@ package nl.rug.oop.effects;
 
 import nl.rug.oop.npc.Entity;
 
-public class PoisonEffect extends Effect{
+/**
+ *
+ * @author Andro Erdelez
+ */
+public class PoisonEffect implements Effect{
     @Override
     public void update(Entity entity) {
-
+        entity.executeEffect("poison");
     }
 
     @Override
     public String getEffectAdjective() {
-        return null;
+        return "poisoned";
     }
 }

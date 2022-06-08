@@ -37,6 +37,14 @@ public abstract class Player extends Entity implements Serializable {
     public int getTotalKills() {
         return totalKills;
     }
+    
+
+    public int getKillsForType(String type){
+        //TODO: Implement this
+        return 0;
+    }
+
+    //non-abstract class
 
     public List<String> getInventory(){
         List<String> inventory = new ArrayList<>();

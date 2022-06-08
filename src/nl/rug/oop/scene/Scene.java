@@ -28,8 +28,14 @@ public class Scene implements Serializable {
         return actions.get(action);
     }
 
-    public List<Action> getActions(){
-        return new ArrayList<>(this.actions.keySet());
+    public List<String> getActions(){
+        List<String> actionStrings = new ArrayList<>();
+        for (Action action:this.actions.keySet()) {
+            if(action.isEnabled()){
+                actionStrings.add(action.getActionName());
+            }
+        }
+        return actionStrings;
     }
 
     protected void addAction(Action action, Scene scene){

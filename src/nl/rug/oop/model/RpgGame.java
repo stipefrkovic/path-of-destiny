@@ -1,14 +1,17 @@
 package nl.rug.oop.model;
 
+import nl.rug.oop.npc.NPC;
 import nl.rug.oop.player.Player;
+import nl.rug.oop.scene.Action;
 import nl.rug.oop.scene.Scene;
 
 import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-public class RpgGame {
+public class RpgGame implements OutputEventListener {
     private Scene scene;
     private Player player;
     Collection<PropertyChangeListener> listeners = new ArrayList<>();
@@ -61,5 +64,15 @@ public class RpgGame {
             e.printStackTrace();
         }
         return game;
+    }
+
+    public void doAction(String a) {
+        scene = scene.takeAction(a);
+        updateScene(scene.getActions(), scene.getDescription(), scene.getImage(), scene.getNPCs());
+    }
+
+    @Override
+    public void updateScene(List<String> actions, String description, String image, List<NPC> npcs) {
+
     }
 }
