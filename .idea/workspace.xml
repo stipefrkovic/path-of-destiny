@@ -2,25 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="697b0907-d26c-497b-a0d6-4da6936d5f95" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2022_Project_003.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/CastleGuard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/Guard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/nl/rug/oop/scene/AmountKillsAction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/nl/rug/oop/scene/ConditionedAction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/nl/rug/oop/scene/EvaluatingScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/effects/ConfusionEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/effects/ConfusionEffect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/effects/Effect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/effects/Effect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/effects/PoisonEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/effects/PoisonEffect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/effects/StunEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/effects/StunEffect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/effects/WeaknessEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/effects/WeaknessEffect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/model/RpgGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/model/RpgGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/DialogueFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/DialogueFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/NPCFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/NPCFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/player/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/scene/Scene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/scene/Scene.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -37,15 +37,13 @@ public abstract class Player extends Entity implements Serializable {
     public int getTotalKills() {
         return totalKills;
     }
-    
+
 
     public int getKillsForType(String type){
-        //TODO: Implement this
-        return 0;
+        return killCounter.get(type);
     }
 
     //non-abstract class
-
     public List<String> getInventory(){
         List<String> inventory = new ArrayList<>();
         for (Item item:inventoryItems) {
