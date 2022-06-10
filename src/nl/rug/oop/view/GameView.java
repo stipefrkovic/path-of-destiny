@@ -126,13 +126,13 @@ public class GameView extends JFrame implements PropertyChangeListener {
         goldLabel.setIcon(goldIcon);
         goldLabel.setToolTipText("Gold");
         playerHealth.setFont(font);
-        playerHealth.setForeground(Color.WHITE);
+        playerHealth.setForeground(Color.LIGHT_GRAY);
         playerMana.setFont(font);
-        playerMana.setForeground(Color.WHITE);
+        playerMana.setForeground(Color.LIGHT_GRAY);
         playerStrength.setFont(font);
-        playerStrength.setForeground(Color.WHITE);
+        playerStrength.setForeground(Color.LIGHT_GRAY);
         playerGold.setFont(font);
-        playerGold.setForeground(Color.WHITE);
+        playerGold.setForeground(Color.LIGHT_GRAY);
         statsPanel.setLayout(new GridLayout(1, 0));
         statsPanel.setBackground(color);
         statsPanel.add(saveButton);
@@ -160,13 +160,13 @@ public class GameView extends JFrame implements PropertyChangeListener {
         staminaPotionLabel.setIcon(staminaPotionIcon);
         staminaPotionLabel.setToolTipText("Stamina Potion");
         healthPotionCount.setFont(font);
-        healthPotionCount.setForeground(Color.WHITE);
+        healthPotionCount.setForeground(Color.LIGHT_GRAY);
         manaPotionCount.setFont(font);
-        manaPotionCount.setForeground(Color.WHITE);
+        manaPotionCount.setForeground(Color.LIGHT_GRAY);
         clearPotionCount.setFont(font);
-        clearPotionCount.setForeground(Color.WHITE);
+        clearPotionCount.setForeground(Color.LIGHT_GRAY);
         staminaPotionCount.setFont(font);
-        staminaPotionCount.setForeground(Color.WHITE);
+        staminaPotionCount.setForeground(Color.LIGHT_GRAY);
         inventoryPanel.add(healthPotionLabel);
         inventoryPanel.add(healthPotionCount);
         inventoryPanel.add(manaPotionLabel);
@@ -225,7 +225,7 @@ public class GameView extends JFrame implements PropertyChangeListener {
 
         southPane.setFont(font);
         southPane.setBackground(color);
-        southPane.setForeground(Color.WHITE);
+        southPane.setForeground(Color.LIGHT_GRAY);
 
         borderLayout.setHgap(10);
         borderLayout.setVgap(10);
