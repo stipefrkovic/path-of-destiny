@@ -15,6 +15,7 @@ public class GameView extends JFrame implements PropertyChangeListener {
     //TODO load button in the beginning
     //TODO american psycho easter egg
     //TODO add actions & property change
+    //TODO comments
 
     String gameName = "Path of Destiny";
     Color color = new Color(0x353839); // Onyx, https://html-color.codes/grey
