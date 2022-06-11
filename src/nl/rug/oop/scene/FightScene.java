@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A fighting Scene where the player can fight against enemies.
+ * @author Jonas Scholz
+ */
 public class FightScene extends Scene implements Serializable, NPCScene {
 
     private ArrayList<NPC> enemies;
@@ -16,8 +20,17 @@ public class FightScene extends Scene implements Serializable, NPCScene {
     private int lootGold = 0;
     private Scene fleeScene;
     private Player player;
-    private double retreatChance = 0.5;
+    private double retreatChance = 0.25;
 
+    /**
+     * Initializes the attributes of the class and sets the available actions to the user.
+     * @param image The image/theme of the scene.
+     * @param description The description of the scene.
+     * @param player The player that plays the game.
+     * @param fleeScene The scene that the player goes to when fleeing successfully (if set to null fleeing is not an option).
+     * @param winScene The scene that the player goes to when defeating all enemies.
+     * @param enemies The list of enemies that the player has to fight.
+     */
     public FightScene(String image, String description, Player player, Scene fleeScene, Scene winScene, ArrayList<NPC> enemies) {
         super(image, description);
         this.player = player;
@@ -28,17 +41,33 @@ public class FightScene extends Scene implements Serializable, NPCScene {
         for (String item:player.getInventory()) {
             this.addAction(new Action(item), this);
         }
-        this.addAction(new Action("Flee"), fleeScene);
+        if(fleeScene != null){
+            this.addAction(new Action("Flee"), fleeScene);
+        }
         this.addAction(new Action("Continue", false), winScene);
         this.fleeScene = fleeScene;
         this.enemies = enemies;
     }
 
+    /**
+     * Sets the flee scene and if set to null removes the flee option.
+     * @param fleeScene The scene that the player flees to or null if fleeing should be impossible.
+     */
     public void setFleeScene(Scene fleeScene){
+
         this.fleeScene = fleeScene;
-        this.addAction(new Action("Flee"), fleeScene);
+        if(fleeScene != null){
+            this.addAction(new Action("Flee"), fleeScene);
+        }else{
+            this.removeAction(new Action("Flee"));
+        }
     }
 
+    /**
+     * Evaluates the action and updates this scene accordingly. Through that the fight is facilitated.
+     * @param action The action the user chose.
+     * @return The scene that should be shown next.
+     */
     @Override
     public Scene takeAction(Action action) {
         switch (action.getActionName()){
@@ -77,6 +106,11 @@ public class FightScene extends Scene implements Serializable, NPCScene {
         return super.takeAction(action);
     }
 
+    /**
+     * Evaluates if the player manages to flee successfully or if the fleeing attempt failed.
+     * @param action The action that the player took.
+     * @return The scene that should be displayed next.
+     */
     private Scene tryFleeing(Action action){
         if(Math.random() < retreatChance){
             fleeScene.setDescription("You managed to escape. " + fleeScene.getDescription());
@@ -86,6 +120,11 @@ public class FightScene extends Scene implements Serializable, NPCScene {
         return this;
     }
 
+    /**
+     * Updates the enemies, by checking if they were defeated and the reactions of the enemies and updates the description of the scene accordingly.
+     * @param newDescription The description that should be added before this method adds more to the description.
+     * @param action The action that the user took.
+     */
     private void enemiesResponse(String newDescription, Action action){
         StringBuilder descriptionBuilder = new StringBuilder(newDescription);
         descriptionBuilder.append(isEnemyDefeated());
@@ -100,6 +139,10 @@ public class FightScene extends Scene implements Serializable, NPCScene {
         setDescription(descriptionBuilder.toString());
     }
 
+    /**
+     * Checks if an enemy or multiple enemies were defeated and creates an appropriate description.
+     * @return The description that reveals if enemies were defeated.
+     */
     private String isEnemyDefeated(){
         List<NPC> deleteEnemies = new ArrayList<>(enemies);
         for (NPC enemy:enemies) {
@@ -128,18 +171,30 @@ public class FightScene extends Scene implements Serializable, NPCScene {
         return defeatMessage.toString();
     }
 
+    /**
+     * Only enables the specified actions and disables all other actions.
+     * @param specifiedActions The actions that should be enabled.
+     */
     private void onlyShowSpecifiedActions(List<Action> specifiedActions){
         for (Action action:actions.keySet()) {
             action.setEnabled(specifiedActions.contains(action));
         }
     }
 
+    /**
+     * Only enables the specified actions and disables all other actions.
+     * @param specifiedActions The action names of the actions that should be enabled.
+     */
     private void onlyShowSpecifiedActionsByName(List<String> specifiedActions){
         for (Action action:actions.keySet()) {
             action.setEnabled(specifiedActions.contains(action.getActionName()));
         }
     }
 
+    /**
+     * Returns all the non-defeated enemies in the scene.
+     * @return All non-defeated enemies in this scene.
+     */
     @Override
     public List<NPC> getNPCs() {
         List<NPC> npcs = new ArrayList<>();
