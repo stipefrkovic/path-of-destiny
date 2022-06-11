@@ -19,6 +19,16 @@ public abstract class NPC extends Entity implements Serializable, Cloneable {
     private String type;
     protected List<Item> loot;
 
+    /**
+     * Intializes all attributes.
+     * @param name The name of the NPC.
+     * @param type The type of the NPC, for example: Spider.
+     * @param maxHealth The maximum health of the NPC.
+     * @param strength The strength of the NPC.
+     * @param minGold The minimal amount of gold this NPC will have (inclusive).
+     * @param maxGold The maximal amount of gold this NPC will have (exclusive).
+     * @param lootItems The list of items that the npc will drop on defeat.
+     */
     protected NPC(String name, String type, int maxHealth, float strength, int minGold, int maxGold, ArrayList<Item> lootItems) {
         super(name, maxHealth, strength);
         this.gold = (int) Math.round((Math.random()*(maxGold-minGold))+minGold);
@@ -26,10 +36,22 @@ public abstract class NPC extends Entity implements Serializable, Cloneable {
         this.type = type;
     }
 
+    /**
+     * Returns the type of the NPC.
+     * @return The type of the NPC.
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Takes actions based on if the NPC is in a fight or not
+     * @param player
+     * @param currentScene
+     * @param action
+     * @param isFightAction
+     * @return
+     */
     public final String takeActions(Player player, Scene currentScene, Action action, boolean isFightAction){
         if(isStunned()){
             return this.getName() + " is stunned. ";
