@@ -3,6 +3,7 @@ package nl.rug.oop.npc;
 import nl.rug.oop.items.Item;
 import nl.rug.oop.player.Player;
 import nl.rug.oop.scene.Action;
+import nl.rug.oop.scene.NPCScene;
 import nl.rug.oop.scene.Scene;
 
 import java.io.Serializable;
@@ -29,7 +30,36 @@ public abstract class NPC extends Entity implements Serializable, Cloneable {
         return type;
     }
 
-    public abstract String takeActions(Player player, Scene currentScene, Action action, boolean isFightAction);
+    public final String takeActions(Player player, Scene currentScene, Action action, boolean isFightAction){
+        if(isStunned()){
+            return this.getName() + " is stunned. ";
+        }
+        if(isFightAction){
+            this.updateEffects();
+            return takeFightActions(player, currentScene, action);
+        }else{
+            return takeNonFightActions(player, currentScene, action);
+        }
+    }
+
+    protected abstract String takeNonFightActions(Player player, Scene currentScene, Action action);
+
+    protected String takeFightActions(Player player, Scene currentScene, Action action){
+        if(strength==0){
+            return this.getName() + " cowers in fear. ";
+        }
+        int damage = (int) Math.round(strength*(Math.random()*0.1+0.95));
+        return doDamage(player, damage, currentScene);
+    }
+
+    protected final String doDamage(Player player, int damage, Scene currentScene){
+        NPCScene npcScene = (NPCScene) currentScene;
+        String description = isConfused(damage, npcScene.getNPCs());
+        if(description.equals("")){
+            description = player.takeDamage(this, damage);
+        }
+        return description;
+    }
 
     @Override
     public String getName(){

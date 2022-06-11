@@ -20,8 +20,8 @@ public class Trader extends TalkingNPC{
     }
 
     @Override
-    public String takeActions(Player player, Scene currentScene, Action action, boolean isFightAction) {
-        String description = super.takeActions(player, currentScene, action, isFightAction);
+    public String takeNonFightActions(Player player, Scene currentScene, Action action) {
+        String description = super.takeNonFightActions(player, currentScene, action);
         if(currentDialogue instanceof Transaction){
             return performTransaction(player);
         }

@@ -14,15 +14,7 @@ public class StandardFighter extends NPC{
     }
 
     @Override
-    public String takeActions(Player player, Scene currentScene, Action action, boolean isFightAction) {
-        if(isFightAction){
-            return attack(player, currentScene, action);
-        }
-        return null;
-    }
-
-    protected String attack(Player player, Scene currentScene, Action action){
-        int damage = (int) Math.round(strength*(Math.random()*0.1+0.95));
-        return player.takeDamage(this, damage);
+    protected String takeNonFightActions(Player player, Scene currentScene, Action action) {
+        return "";
     }
 }

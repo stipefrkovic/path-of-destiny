@@ -3,15 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="697b0907-d26c-497b-a0d6-4da6936d5f95" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/player/Classless.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/player/Classless.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/scene/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/scene/Action.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/scene/AmountKillsAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/scene/AmountKillsAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/scene/ConditionedAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/scene/ConditionedAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/scene/EvaluatingScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/scene/EvaluatingScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/scene/FightScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/scene/FightScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/scene/LootScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/scene/LootScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/scene/NPCScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/scene/NPCScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/scene/Scene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/scene/Scene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/BossNPC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/BossNPC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/Guard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/Guard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/NPC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/NPC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/Spider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/Spider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/StandardFighter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/StandardFighter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/TalkingNPC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/TalkingNPC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/Trader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/Trader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

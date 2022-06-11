@@ -22,9 +22,8 @@ public abstract class BossNPC extends TalkingNPC{
     }
 
     @Override
-    protected String takeFightAction(Player player, Scene currentScene, Action action) {
+    protected String takeFightActions(Player player, Scene currentScene, Action action) {
         String description;
-        updateEffects();
         if(this.health<0.75*this.maxHealth && !healthBelow75){
             description = onFirstBelow75Health(player, currentScene, action);
             healthBelow75 = true;

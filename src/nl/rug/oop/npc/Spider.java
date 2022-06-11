@@ -21,8 +21,8 @@ public class Spider extends StandardFighter{
     }
 
     @Override
-    protected String attack(Player player, Scene currentScene, Action action) {
-        String description = super.attack(player, currentScene, action);
+    protected String takeFightActions(Player player, Scene currentScene, Action action) {
+        String description = super.takeFightActions(player, currentScene, action);
         if(Math.random()>=0.8){
             description += player.addEffect(new PoisonEffect());
         }

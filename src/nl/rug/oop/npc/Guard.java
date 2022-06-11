@@ -20,12 +20,9 @@ public class Guard extends StandardFighter{
     @Override
     protected String attack(Player player, Scene currentScene, Action action) {
         if(player.getKillsForType("Villager")>=3){
-            strength *= 1.5;
+            this.changeStrengthTemporary(1.5f);
         }
         String attackString = super.attack(player, currentScene, action);
-        if(player.getKillsForType("Villager")>=3){
-            strength /= 1.5;
-        }
         return attackString;
     }
 }

@@ -12,25 +12,19 @@ public class TalkingNPC extends NPC{
 
     protected Dialogue currentDialogue;
 
-    public TalkingNPC(String name, String type, int maxHealth, int strength, Dialogue dialogue, int minGold, int maxGold, ArrayList<Item> lootItems){
+    public TalkingNPC(String name, String type, int maxHealth, int strength, Dialogue dialogue, int minGold, int maxGold, ArrayList<Item> lootItems) {
         super(name, type, maxHealth, strength, minGold, maxGold, lootItems);
         this.currentDialogue = dialogue;
     }
 
     @Override
-    public String takeActions(Player player, Scene currentScene, Action action, boolean isFightAction) {
-        if(isFightAction){
-            return takeFightAction(player, currentScene, action);
-        }else if(currentDialogue.getActions().contains(action.getActionName())){
+    protected String takeNonFightActions(Player player, Scene currentScene, Action action) {
+        if(currentDialogue.getActions().contains(action.getActionName())){
             currentDialogue = currentDialogue.answer(action.getActionName());
             return getCurrentDescription();
         }else{
             throw new IllegalArgumentException("Illegal Action chosen");
         }
-    }
-
-    protected String takeFightAction(Player player, Scene currentScene, Action action){
-        return this.getName()+"cowers in fear.";
     }
 
     public String getCurrentDescription(){
