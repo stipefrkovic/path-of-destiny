@@ -9,6 +9,10 @@ import nl.rug.oop.scene.Scene;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Jonas Scholz
+ */
 public class Trader extends TalkingNPC{
 
     public Trader(String name, String type, int maxHealth, int strength, Dialogue dialogue, int minGold, int maxGold, ArrayList<Item> lootItems) {

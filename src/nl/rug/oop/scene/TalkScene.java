@@ -61,9 +61,9 @@ public class TalkScene extends Scene implements Serializable, NPCScene {
         this.setDescription(this.person.getCurrentDescription());
         updateAvailableActions();
         return switch (person.nextScene()) {
-            case -1 -> previousScene;
-            case 1 -> nextScene;
-            default -> this;
+            case PREVIOUS_SCENE -> previousScene;
+            case NEXT_SCENE -> nextScene;
+            case CURRENT_SCENE -> this;
         };
     }
 

@@ -20,19 +20,19 @@ public class DialogueFactory {
         register.put(type, npcClass);
     }
 
-    public Dialogue createDialogue(String type, String text, HashMap<String, Dialogue> possibleAnswers, int whichSceneNext){
+    public Dialogue createDialogue(String type, String text, HashMap<String, Dialogue> possibleAnswers, SceneChange whichSceneNext){
         try {
             Class dialogueType = register.get(type);
-            return (Dialogue) dialogueType.getDeclaredConstructor(String.class, HashMap.class, int.class).newInstance(text, possibleAnswers, whichSceneNext);
+            return (Dialogue) dialogueType.getDeclaredConstructor(String.class, HashMap.class, SceneChange.class).newInstance(text, possibleAnswers, whichSceneNext);
         } catch (Exception e) {
             return null;
         }
     }
 
-    public Transaction createTransaction(String type, Dialogue nextDialogue, int whichSceneNext, int goldTransfer, List<Item> playerGains, List<Item> playerLosses){
+    public Transaction createTransaction(String type, Dialogue nextDialogue, SceneChange whichSceneNext, int goldTransfer, List<Item> playerGains, List<Item> playerLosses){
         try {
             Class dialogueType = register.get(type);
-            return (Transaction) dialogueType.getDeclaredConstructor(Dialogue.class, int.class, int.class, List.class, List.class).newInstance(nextDialogue, whichSceneNext, goldTransfer, playerGains, playerLosses);
+            return (Transaction) dialogueType.getDeclaredConstructor(Dialogue.class, SceneChange.class, int.class, List.class, List.class).newInstance(nextDialogue, whichSceneNext, goldTransfer, playerGains, playerLosses);
         } catch (Exception e) {
             return null;
         }
@@ -47,24 +47,24 @@ public class DialogueFactory {
     public Dialogue createLinearDialogue(List<String> texts, List<String> answers){
         HashMap<String, Dialogue> temp = new HashMap<>();
         temp.put(answers.get(answers.size()-1), null);
-        Dialogue currentDialogue = createDialogue("Dialogue", texts.get(texts.size()-1), temp, 1);
+        Dialogue currentDialogue = createDialogue("Dialogue", texts.get(texts.size()-1), temp, SceneChange.NEXT_SCENE);
         for (int i = texts.size()-2; i >= 0; i--) {
             temp = new HashMap<>();
             temp.put(answers.get(i), currentDialogue);
-            currentDialogue = createDialogue("Dialogue", texts.get(i), temp, 0);
+            currentDialogue = createDialogue("Dialogue", texts.get(i), temp, SceneChange.CURRENT_SCENE);
         }
         return currentDialogue;
     }
 
     public Dialogue createShopDialogue(HashMap<String, Integer> buyPrices, HashMap<String, Integer> sellPrices, ItemFactory factory){
-        Dialogue mainDialogue = createDialogue("Dialogue", "Hello Traveller, are you looking to buy or sell?", new HashMap<>(), 0);
+        Dialogue mainDialogue = createDialogue("Dialogue", "Hello Traveller, are you looking to buy or sell?", new HashMap<>(), SceneChange.CURRENT_SCENE);
         if(!buyPrices.isEmpty()){
             mainDialogue.addAnswer("Buy", createSubShopDialogue(mainDialogue, true, buyPrices, factory));
         }
         if(!sellPrices.isEmpty()){
             mainDialogue.addAnswer("Sell", createSubShopDialogue(mainDialogue, false, sellPrices, factory));
         }
-        mainDialogue.addAnswer("Exit", new ExitDialogue(-1));
+        mainDialogue.addAnswer("Exit", new ExitDialogue(SceneChange.PREVIOUS_SCENE));
         return mainDialogue;
     }
 
@@ -72,14 +72,14 @@ public class DialogueFactory {
         String text = "Here are my goods. I am ";
         text += isBuying?" selling ":" buying ";
         text += getPriceListString(priceList);
-        Dialogue dialogue = createDialogue("Dialogue", text.toString(), new HashMap<>(), 0);
+        Dialogue dialogue = createDialogue("Dialogue", text.toString(), new HashMap<>(), SceneChange.CURRENT_SCENE);
         for (String item:priceList.keySet()) {
             List<Item> items = new ArrayList<>();
             items.add(factory.createItem(item));
             if(isBuying){
-                dialogue.addAnswer(item, createTransaction("Transaction", dialogue, 0, priceList.get(item), items, new ArrayList<>()));
+                dialogue.addAnswer(item, createTransaction("Transaction", dialogue, SceneChange.CURRENT_SCENE, priceList.get(item), items, new ArrayList<>()));
             }else{
-                dialogue.addAnswer(item, createTransaction("Transaction", dialogue, 0, -1*priceList.get(item), new ArrayList<>(), items));
+                dialogue.addAnswer(item, createTransaction("Transaction", dialogue, SceneChange.CURRENT_SCENE, -1*priceList.get(item), new ArrayList<>(), items));
             }
         }
         dialogue.addAnswer("Back", mainDialogue);

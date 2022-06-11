@@ -2,13 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="697b0907-d26c-497b-a0d6-4da6936d5f95" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/SceneChange.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/model/OutputEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/model/OutputEventListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/BossNPC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/BossNPC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/Dialogue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/Dialogue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/DialogueFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/DialogueFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/ExitDialogue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/ExitDialogue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/NPC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/NPC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/StandardFighter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/StandardFighter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/TalkingNPC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/TalkingNPC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/Trader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/Trader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/scene/TalkScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/scene/TalkScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/test/ExampleStory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/test/ExampleStory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -56,6 +74,15 @@
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

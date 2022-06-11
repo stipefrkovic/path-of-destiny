@@ -45,18 +45,19 @@ public abstract class NPC extends Entity implements Serializable, Cloneable {
     }
 
     /**
-     * Takes actions based on if the NPC is in a fight or not
-     * @param player
-     * @param currentScene
-     * @param action
-     * @param isFightAction
-     * @return
+     * Takes actions based on if the NPC is in a fight or not, furthermore makes sure that stunning is working as intended.
+     * This function can not be overriden, instead either takeNonFightActions or takeFightActions should be overridden.
+     * @param player The player that plays the game.
+     * @param currentScene The scene that is currently active, in which this NPC resides.
+     * @param action The action that the user took.
+     * @param isFight If the NPC is in a fight with the player.
+     * @return A description of what the NPC did.
      */
-    public final String takeActions(Player player, Scene currentScene, Action action, boolean isFightAction){
+    public final String takeActions(Player player, Scene currentScene, Action action, boolean isFight){
         if(isStunned()){
             return this.getName() + " is stunned. ";
         }
-        if(isFightAction){
+        if(isFight){
             this.updateEffects();
             return takeFightActions(player, currentScene, action);
         }else{
@@ -64,8 +65,22 @@ public abstract class NPC extends Entity implements Serializable, Cloneable {
         }
     }
 
+    /**
+     * Takes actions when no fight is happening.
+     * @param player The player that plays that game.
+     * @param currentScene The scene that is currently active, in which this NPC resides.
+     * @param action The action that the user took.
+     * @return A description of what the NPC did.
+     */
     protected abstract String takeNonFightActions(Player player, Scene currentScene, Action action);
 
+    /**
+     * Takes actions when a fight is happening.
+     * @param player The player that plays that game.
+     * @param currentScene The scene that is currently active, in which this NPC resides.
+     * @param action The action that the user took.
+     * @return A description of what the NPC did.
+     */
     protected String takeFightActions(Player player, Scene currentScene, Action action){
         if(strength==0){
             return this.getName() + " cowers in fear. ";
@@ -74,6 +89,14 @@ public abstract class NPC extends Entity implements Serializable, Cloneable {
         return doDamage(player, damage, currentScene);
     }
 
+    /**
+     * Deals damage to the player unless the NPC is confused.
+     * Should always be used to deal damage, as it makes sure that confusion effects work.
+     * @param player The player that plays that game.
+     * @param damage The amount of damage the NPC is going to deal.
+     * @param currentScene The scene that is currently active, in which this NPC resides.
+     * @return A description of what the NPC did.
+     */
     protected final String doDamage(Player player, int damage, Scene currentScene){
         NPCScene npcScene = (NPCScene) currentScene;
         String description = isConfused(damage, npcScene.getNPCs());
@@ -83,15 +106,27 @@ public abstract class NPC extends Entity implements Serializable, Cloneable {
         return description;
     }
 
+    /**
+     * Returns the name and type of the npc in the format: The [type] '[name]'
+     * @return The name and type of the npc in the format: The [type] '[name]'
+     */
     @Override
     public String getName(){
         return "The " + getType() +" '"+ super.getName() + "' ";
     }
 
+    /**
+     * Returns the items that the NPC drops on being defeated.
+     * @return The list of items that the NPC drops on being defeated.
+     */
     public List<Item> getLoot(){
         return new ArrayList<>(loot);
     }
 
+    /**
+     * Clones the NPC
+     * @return A cloned object of this NPC object.
+     */
     @Override
     public NPC clone(){
         try {
