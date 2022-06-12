@@ -155,7 +155,7 @@ public abstract class Entity implements Serializable {
 
     /**
      * Reduces the health by the specified amount and gives a string of the action back. For non-Entity damage please call the changeHealth function.
-     * @param attacker The entity that attcked this entity.
+     * @param attacker The entity that attacked this entity.
      * @param damage The amount of damage that was inflicted.
      * @return The description of what happened.
      */

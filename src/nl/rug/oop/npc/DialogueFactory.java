@@ -64,7 +64,7 @@ public class DialogueFactory {
         if(!sellPrices.isEmpty()){
             mainDialogue.addAnswer("Sell", createSubShopDialogue(mainDialogue, false, sellPrices, factory));
         }
-        mainDialogue.addAnswer("Exit", new ExitDialogue(SceneChange.PREVIOUS_SCENE));
+        mainDialogue.addAnswer("Exit", new Dialogue(SceneChange.PREVIOUS_SCENE));
         return mainDialogue;
     }
 

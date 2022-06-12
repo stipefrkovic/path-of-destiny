@@ -27,6 +27,10 @@ public class Dialogue {
         this.whichSceneNext = whichSceneNext;
     }
 
+    public Dialogue(SceneChange whichSceneNext){
+        this("", null, whichSceneNext);
+    }
+
     /**
      * Removes all possible answers to this dialogue.
      */
