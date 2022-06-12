@@ -29,10 +29,10 @@ public class DialogueFactory {
         }
     }
 
-    public Transaction createTransaction(String type, Dialogue nextDialogue, SceneChange whichSceneNext, int goldTransfer, List<Item> playerGains, List<Item> playerLosses){
+    public Transaction createTransaction(String type, Dialogue nextDialogue, int goldTransfer, List<Item> playerGains, List<Item> playerLosses){
         try {
             Class dialogueType = register.get(type);
-            return (Transaction) dialogueType.getDeclaredConstructor(Dialogue.class, SceneChange.class, int.class, List.class, List.class).newInstance(nextDialogue, whichSceneNext, goldTransfer, playerGains, playerLosses);
+            return (Transaction) dialogueType.getDeclaredConstructor(Dialogue.class, int.class, List.class, List.class).newInstance(nextDialogue, goldTransfer, playerGains, playerLosses);
         } catch (Exception e) {
             return null;
         }
@@ -77,9 +77,9 @@ public class DialogueFactory {
             List<Item> items = new ArrayList<>();
             items.add(factory.createItem(item));
             if(isBuying){
-                dialogue.addAnswer(item, createTransaction("Transaction", dialogue, SceneChange.CURRENT_SCENE, priceList.get(item), items, new ArrayList<>()));
+                dialogue.addAnswer(item, createTransaction("Transaction", dialogue, priceList.get(item), items, new ArrayList<>()));
             }else{
-                dialogue.addAnswer(item, createTransaction("Transaction", dialogue, SceneChange.CURRENT_SCENE, -1*priceList.get(item), new ArrayList<>(), items));
+                dialogue.addAnswer(item, createTransaction("Transaction", dialogue, -1*priceList.get(item), new ArrayList<>(), items));
             }
         }
         dialogue.addAnswer("Back", mainDialogue);

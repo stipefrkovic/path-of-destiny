@@ -14,7 +14,7 @@ public class KingBoss extends BossNPC{
     private boolean reflectDamage = false;
 
     public KingBoss(ItemFactory factory) {
-        super("Wilhelm II.", "King", 400, 12, new Dialogue("You think that you can defeat me.", new HashMap<>(), 0), 1000000,1000000, factory.createRandomItems(2));
+        super("Wilhelm II.", "King", 400, 12, new Dialogue("You think that you can defeat me.", new HashMap<>(), SceneChange.CURRENT_SCENE), 1000000,1000000, factory.createRandomItems(2));
     }
 
     @Override

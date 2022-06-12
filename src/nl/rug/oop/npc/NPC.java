@@ -46,7 +46,7 @@ public abstract class NPC extends Entity implements Serializable, Cloneable {
 
     /**
      * Takes actions based on if the NPC is in a fight or not, furthermore makes sure that stunning is working as intended.
-     * This function can not be overriden, instead either takeNonFightActions or takeFightActions should be overridden.
+     * This function can not be overridden, instead either takeNonFightActions or takeFightActions should be overridden.
      * @param player The player that plays the game.
      * @param currentScene The scene that is currently active, in which this NPC resides.
      * @param action The action that the user took.
