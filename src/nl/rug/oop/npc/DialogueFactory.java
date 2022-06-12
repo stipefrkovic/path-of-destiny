@@ -7,19 +7,39 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * A factory class that creates dialogues, with some convenient functions for common structures.
+ * @author Jonas Scholz
+ */
 public class DialogueFactory {
 
     private HashMap<String, Class> register = new HashMap();
 
+    /**
+     * Registers the Dialogue and Transaction class to the factory.
+     */
     public DialogueFactory(){
         registerDialogue("Dialogue", Dialogue.class);
         registerDialogue("Transaction", Transaction.class);
     }
 
+    /**
+     * Registers Dialogue Classes.
+     * @param type The name under which the class is registered.
+     * @param npcClass The class that is going to be registered.
+     */
     public void registerDialogue(String type, Class npcClass){
         register.put(type, npcClass);
     }
 
+    /**
+     * Creates a dialogue.
+     * @param type The String under which the class was registered.
+     * @param text What the npc says for this dialogue.
+     * @param possibleAnswers The possible answers the player can give.
+     * @param whichSceneNext Which scene is next after this dialogue.
+     * @return The created dialogue or null if it could not be created.
+     */
     public Dialogue createDialogue(String type, String text, HashMap<String, Dialogue> possibleAnswers, SceneChange whichSceneNext){
         try {
             Class dialogueType = register.get(type);
@@ -29,6 +49,15 @@ public class DialogueFactory {
         }
     }
 
+    /**
+     * Creates a transaction.
+     * @param type The String under which the class was registered.
+     * @param nextDialogue The dialogue that comes next (if the transaction was successful when previousDialogue is set).
+     * @param goldTransfer The amount of gold that is supposed to be transferred, with a positive value being the amount taken from the player and a negative value the amount of gold gained by the player.
+     * @param playerGains The items that the player gains due to the transaction.
+     * @param playerLosses The items that the player loses due to the transaction.
+     * @return The created Transaction.
+     */
     public Transaction createTransaction(String type, Dialogue nextDialogue, int goldTransfer, List<Item> playerGains, List<Item> playerLosses){
         try {
             Class dialogueType = register.get(type);
@@ -56,6 +85,13 @@ public class DialogueFactory {
         return currentDialogue;
     }
 
+    /**
+     * Creates a shop dialogue.
+     * @param buyPrices A Hashmap of items and corresponding prices for which the player can acquire the item.
+     * @param sellPrices A Hashmap of items and corresponding prices for which the player can sell the item.
+     * @param factory An ItemFactory to create the items.
+     * @return The created shop dialogue.
+     */
     public Dialogue createShopDialogue(HashMap<String, Integer> buyPrices, HashMap<String, Integer> sellPrices, ItemFactory factory){
         Dialogue mainDialogue = createDialogue("Dialogue", "Hello Traveller, are you looking to buy or sell?", new HashMap<>(), SceneChange.CURRENT_SCENE);
         if(!buyPrices.isEmpty()){
@@ -68,6 +104,14 @@ public class DialogueFactory {
         return mainDialogue;
     }
 
+    /**
+     * Creates a sub shop dialogue for either buying or selling goods.
+     * @param mainDialogue The main shop dialogue.
+     * @param isBuying If this subshop is for buying or selling.
+     * @param priceList The price list of what item has what price.
+     * @param factory An ItemFactory to create the items.
+     * @return The created sub shop dialogue.
+     */
     private Dialogue createSubShopDialogue(Dialogue mainDialogue, boolean isBuying, HashMap<String, Integer> priceList, ItemFactory factory){
         String text = "Here are my goods. I am ";
         text += isBuying?" selling ":" buying ";
@@ -86,6 +130,11 @@ public class DialogueFactory {
         return dialogue;
     }
 
+    /**
+     * Creates a description of the items and their prices.
+     * @param priceList The price list used to create the description.
+     * @return The description of the items and their prices.
+     */
     private String getPriceListString(HashMap<String, Integer> priceList){
         StringBuilder text = new StringBuilder();
         for (String item:priceList.keySet()) {
@@ -95,8 +144,5 @@ public class DialogueFactory {
         text.append(".");
         return text.toString();
     }
-
-
-
 
 }

@@ -3,17 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="697b0907-d26c-497b-a0d6-4da6936d5f95" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/items/ItemFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/items/ItemFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/Bandit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/Bandit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/CastleGuard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/CastleGuard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/Dialogue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/Dialogue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/DialogueFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/DialogueFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/ExitDialogue.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/Guard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/Guard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/KingBoss.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/KingBoss.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/NPCFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/NPCFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/npc/Rat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/npc/Rat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nl/rug/oop/test/ExampleStory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nl/rug/oop/test/ExampleStory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

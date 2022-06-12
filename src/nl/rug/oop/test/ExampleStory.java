@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This class should not exist in the final version, if it does this class should be ignored, as it was only created for demonstration purposes.
+ * @author Jonas Scholz
+ */
 public class ExampleStory {
 
     private Scene beginningScene;
