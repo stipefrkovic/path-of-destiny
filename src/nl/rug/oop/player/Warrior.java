@@ -14,15 +14,14 @@ import java.util.List;
  * @author Joni Baarda
  */
 public  class Warrior extends Player{
-    //health = 100; strength = 5; stamina = 50
     private int stamina;
     private final int MAX_STAMINA = 50;
     private boolean blockAction = false;
     private List<Action> fightActions;
 
-    public Warrior(String name, int stamina, int health, int maxHealth, int gold, float strength) {
-        super(name, health, maxHealth, strength, gold);
-        this.stamina = stamina;
+    public Warrior(String name) {
+        super(name, 100, 100, 5, 0);
+        this.stamina = 50;
         fightActions = new ArrayList<>();
         fightActions.add(new Action("hit"));
         fightActions.add(new Action("block"));
@@ -95,16 +94,6 @@ public  class Warrior extends Player{
     }
 
     @Override
-    public List<String> getInventory() {
-        return null;
-    }
-
-    @Override
-    public List<Item> getInventoryItems() {
-        return null;
-    }
-
-    @Override
     public String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene) {
         return switch (action.getActionName()) {
             case "hit" -> hitAction(target);
@@ -112,16 +101,6 @@ public  class Warrior extends Player{
             case "slash" -> slashAction(target);
             default -> null;
         };
-    }
-
-    @Override
-    public void addKill(String type) {
-
-    }
-
-    @Override
-    public String useItem(String itemName) {
-        return null;
     }
 
     @Override

@@ -18,9 +18,9 @@ public class Mage extends Player{
     private final int MAX_MANA = 50;
     private List<Action> fightActions;
 
-    public Mage(String name, int mana, int health, int maxHealth, int gold, float strength) {
-        super(name, health, maxHealth, strength, gold);
-        this.mana = mana;
+    public Mage(String name) {
+        super(name, 80, 80, 5, 0);
+        this.mana = 50;
         fightActions = new ArrayList<>();
         fightActions.add(new Action("mana bolt"));
         fightActions.add(new Action("heal"));
@@ -38,16 +38,6 @@ public class Mage extends Player{
     @Override
     public List<Action> getFightActions() {
         return fightActions;
-    }
-
-    @Override
-    public List<String> getInventory() {
-        return null;
-    }
-
-    @Override
-    public List<Item> getInventoryItems() {
-        return null;
     }
 
     @Override
@@ -99,16 +89,6 @@ public class Mage extends Player{
             }
         }
         return "You hit all enemies with lightning chain for " + damage + " damage.";
-    }
-
-    @Override
-    public void addKill(String type) {
-
-    }
-
-    @Override
-    public String useItem(String itemName) {
-        return null;
     }
 
     @Override

@@ -30,7 +30,7 @@ public class Classless extends Player{
     }
 
     @Override
-    public void consumeAppropriately() {
-
+    public String consumeAppropriately() {
+        return "Nothing happened.";
     }
 }

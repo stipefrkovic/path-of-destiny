@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Abstract class that defines the basic features of the player
@@ -43,7 +44,6 @@ public abstract class Player extends Entity implements Serializable {
         return killCounter.get(type);
     }
 
-    //non-abstract class
     public List<String> getInventory(){
         List<String> inventory = new ArrayList<>();
         for (Item item:inventoryItems) {
@@ -56,7 +56,10 @@ public abstract class Player extends Entity implements Serializable {
         return inventoryItems;
     }
 
-    //The String is supposed to say what the player did
+    public void update(){
+        //TODO:implement update method
+    }
+
     public abstract String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene);
 
     public void addKill(String type){
@@ -83,22 +86,24 @@ public abstract class Player extends Entity implements Serializable {
         return "You lost " + (temp.substring(0, temp.length()-2)) + ".";
     }
 
-    //public abstract String useItem(String itemName);
-    public String useItem(String itemName){
-        switch (itemName) {
-            case "effect":
-                //removes effect based on user's choice
-                //inventoryItems.remove();
-                return "You used an effect remove potion and removed " + "effect" + ".";
-            case "health":
-                health = Math.min(health + 10, maxHealth);
-                //inventoryItems.remove();
-                return "You used a health potion and gained 10 health";
-            default:
-                //inventoryItems.remove(itemName);
-                return consumeAppropriately();
-        }
 
+    public String useItem(String itemName){
+        for (Item item:inventoryItems) {
+            if(Objects.equals(item.getItemAdjective(), itemName)){
+                inventoryItems.remove(item);
+                switch (itemName) {
+                    case "effect":
+                        //removes effect based on user's choice
+                        return "You used an effect remove potion and removed " + "effect" + ".";
+                    case "health":
+                        health = Math.min(health + 10, maxHealth);
+                        return "You used a health potion and gained 10 health";
+                    default:
+                        return consumeAppropriately();
+                }
+            }
+        }
+        return null;
     }
 
     public abstract String consumeAppropriately();
@@ -109,8 +114,7 @@ public abstract class Player extends Entity implements Serializable {
     public String addLoot(int gold, List<Item> items){
         int healthPotionCount = 0; int manaPotionCount = 0; int staminaPotionCount = 0; int removeEffectPotionCount = 0;
         this.gold += gold;
-        StringBuilder stringOfItems = new StringBuilder();
-        /*for (Item item:items) {
+        for (Item item:items) {
             switch (item.getItemAdjective()) {
                 case "health potion" -> healthPotionCount += 1;
                 case "mana potion" -> manaPotionCount += 1;
@@ -121,20 +125,26 @@ public abstract class Player extends Entity implements Serializable {
             }
             inventoryItems.add(item);
         }
-        if(gold>=0) {
-            return "You gained " + gold + " and " + healthPotionCount + " health potions and " + manaPotionCount + " mana potions and " + staminaPotionCount + " stamina potions and " + removeEffectPotionCount + " remove effects potions.";
-        }else{
-            return "You lost " + gold + " and gained " + healthPotionCount + " health potions and " + manaPotionCount + " mana potions and " + staminaPotionCount + " stamina potions and " + removeEffectPotionCount + " remove effects potions.";
-        }*/
-        for (Item item:items) {
-            inventoryItems.add(item);
-            stringOfItems.append(item.getItemAdjective()).append(", ");
+        StringBuilder addedItems = new StringBuilder();
+
+        if(healthPotionCount > 0){
+            addedItems.append(" and ").append(healthPotionCount).append(" health potions");
         }
-        String temp = stringOfItems.toString();
+        if(manaPotionCount > 0){
+            addedItems.append(" and ").append(manaPotionCount).append(" mana potions");
+        }
+        if(staminaPotionCount > 0){
+            addedItems.append(" and ").append(staminaPotionCount).append(" stamina potions");
+        }
+        if(removeEffectPotionCount > 0){
+            addedItems.append(" and ").append(removeEffectPotionCount).append(" remove effect potions");
+        }
+        addedItems.append(".");
+        String stringAddedItems = addedItems.toString();
         if(gold>=0) {
-            return "You gained " + gold + " and " + temp + ".";
+            return "You gained " + gold + stringAddedItems;
         }else{
-            return "You lost " + gold + " and gained " + temp + ".";
+            return "You lost " + gold + "and gained " + stringAddedItems.substring(3);
         }
     }
 }
