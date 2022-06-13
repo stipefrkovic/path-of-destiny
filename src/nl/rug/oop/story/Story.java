@@ -28,7 +28,7 @@ public class Story {
         HashMap<String, Dialogue> possibleAnswers = new HashMap<>();
         possibleAnswers.put("Warrior", null);
         possibleAnswers.put("Mage", null);
-        Dialogue dialogue = new Dialogue("Hero you have arrived and I hope that you will be able to defeat the evil king in my world, as I am unable to interfere more directly with the mortal plane, but before that you need to determine your calling. What path calls out for you?", possibleAnswers, 0);
+        Dialogue dialogue = new Dialogue("Hero you have arrived and I hope that you will be able to defeat the evil king in my world, as I am unable to interfere more directly with the mortal plane, but before that you need to determine your calling. What path calls out for you?", possibleAnswers, SceneChange.CURRENT_SCENE);
         TalkingNPC firstNPC = new TalkingNPC("Janus", "Deity", 9999, 9999, dialogue, 0,0, new ArrayList<>());
         beginningScene = sceneFactory.createTalkScene("TalkScene", "startBackground", null, null, firstNPC, new Classless());
     }
@@ -82,7 +82,7 @@ public class Story {
         sewerScene.addAction(new Action("Go back to the city"), cityScene);
         TalkingNPC cityTrader = npcFactory.createTalkingNPC("Trader", traderDialogue(), itemFactory);
         Scene cityTraderScene = sceneFactory.createTalkScene("Trader", "city", cityScene, cityScene, cityTrader, player);
-        Dialogue helpfulCitizenDialogue = dialogueFactory.createDialogue("Scene", "I think I can help you.", new HashMap<>(), 0);
+        Dialogue helpfulCitizenDialogue = dialogueFactory.createDialogue("Scene", "I think I can help you.", new HashMap<>(), SceneChange.CURRENT_SCENE);
         helpfulCitizenDialogue.addAnswer("Help me defeat the king?", null);
         helpfulCitizenDialogue.addAnswer("I have no clue what you are talking about", null);
         TalkingNPC helpfulCitizen = npcFactory.createTalkingNPC("Villager", helpfulCitizenDialogue, itemFactory);
@@ -96,14 +96,14 @@ public class Story {
         citizenTexts.add("I have to go before someone notices I'm talking to you.");
         playerAnswersCitizen.add("Ok....");
         Dialogue citizenLinearDialogue = dialogueFactory.createLinearDialogue(citizenTexts, playerAnswersCitizen);
-        Dialogue citizenWhyHere = dialogueFactory.createDialogue("Scene", "I moved here long ago, when it was a beautiful and friendly country. Now I can't leave.", new HashMap<>(), 0);
-        Dialogue citizenDialogue = dialogueFactory.createDialogue("Scene", "Hey, can I help you?", new HashMap<>(), 0);
+        Dialogue citizenWhyHere = dialogueFactory.createDialogue("Scene", "I moved here long ago, when it was a beautiful and friendly country. Now I can't leave.", new HashMap<>(), SceneChange.CURRENT_SCENE);
+        Dialogue citizenDialogue = dialogueFactory.createDialogue("Scene", "Hey, can I help you?", new HashMap<>(), SceneChange.CURRENT_SCENE);
         citizenWhyHere.addAnswer("Okay", citizenDialogue);
         citizenDialogue.addAnswer("How long have you lived here?", citizenWhyHere);
         citizenDialogue.addAnswer("How is life in the city?", citizenLinearDialogue);
         TalkingNPC citizen = npcFactory.createTalkingNPC("Villager", citizenDialogue, itemFactory);
         Scene citizenScene = sceneFactory.createTalkScene("TalkScene", "city", cityScene, cityScene, citizen, player);
-        Dialogue creepyCitizenDialogue = dialogueFactory.createDialogue("Scene", "I'm afraid of ghosts! They are everywhere.", new HashMap<>(), 0);
+        Dialogue creepyCitizenDialogue = dialogueFactory.createDialogue("Scene", "I'm afraid of ghosts! They are everywhere.", new HashMap<>(), SceneChange.CURRENT_SCENE);
         creepyCitizenDialogue.addAnswer("....", null);
         creepyCitizenDialogue.addAnswer("I understand. Salt helps against ghosts where I come from, maybe it does for you too?", null);
         TalkingNPC creepyCitizen = npcFactory.createTalkingNPC("Villager", creepyCitizenDialogue, itemFactory);
@@ -166,8 +166,8 @@ public class Story {
         villagerTexts.add("They tried to rebel against the oppressive rule and were slaughtered down to the last child. Anyway ... I don't think we should talk about this anymore, you never know who is listening.");
         playerAnswersVillage.add("You are right.");
         Dialogue linearDialogue = dialogueFactory.createLinearDialogue(villagerTexts, playerAnswersVillage);
-        Dialogue whyHere = dialogueFactory.createDialogue("Scene", "I have lived here my whole live.", new HashMap<>(), 0);
-        Dialogue villagerDialogue = dialogueFactory.createDialogue("Scene", "Hey, can I help you?", new HashMap<>(), 0);
+        Dialogue whyHere = dialogueFactory.createDialogue("Scene", "I have lived here my whole live.", new HashMap<>(), SceneChange.CURRENT_SCENE);
+        Dialogue villagerDialogue = dialogueFactory.createDialogue("Scene", "Hey, can I help you?", new HashMap<>(), SceneChange.CURRENT_SCENE);
         whyHere.addAnswer("Okay", villagerDialogue);
         villagerDialogue.addAnswer("How long have you lived here?", whyHere);
         villagerDialogue.addAnswer("Who is the evil king?", linearDialogue);

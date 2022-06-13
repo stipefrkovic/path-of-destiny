@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This class should not exist in the final version, if it does this class should be ignored, as it was only created for demonstration purposes.
+ * @author Jonas Scholz
+ */
 public class ExampleStory {
 
     private Scene beginningScene;
@@ -25,7 +29,7 @@ public class ExampleStory {
         HashMap<String, Dialogue> possibleAnswers = new HashMap<>();
         possibleAnswers.put("Warrior", null);
         possibleAnswers.put("Mage", null);
-        Dialogue dialogue = new Dialogue("Hero you have arrived and I hope that you will be able to defeat the evil king in my world, as I am unable to interfere more directly with the mortal plane, but before that you need to determine your calling. What path calls out for you?", possibleAnswers, 0);
+        Dialogue dialogue = new Dialogue("Hero you have arrived and I hope that you will be able to defeat the evil king in my world, as I am unable to interfere more directly with the mortal plane, but before that you need to determine your calling. What path calls out for you?", possibleAnswers, SceneChange.CURRENT_SCENE);
         TalkingNPC firstNPC = new TalkingNPC("Janus", "Deity", 9999, 9999, dialogue, 0,0, new ArrayList<>());
         beginningScene = sceneFactory.createTalkScene("TalkScene", "startBackground", null, null, firstNPC, new Classless());
     }
@@ -78,8 +82,8 @@ public class ExampleStory {
         texts.add("They tried to rebel against the oppressive rule and were slaughtered down to the last child. Anyway ... I don't think we should talk about this anymore, you never know who is listening.");
         answers.add("You are right.");
         Dialogue linearDialogue = dialogueFactory.createLinearDialogue(texts, answers);
-        Dialogue whyHere = dialogueFactory.createDialogue("Scene", "I have lived here my whole live.", new HashMap<>(), 0);
-        Dialogue villagerDialogue = dialogueFactory.createDialogue("Scene", "Hey, can I help you?", new HashMap<>(), 0);
+        Dialogue whyHere = dialogueFactory.createDialogue("Scene", "I have lived here my whole live.", new HashMap<>(), SceneChange.CURRENT_SCENE);
+        Dialogue villagerDialogue = dialogueFactory.createDialogue("Scene", "Hey, can I help you?", new HashMap<>(), SceneChange.CURRENT_SCENE);
         whyHere.addAnswer("Okay", villagerDialogue);
         villagerDialogue.addAnswer("How long have you lived here?", whyHere);
         villagerDialogue.addAnswer("Who is the evil king?", linearDialogue);

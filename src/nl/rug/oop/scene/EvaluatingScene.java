@@ -6,17 +6,32 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * A scene that allows for actions that are only available under certain conditions.
+ * @author Jonas Scholz
+ */
 public class EvaluatingScene extends Scene{
 
     private HashMap<ConditionedAction, Scene> conditionedActions;
     private Player player;
 
+    /**
+     * Initializes all attributes.
+     * @param image The image/theme of the scene.
+     * @param description The description of the scene.
+     * @param conditionedActions A hashmap of actions with conditions and the scene that they will lead to.
+     * @param player The player that plays the game.
+     */
     public EvaluatingScene(String image, String description, HashMap<ConditionedAction, Scene> conditionedActions, Player player) {
         super(image, description);
         this.conditionedActions = conditionedActions;
         this.player = player;
     }
 
+    /**
+     * Determines which conditions are fulfilled and generates a list of available actions based on that.
+     * @return The list of action names of actions whose condition is fulfilled.
+     */
     @Override
     public List<String> getActions() {
         List<String> actionStrings = new ArrayList<>();
@@ -28,6 +43,11 @@ public class EvaluatingScene extends Scene{
         return actionStrings;
     }
 
+    /**
+     * Determines if the condition of the taken action was fulfilled and returns the corresponding next scene.
+     * @param action The action the user chose.
+     * @return The scene that should be displayed next.
+     */
     @Override
     public Scene takeAction(Action action) {
         ConditionedAction conditionedAction = getAction(action.getActionName());
@@ -38,6 +58,11 @@ public class EvaluatingScene extends Scene{
         }
     }
 
+    /**
+     * Gives back the ConditionedAction whose condition was fulfilled and whose name matches the given name.
+     * @param actionName The name of the action.
+     * @return The ConditionedAction that has the specified name and whose condition is fulfilled, or null if no applicable ConditionedAction was found.
+     */
     private ConditionedAction getAction(String actionName){
         for (ConditionedAction action:conditionedActions.keySet()) {
             if(action.getActionName().equals(actionName) && action.evaluateCondition(player)){
