@@ -10,6 +10,6 @@ public interface Effect {
 
     void update(Entity entity);
 
-    //This should give back: poisoned, stunned, etc. depending on what it does.
+    //This should give back:     poisoned, stunned, etc. depending on what it does.
     String getEffectAdjective();
 }
