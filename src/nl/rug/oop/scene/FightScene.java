@@ -35,7 +35,11 @@ public class FightScene extends Scene implements Serializable, NPCScene {
         super(image, description);
         this.player = player;
         this.loot = new ArrayList<>();
+        this.addAction(new Action("Fight"), this);
+        this.addAction(new Action("Inventory"), this);
+        this.addAction(new Action("Back", false), this);
         for (Action action:player.getFightActions()) {
+            action.setEnabled(false);
             this.addAction(action, this);
         }
         for (String item:player.getInventory()) {
@@ -144,7 +148,7 @@ public class FightScene extends Scene implements Serializable, NPCScene {
      * @return The description that reveals if enemies were defeated.
      */
     private String isEnemyDefeated(){
-        List<NPC> deleteEnemies = new ArrayList<>(enemies);
+        List<NPC> deleteEnemies = new ArrayList<>();
         for (NPC enemy:enemies) {
             if(enemy.getHealth()<=0){
                 player.addKill(enemy.getType());
@@ -155,7 +159,7 @@ public class FightScene extends Scene implements Serializable, NPCScene {
         }
         StringBuilder defeatMessage = new StringBuilder();
         for (int i=0; i<deleteEnemies.size(); i++) {
-            defeatMessage.append(deleteEnemies.get(i));
+            defeatMessage.append(deleteEnemies.get(i).getName());
             if(deleteEnemies.size()-2==i){
                 defeatMessage.append(" and ");
             }else if(deleteEnemies.size()-1>i){

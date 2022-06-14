@@ -36,6 +36,7 @@ public class TalkScene extends Scene implements Serializable, NPCScene {
         ArrayList<NPC> enemies = new ArrayList<>();
         enemies.add(person);
         this.addAction(new Action("Attack"), new FightScene(image, "You have initiated the fight, you are fighting against "+person.getName(), player, previousScene, nextScene, enemies));
+        this.updateAvailableActions();
         this.setDescription(this.person.getCurrentDescription());
     }
 
@@ -73,10 +74,10 @@ public class TalkScene extends Scene implements Serializable, NPCScene {
     protected void updateAvailableActions(){
         Scene temp = this.actions.get(new Action("Attack"));//Check if this actually works
         this.actions.clear();
-        this.actions.put(new Action("Attack"), temp);
         for (String answer:person.getPossibleAnswers()) {
             this.actions.put(new Action(answer), this);
         }
+        this.actions.put(new Action("Attack"), temp);
     }
 
     /**

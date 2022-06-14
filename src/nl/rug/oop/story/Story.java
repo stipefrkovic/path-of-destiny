@@ -88,7 +88,7 @@ public class Story implements Serializable {
         for (int i = 0; i < 4; i++) {
             enemies.add(npcFactory.createSimpleNPC("CastleGuard", itemFactory));
         }
-        Scene castleScene = sceneFactory.createSimpleScene("scene", "Castle", "You made your way into the castle, but not as unseen as you had hoped.");
+        Scene castleScene = sceneFactory.createSimpleScene("Scene", "Castle", "You made your way into the castle, but not as unseen as you had hoped.");
         Scene guardsScene = sceneFactory.createFightScene("FightScene", "Castle", "You are surrounded by guards. They are the last obstacle before the king.", player, castleScene, kingScene, enemies);
         castleScene.addAction(new Action("Continue..."), guardsScene);
         Scene sewerScene = sceneFactory.createSimpleScene("Scene", "Sewers", "You are standing in the murky waters of the sewers. Deeper into the sewers you hear rats, behind you the sounds of the city");
@@ -105,7 +105,7 @@ public class Story implements Serializable {
         sewerScene.addAction(new Action("Go back to the city"), cityScene);
         TalkingNPC cityTrader = npcFactory.createTalkingNPC("Trader", traderDialogue(), itemFactory);
         Scene cityTraderScene = sceneFactory.createTalkScene("Trader", "City", cityScene, cityScene, cityTrader, player);
-        Dialogue helpfulCitizenDialogue = dialogueFactory.createDialogue("Scene", "I think I can help you.", new HashMap<>(), SceneChange.CURRENT_SCENE);
+        Dialogue helpfulCitizenDialogue = dialogueFactory.createDialogue("Dialogue", "I think I can help you.", new HashMap<>(), SceneChange.CURRENT_SCENE);
         helpfulCitizenDialogue.addAnswer("Help me defeat the king?", new Dialogue(SceneChange.NEXT_SCENE));
         helpfulCitizenDialogue.addAnswer("I have no clue what you are talking about", new Dialogue(SceneChange.NEXT_SCENE));
         TalkingNPC helpfulCitizen = npcFactory.createTalkingNPC("Villager", helpfulCitizenDialogue, itemFactory);
@@ -126,7 +126,7 @@ public class Story implements Serializable {
         citizenDialogue.addAnswer("How is life in the city?", citizenLinearDialogue);
         TalkingNPC citizen = npcFactory.createTalkingNPC("Villager", citizenDialogue, itemFactory);
         Scene citizenScene = sceneFactory.createTalkScene("TalkScene", "City", cityScene, cityScene, citizen, player);
-        Dialogue creepyCitizenDialogue = dialogueFactory.createDialogue("Scene", "I'm afraid of ghosts! They are everywhere.", new HashMap<>(), SceneChange.CURRENT_SCENE);
+        Dialogue creepyCitizenDialogue = dialogueFactory.createDialogue("Dialogue", "I'm afraid of ghosts! They are everywhere.", new HashMap<>(), SceneChange.CURRENT_SCENE);
         creepyCitizenDialogue.addAnswer("....", new Dialogue(SceneChange.NEXT_SCENE));
         creepyCitizenDialogue.addAnswer("I understand. Salt helps against ghosts where I come from, maybe it does for you too?", new Dialogue(SceneChange.NEXT_SCENE));
         TalkingNPC creepyCitizen = npcFactory.createTalkingNPC("Villager", creepyCitizenDialogue, itemFactory);
@@ -142,7 +142,7 @@ public class Story implements Serializable {
         cityScene.addAction(new Action("Talk to the citizen looking around."), citizenScene);
         cityScene.addAction(new Action("Approach the city guards."), cityGuardsScene);
         cityScene.addAction(new Action("Sneak into the sewers."), sewerScene);
-        Scene forestScene = sceneFactory.createSimpleScene("scene", "Night Forest", "You enter the forest. Before you are two paths. You can see spider webs on the right path, and you hear shady voices on the path to the left. Which path will you take?");
+        Scene forestScene = sceneFactory.createSimpleScene("Scene", "Night Forest", "You enter the forest. Before you are two paths. You can see spider webs on the right path, and you hear shady voices on the path to the left. Which path will you take?");
         BossNPC spiderBoss = npcFactory.createBossNPC("SpiderBoss", itemFactory);
         Scene spiderBossScene = sceneFactory.createTalkScene("FightScene", "Night Forest", cityScene, null, spiderBoss, player);
         ArrayList<NPC> smallSpiderEnemies = new ArrayList<>();
@@ -188,8 +188,8 @@ public class Story implements Serializable {
         villagerTexts.add("They tried to rebel against the oppressive rule and were slaughtered down to the last child. Anyway ... I don't think we should talk about this anymore, you never know who is listening.");
         playerAnswersVillage.add("You are right.");
         Dialogue linearDialogue = dialogueFactory.createLinearDialogue(villagerTexts, playerAnswersVillage);
-        Dialogue whyHere = dialogueFactory.createDialogue("Scene", "I have lived here my whole live.", new HashMap<>(), SceneChange.CURRENT_SCENE);
-        Dialogue villagerDialogue = dialogueFactory.createDialogue("Scene", "Hey, can I help you?", new HashMap<>(), SceneChange.CURRENT_SCENE);
+        Dialogue whyHere = dialogueFactory.createDialogue("Dialogue", "I have lived here my whole live.", new HashMap<>(), SceneChange.CURRENT_SCENE);
+        Dialogue villagerDialogue = dialogueFactory.createDialogue("Dialogue", "Hey, can I help you?", new HashMap<>(), SceneChange.CURRENT_SCENE);
         whyHere.addAnswer("Okay", villagerDialogue);
         villagerDialogue.addAnswer("How long have you lived here?", whyHere);
         villagerDialogue.addAnswer("Who is the evil king?", linearDialogue);

@@ -224,7 +224,7 @@ public abstract class Entity implements Serializable {
      * @return Returns null if the entity is not confused and otherwise an appropriate description of what happened.
      */
     protected String isConfused(int damage, List<NPC> allies){
-        String description = null;
+        String description = "";
         if(Math.random()<confusionChance){
             int randIndx = (int) (Math.random()*(allies.size()+1));
             if(randIndx == allies.size()) {
