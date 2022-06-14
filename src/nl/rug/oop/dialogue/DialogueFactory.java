@@ -90,10 +90,9 @@ public class DialogueFactory implements Serializable {
      * @return The start of the dialogue.
      */
     public Dialogue createLinearDialogue(List<String> texts, List<String> answers){
-        HashMap<String, Dialogue> temp = new HashMap<>();
-        temp.put(answers.get(answers.size()-1), null);
-        Dialogue currentDialogue = createDialogue("Dialogue", texts.get(texts.size()-1), temp, SceneChange.NEXT_SCENE);
-        for (int i = texts.size()-2; i >= 0; i--) {
+        HashMap<String, Dialogue> temp;
+        Dialogue currentDialogue = new Dialogue(SceneChange.NEXT_SCENE);
+        for (int i = texts.size()-1; i >= 0; i--) {
             temp = new HashMap<>();
             temp.put(answers.get(i), currentDialogue);
             currentDialogue = createDialogue("Dialogue", texts.get(i), temp, SceneChange.CURRENT_SCENE);

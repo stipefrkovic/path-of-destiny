@@ -31,7 +31,7 @@ public class Dialogue implements Serializable {
     }
 
     public Dialogue(SceneChange whichSceneNext){
-        this("", null, whichSceneNext);
+        this("", new HashMap<>(), whichSceneNext);
     }
 
     /**
