@@ -42,7 +42,7 @@ public  class Warrior extends Player{
 
     private String hitAction(NPC target){
         int cost = 5;
-        float damage = 5;
+        float damage = 1;
         if(cost > stamina){
             return "Not enough stamina";
         }else{
@@ -55,7 +55,6 @@ public  class Warrior extends Player{
 
     private String blockAction(){
         int cost = 10;
-        float damage = 0;
         if(cost > stamina){
             return "Not enough stamina";
         } else{
@@ -66,8 +65,8 @@ public  class Warrior extends Player{
     }
 
     private String slashAction(NPC target){
-        int cost = 20;
-        float damage = 10;
+        int cost = 30;
+        float damage = 6;
         if(cost > stamina){
             return "Not enough stamina";
         } else{
@@ -94,6 +93,9 @@ public  class Warrior extends Player{
 
     @Override
     public String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene) {
+        if(isStunned()){
+            return this.getName() + " is stunned. ";
+        }
         return switch (action.getActionName()) {
             case "hit" -> hitAction(target);
             case "block" -> blockAction();

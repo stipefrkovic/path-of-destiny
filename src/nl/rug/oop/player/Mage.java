@@ -54,7 +54,7 @@ public class Mage extends Player{
 
     private String manaBoltAction(NPC target){
         int cost = 5;
-        float damage = 5;
+        float damage = 1;
         if(cost > mana){
             return "Not enough mana!";
         }else{
@@ -67,7 +67,7 @@ public class Mage extends Player{
 
     private String healAction(){
         int cost = 15;
-        int healing = 15;
+        int healing = 5;
         if(cost > mana){
             return "Not enough mana!";
         }else{
@@ -79,8 +79,8 @@ public class Mage extends Player{
     }
 
     private String chainLightningAction(List<NPC> allEnemies){
-        int cost = 25;
-        float damage = 15;
+        int cost = 30;
+        float damage = 5;
         if(cost > mana){
             return "Not enough mana!";
         }else{
