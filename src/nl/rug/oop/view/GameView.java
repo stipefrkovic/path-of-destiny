@@ -239,10 +239,12 @@ public class GameView extends JFrame implements OutputEventListener {
         }
         updateWestPanel(actions);
         updateCenterPanel(image);
-        updateEastPanel(npcs);
+        if (npcs != null) {
+            updateEastPanel(npcs);
+        }
         updateSouthPane(description);
 
-        cardLayout.show(this, "Scene");
+        cardLayout.last(contentPane);
 
         contentPane.revalidate();
         contentPane.repaint();
