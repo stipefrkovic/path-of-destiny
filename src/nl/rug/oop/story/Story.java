@@ -188,7 +188,7 @@ public class Story implements Serializable {
         villagerTexts.add("They tried to rebel against the oppressive rule and were slaughtered down to the last child. Anyway ... I don't think we should talk about this anymore, you never know who is listening.");
         playerAnswersVillage.add("You are right.");
         Dialogue linearDialogue = dialogueFactory.createLinearDialogue(villagerTexts, playerAnswersVillage);
-        Dialogue whyHere = dialogueFactory.createDialogue("Dialogue", "I have lived here my whole live.", new HashMap<>(), SceneChange.CURRENT_SCENE);
+        Dialogue whyHere = dialogueFactory.createDialogue("Dialogue", "I have lived here my whole life.", new HashMap<>(), SceneChange.CURRENT_SCENE);
         Dialogue villagerDialogue = dialogueFactory.createDialogue("Dialogue", "Hey, can I help you?", new HashMap<>(), SceneChange.CURRENT_SCENE);
         whyHere.addAnswer("Okay", villagerDialogue);
         villagerDialogue.addAnswer("How long have you lived here?", whyHere);

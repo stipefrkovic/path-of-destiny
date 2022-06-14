@@ -38,7 +38,7 @@ public abstract class Player extends Entity implements Serializable {
     }
 
 
-    public int getKillsForType(String type){
+    public Integer getKillsForType(String type){
         return killCounter.get(type);
     }
 
