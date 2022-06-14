@@ -39,7 +39,7 @@ public class Story implements Serializable {
         PlayerFactory.registerPlayer("Mage", Mage.class);
         Dialogue dialogue = new Dialogue("Hero you have arrived and I hope that you will be able to defeat the evil king in my world, as I am unable to interfere more directly with the mortal plane, but before that you need to determine your calling. What path calls out for you?", possibleAnswers, SceneChange.CURRENT_SCENE);
         TalkingNPC firstNPC = new TalkingNPC("Janus", "Deity", 9999, 9999, dialogue, 0,0, new ArrayList<>());
-        beginningScene = sceneFactory.createTalkScene("TalkScene", "startBackground", null, null, firstNPC, new Classless());
+        beginningScene = sceneFactory.createTalkScene("TalkScene", "Welcome", null, null, firstNPC, new Classless());
     }
 
     /**
@@ -81,35 +81,35 @@ public class Story implements Serializable {
         conditionedActions.put(new AmountKillsAction("Continue", 0, 0), goodEnding);
         conditionedActions.put(new AmountKillsAction("Continue", 1, 3), badEnding);
         conditionedActions.put(new AmountKillsAction("Continue", 4, 4), deadEnding);
-        Scene kingDefeatScene = new EvaluatingScene("Castle", "The king draws a last shuddering breath and falls over, the wounds on his body too severe to keep his soul in the mortal realm.",conditionedActions, player);
+        Scene kingDefeatScene = new EvaluatingScene("Throne", "The king draws a last shuddering breath and falls over, the wounds on his body too severe to keep his soul in the mortal realm.",conditionedActions, player);
         BossNPC king = npcFactory.createBossNPC("BossKing", itemFactory);
-        TalkScene kingScene = sceneFactory.createTalkScene("FightScene", "Castle", kingDefeatScene, fleeEnding, king, player);
+        TalkScene kingScene = sceneFactory.createTalkScene("FightScene", "Throne", kingDefeatScene, fleeEnding, king, player);
         ArrayList<NPC> enemies = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             enemies.add(npcFactory.createSimpleNPC("CastleGuard", itemFactory));
         }
-        Scene castleScene = sceneFactory.createSimpleScene("scene", "castle", "You made your way into the castle, but not as unseen as you had hoped.");
-        Scene guardsScene = sceneFactory.createFightScene("FightScene", "castle", "You are surrounded by guards. They are the last obstacle before the king.", player, castleScene, kingScene, enemies);
+        Scene castleScene = sceneFactory.createSimpleScene("scene", "Castle", "You made your way into the castle, but not as unseen as you had hoped.");
+        Scene guardsScene = sceneFactory.createFightScene("FightScene", "Castle", "You are surrounded by guards. They are the last obstacle before the king.", player, castleScene, kingScene, enemies);
         castleScene.addAction(new Action("Continue..."), guardsScene);
-        Scene sewerScene = sceneFactory.createSimpleScene("Scene", "sewer", "You are standing in the murky waters of the sewers. Deeper into the sewers you hear rats, behind you the sounds of the city");
+        Scene sewerScene = sceneFactory.createSimpleScene("Scene", "Sewers", "You are standing in the murky waters of the sewers. Deeper into the sewers you hear rats, behind you the sounds of the city");
         ArrayList<NPC> moreRats = new ArrayList<>();
         ArrayList<NPC> sewerRats = new ArrayList<>();
         for(int i = 0; i < 5; i++){
             sewerRats.add(npcFactory.createSimpleNPC("Rat", itemFactory));
             moreRats.add(npcFactory.createSimpleNPC("Rat", itemFactory));
         }
-        Scene secondSewerRatsScene = sceneFactory.createFightScene("FightScene", "sewer", "You are surrounded by small rats. They seem not afraid and try to bite you. Fight them off or flee.", player, sewerScene, castleScene, moreRats);
-        Scene sewerRatsScene = sceneFactory.createFightScene("FightScene", "sewer", "You are surrounded by small rats. They seem not afraid and try to bite you. Fight them off or flee.", player, sewerScene, secondSewerRatsScene, sewerRats);
+        Scene secondSewerRatsScene = sceneFactory.createFightScene("FightScene", "Sewers", "You are surrounded by small rats. They seem not afraid and try to bite you. Fight them off or flee.", player, sewerScene, castleScene, moreRats);
+        Scene sewerRatsScene = sceneFactory.createFightScene("FightScene", "Sewers", "You are surrounded by small rats. They seem not afraid and try to bite you. Fight them off or flee.", player, sewerScene, secondSewerRatsScene, sewerRats);
         sewerScene.addAction(new Action("Walk onwards"), sewerRatsScene);
-        Scene cityScene = sceneFactory.createSimpleScene("Scene", "city", "The city before you is bustling with life, you see a trader, a villager, and guards. What do you want to do?");
+        Scene cityScene = sceneFactory.createSimpleScene("Scene", "City", "The city before you is bustling with life, you see a trader, a villager, and guards. What do you want to do?");
         sewerScene.addAction(new Action("Go back to the city"), cityScene);
         TalkingNPC cityTrader = npcFactory.createTalkingNPC("Trader", traderDialogue(), itemFactory);
-        Scene cityTraderScene = sceneFactory.createTalkScene("Trader", "city", cityScene, cityScene, cityTrader, player);
+        Scene cityTraderScene = sceneFactory.createTalkScene("Trader", "City", cityScene, cityScene, cityTrader, player);
         Dialogue helpfulCitizenDialogue = dialogueFactory.createDialogue("Scene", "I think I can help you.", new HashMap<>(), SceneChange.CURRENT_SCENE);
         helpfulCitizenDialogue.addAnswer("Help me defeat the king?", new Dialogue(SceneChange.NEXT_SCENE));
         helpfulCitizenDialogue.addAnswer("I have no clue what you are talking about", new Dialogue(SceneChange.NEXT_SCENE));
         TalkingNPC helpfulCitizen = npcFactory.createTalkingNPC("Villager", helpfulCitizenDialogue, itemFactory);
-        Scene helpfulCitizenScene = sceneFactory.createTalkScene("TalkScene", "city", cityScene, cityScene, helpfulCitizen, player);
+        Scene helpfulCitizenScene = sceneFactory.createTalkScene("TalkScene", "City", cityScene, cityScene, helpfulCitizen, player);
         List<String> citizenTexts = new ArrayList<>();
         List<String> playerAnswersCitizen = new ArrayList<>();
         citizenTexts.add("I can't talk freely, but the guards are trying their best.");
@@ -119,53 +119,53 @@ public class Story implements Serializable {
         citizenTexts.add("I have to go before someone notices I'm talking to you.");
         playerAnswersCitizen.add("Ok....");
         Dialogue citizenLinearDialogue = dialogueFactory.createLinearDialogue(citizenTexts, playerAnswersCitizen);
-        Dialogue citizenWhyHere = dialogueFactory.createDialogue("Scene", "I moved here long ago, when it was a beautiful and friendly country. Now I can't leave.", new HashMap<>(), SceneChange.CURRENT_SCENE);
-        Dialogue citizenDialogue = dialogueFactory.createDialogue("Scene", "Hey, can I help you?", new HashMap<>(), SceneChange.CURRENT_SCENE);
+        Dialogue citizenWhyHere = dialogueFactory.createDialogue("Dialogue", "I moved here long ago, when it was a beautiful and friendly country. Now I can't leave.", new HashMap<>(), SceneChange.CURRENT_SCENE);
+        Dialogue citizenDialogue = dialogueFactory.createDialogue("Dialogue", "Hey, can I help you?", new HashMap<>(), SceneChange.CURRENT_SCENE);
         citizenWhyHere.addAnswer("Okay", citizenDialogue);
         citizenDialogue.addAnswer("How long have you lived here?", citizenWhyHere);
         citizenDialogue.addAnswer("How is life in the city?", citizenLinearDialogue);
         TalkingNPC citizen = npcFactory.createTalkingNPC("Villager", citizenDialogue, itemFactory);
-        Scene citizenScene = sceneFactory.createTalkScene("TalkScene", "city", cityScene, cityScene, citizen, player);
+        Scene citizenScene = sceneFactory.createTalkScene("TalkScene", "City", cityScene, cityScene, citizen, player);
         Dialogue creepyCitizenDialogue = dialogueFactory.createDialogue("Scene", "I'm afraid of ghosts! They are everywhere.", new HashMap<>(), SceneChange.CURRENT_SCENE);
         creepyCitizenDialogue.addAnswer("....", new Dialogue(SceneChange.NEXT_SCENE));
         creepyCitizenDialogue.addAnswer("I understand. Salt helps against ghosts where I come from, maybe it does for you too?", new Dialogue(SceneChange.NEXT_SCENE));
         TalkingNPC creepyCitizen = npcFactory.createTalkingNPC("Villager", creepyCitizenDialogue, itemFactory);
-        Scene creepyCitizenScene = sceneFactory.createTalkScene("TalkScene", "city", cityScene, cityScene, creepyCitizen, player);
+        Scene creepyCitizenScene = sceneFactory.createTalkScene("TalkScene", "City", cityScene, cityScene, creepyCitizen, player);
         ArrayList<NPC> cityGuards = new ArrayList<>();
         for(int i = 0; i < 4; i++){
             cityGuards.add(npcFactory.createSimpleNPC("Guard", itemFactory));
         }
-        Scene cityGuardsScene = sceneFactory.createFightScene("FightScene", "city", "You approach the guards. They are deep in conversation until you get close. They look wary. Can you trust them?", player, cityScene, cityScene, cityGuards);
+        Scene cityGuardsScene = sceneFactory.createFightScene("FightScene", "City", "You approach the guards. They are deep in conversation until you get close. They look wary. Can you trust them?", player, cityScene, cityScene, cityGuards);
         cityScene.addAction(new Action("Visit the trader."), cityTraderScene);
         cityScene.addAction(new Action("Talk to the creepy looking citizen."), creepyCitizenScene);
         cityScene.addAction(new Action("Talk to the citizen motioning you to come towards them."), helpfulCitizenScene);
         cityScene.addAction(new Action("Talk to the citizen looking around."), citizenScene);
         cityScene.addAction(new Action("Approach the city guards."), cityGuardsScene);
         cityScene.addAction(new Action("Sneak into the sewers."), sewerScene);
-        Scene forestScene = sceneFactory.createSimpleScene("scene", "forest", "You enter the forest. Before you are two paths. You can see spider webs on the right path, and you hear shady voices on the path to the left. Which path will you take?");
+        Scene forestScene = sceneFactory.createSimpleScene("scene", "Night Forest", "You enter the forest. Before you are two paths. You can see spider webs on the right path, and you hear shady voices on the path to the left. Which path will you take?");
         BossNPC spiderBoss = npcFactory.createBossNPC("SpiderBoss", itemFactory);
-        Scene spiderBossScene = sceneFactory.createTalkScene("FightScene", "forest", cityScene, null, spiderBoss, player);
+        Scene spiderBossScene = sceneFactory.createTalkScene("FightScene", "Night Forest", cityScene, null, spiderBoss, player);
         ArrayList<NPC> smallSpiderEnemies = new ArrayList<>();
         for(int i = 0; i < 4; i++){
             smallSpiderEnemies.add(npcFactory.createSimpleNPC("Spider", itemFactory));
         }
-        Scene spiderScene = sceneFactory.createFightScene("FightScene", "forest", "A horde of spiders is coming at you. Flee or stand firm.", player, forestScene, spiderBossScene, smallSpiderEnemies);
+        Scene spiderScene = sceneFactory.createFightScene("FightScene", "Night Forest", "A horde of spiders is coming at you. Flee or stand firm.", player, forestScene, spiderBossScene, smallSpiderEnemies);
         ArrayList<NPC> secondForestBandits = new ArrayList<>();
         ArrayList<NPC> forestBandits = new ArrayList<>();
         for(int i = 0; i < 3; i++){
             forestBandits.add(npcFactory.createSimpleNPC("Bandit", itemFactory));
             secondForestBandits.add(npcFactory.createSimpleNPC("Bandit", itemFactory));
         }
-        Scene secondForestBanditScene = sceneFactory.createFightScene("FightScene", "forest", "After having defeated the first group of bandits, reinforcements arrive and again three bandits are standing in front of you", player, forestScene, cityScene, secondForestBandits);
-        Scene forestBanditScene = sceneFactory.createFightScene("FightScene", "forest", "The shady voices grow louder until three bandits are standing in front of you.", player, forestScene, secondForestBanditScene, forestBandits);
+        Scene secondForestBanditScene = sceneFactory.createFightScene("FightScene", "Night Forest", "After having defeated the first group of bandits, reinforcements arrive and again three bandits are standing in front of you", player, forestScene, cityScene, secondForestBandits);
+        Scene forestBanditScene = sceneFactory.createFightScene("FightScene", "Night Forest", "The shady voices grow louder until three bandits are standing in front of you.", player, forestScene, secondForestBanditScene, forestBandits);
         forestScene.addAction(new Action("Take the right path."), spiderScene);
         forestScene.addAction(new Action("Take the left path."), forestBanditScene);
-        Scene villageScene = sceneFactory.createSimpleScene("Scene", "village", "You stand in the center of a village. You see a trader, a villager, a guard standing around and at the edge of the village you see some shady figures. What do you want to do?");
+        Scene villageScene = sceneFactory.createSimpleScene("Scene", "Village", "You stand in the center of a village. You see a trader, a villager, a guard standing around and at the edge of the village you see some shady figures. What do you want to do?");
         TalkingNPC villageTrader = npcFactory.createTalkingNPC("Trader", traderDialogue(), itemFactory);
-        Scene villageTraderScene = sceneFactory.createTalkScene("Trader", "village", villageScene, villageScene, villageTrader, player);
+        Scene villageTraderScene = sceneFactory.createTalkScene("Trader", "Village", villageScene, villageScene, villageTrader, player);
         ArrayList<NPC> guard = new ArrayList<>();
         guard.add(npcFactory.createSimpleNPC("Guard", itemFactory));
-        Scene villageGuardScene = sceneFactory.createFightScene("FightScene", "village", "You approach the guard. He looks at you suspiciously, as if to estimate if you are dangerous.", player, villageScene, villageScene, guard);
+        Scene villageGuardScene = sceneFactory.createFightScene("FightScene", "Village", "You approach the guard. He looks at you suspiciously, as if to estimate if you are dangerous.", player, villageScene, villageScene, guard);
         HashMap<Action, Scene> villageActions = new HashMap<>();
         villageActions.put(new Action("Pick up shiny object"), villageScene);
         villageActions.put(new Action("Do not pick up the shiny object"), villageScene);
@@ -173,12 +173,12 @@ public class Story implements Serializable {
         ArrayList<Item> possibleLoot = new ArrayList<>();
         possibleLoot.add(itemFactory.createItem("Health Potion"));
         villageLoot.put(new Action("Pick up shiny object"), possibleLoot);
-        Scene villageEdge = sceneFactory.createLootScene("LootScene", "village", "After you defeat the bandits you see something shiny on the ground. You move towards it to pick it up.", villageActions, villageLoot, player);
+        Scene villageEdge = sceneFactory.createLootScene("LootScene", "Village", "After you defeat the bandits you see something shiny on the ground. You move towards it to pick it up.", villageActions, villageLoot, player);
         ArrayList<NPC> bandits = new ArrayList<>();
         for(int i = 0; i < 2; i++){
             bandits.add(npcFactory.createSimpleNPC("Bandit", itemFactory));
         }
-        Scene banditScene = sceneFactory.createFightScene("FightScene", "village", "The shady figure immediately draw a knife when they see you coming towards them. This will not be a friendly encounter.", player, villageScene, villageEdge, bandits);
+        Scene banditScene = sceneFactory.createFightScene("FightScene", "Village", "The shady figure immediately draw a knife when they see you coming towards them. This will not be a friendly encounter.", player, villageScene, villageEdge, bandits);
         List<String> villagerTexts = new ArrayList<>();
         List<String> playerAnswersVillage = new ArrayList<>();
         villagerTexts.add("The evil king originally set out to save us, but instead he just replaced the last ruler with himself.");
@@ -194,7 +194,7 @@ public class Story implements Serializable {
         villagerDialogue.addAnswer("How long have you lived here?", whyHere);
         villagerDialogue.addAnswer("Who is the evil king?", linearDialogue);
         TalkingNPC villager = npcFactory.createTalkingNPC("Villager", villagerDialogue, itemFactory);
-        Scene villagerScene = sceneFactory.createTalkScene("TalkScene", "village", villageScene, villageScene, villager, player);
+        Scene villagerScene = sceneFactory.createTalkScene("TalkScene", "Village", villageScene, villageScene, villager, player);
         villageScene.addAction(new Action("Talk to the villager."), villagerScene);
         villageScene.addAction(new Action("Go to the trader."), villageTraderScene);
         villageScene.addAction(new Action("Approach the guard."), villageGuardScene);
