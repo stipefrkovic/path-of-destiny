@@ -21,6 +21,24 @@ public class Classless extends Player{
     }
 
     /**
+     * Gives back the energy, which is zero.
+     * @return The integer 0.
+     */
+    @Override
+    public int getEnergy() {
+        return 0;
+    }
+
+    /**
+     * Does nothing.
+     * @param energy As the function does nothing this parameter is ignored.
+     */
+    @Override
+    public void setEnergy(int energy) {
+
+    }
+
+    /**
      * Gives the fighting options of a classless player.
      * @return A list of fighting options available to a classless player.
      */
@@ -42,7 +60,7 @@ public class Classless extends Player{
      * @return A string denoting what the player did.
      */
     @Override
-    public String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene) {
+    protected String fight(Action action, NPC target, List<NPC> allEnemies, Scene scene) {
         return switch (action.getActionName()){
             case "Punch" -> this.getName() + " punch "+ target.getName() + " for 0 damage.";
             case "Pinch" -> this.getName() + " pinch "+ target.getName() + " for 0 damage.";
@@ -52,10 +70,9 @@ public class Classless extends Player{
 
     /**
      * Does Nothing.
-     * @return Returns an empty string.
      */
     @Override
-    public String consumeAppropriately() {
-        return "";
+    public void useAppropriatePotion() {
     }
+
 }

@@ -21,7 +21,7 @@ import java.util.List;
  * the game controller.
  * @author Andro Erdelez
  */
-public class RpgGame {
+public class RpgGame implements Serializable{
     private Scene scene;
     private Player player;
     private Story story;

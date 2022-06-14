@@ -5,6 +5,7 @@ import nl.rug.oop.npc.NPC;
 import nl.rug.oop.npc.TalkingNPC;
 import nl.rug.oop.player.Player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  * A factory class that can create Scenes, given that they are registered and have a constructor, which fits one of the four types.
  * @author Jonas Scholz
  */
-public class SceneFactory {
+public class SceneFactory implements Serializable {
 
     private HashMap<String, Class> register = new HashMap();
 

@@ -54,6 +54,10 @@ public abstract class Player extends Entity implements Serializable {
         return inventoryItems;
     }
 
+    public String useItem(String itemName){
+        return "";
+    }
+
     public HashMap<String, Integer> getInventoryCount() {
         HashMap<String, Integer> inventoryCount = new HashMap<>();
         List<String> differentItems = new ArrayList<>();

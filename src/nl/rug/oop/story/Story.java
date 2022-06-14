@@ -8,6 +8,7 @@ import nl.rug.oop.npc.*;
 import nl.rug.oop.player.*;
 import nl.rug.oop.scene.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * The class initializes the story flow, the dialogue, scenes, and NPCs.
  */
-public class Story {
+public class Story implements Serializable {
     private Scene beginningScene;
     private ItemFactory itemFactory;
     private NPCFactory npcFactory;

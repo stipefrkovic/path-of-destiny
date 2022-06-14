@@ -3,13 +3,14 @@ package nl.rug.oop.npc;
 import nl.rug.oop.dialogue.Dialogue;
 import nl.rug.oop.items.ItemFactory;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * A factory class that can create registers NPCs.
  * @author Jonas Scholz
  */
-public class NPCFactory {
+public class NPCFactory implements Serializable {
 
     private HashMap<String, Class> register = new HashMap();
     private String[] namePool = new String[]{"John", "Amelie", "Elizabeth", "James", "Lucifer", "Gabriel", "Uriel", "Jacob", "Anna", "Kevin", "Johanna", "Jan", "Richard", "Lisa", "Rumpelstilzchen", "Gretel", "Hänsel", "Pier", "Naut", "Floris", "Kai", "Simone", "Thorn", "Alexa", "Hildegard", "Romulus", "Beatrix", "Maggard", "Ophelia", "Maxim", "Sid", "Manni", "Ursula", "Brie", "Lucia", "Lucinda", "Scarlet", "Suriel", "Sofie", "Mammon", "Asmodeus", "Leviathan", "Beelzebub", "Satan", "Belphegor", "Daktocaez", "Pryrzod", "Icnagneeq", "Aiwin", "Llewel", "Elrond", "Barnaby", "Zach", "Jaxson", "Remy", "Johnny","Mollie", "Daisy", "Lacie", "Rene", "Jasmine", "Nicole", "Vanessa", "Elena", "Zoe", "Junior", "Ernie", "Bart" };

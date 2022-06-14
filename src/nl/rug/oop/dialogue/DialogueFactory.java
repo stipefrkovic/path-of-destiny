@@ -6,6 +6,7 @@ import nl.rug.oop.items.Item;
 import nl.rug.oop.items.ItemFactory;
 import nl.rug.oop.npc.SceneChange;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  * A factory class that creates dialogues, with some convenient functions for common structures.
  * @author Jonas Scholz
  */
-public class DialogueFactory {
+public class DialogueFactory implements Serializable {
 
     private HashMap<String, Class> register = new HashMap();
 

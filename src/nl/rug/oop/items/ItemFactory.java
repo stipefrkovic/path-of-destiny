@@ -1,5 +1,6 @@
 package nl.rug.oop.items;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,7 +8,7 @@ import java.util.HashMap;
  * Holds a lot of convenient functions to create items. The basic items are already in the register and only other items have to be added.
  * @author Jonas Scholz
  */
-public class ItemFactory {
+public class ItemFactory implements Serializable {
 
     private HashMap<String, Class> register = new HashMap();
 

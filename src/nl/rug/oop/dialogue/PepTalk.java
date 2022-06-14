@@ -8,6 +8,11 @@ import nl.rug.oop.player.Player;
  */
 public interface PepTalk {
 
+    /**
+     * Allows for players to power up.
+     * @param player The player that plays the game.
+     * @return What the function did.
+     */
     String powerUpPlayer(Player player);
 
 }

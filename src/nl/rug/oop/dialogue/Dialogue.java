@@ -3,6 +3,7 @@ package nl.rug.oop.dialogue;
 
 import nl.rug.oop.npc.SceneChange;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * A dialogue that is used by talking npcs to speak with the player.
  * @author Jonas Scholz
  */
-public class Dialogue {
+public class Dialogue implements Serializable {
 
     private String text;
     private HashMap<String, Dialogue> possibleAnswers;
