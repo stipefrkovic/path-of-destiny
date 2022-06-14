@@ -6,7 +6,7 @@ import nl.rug.oop.player.Player;
 import java.util.HashMap;
 
 /**
- * 
+ *
  * @author Jonas Scholz
  */
 public class IncreaseMaxHealthDialogue extends Dialogue implements PepTalk{

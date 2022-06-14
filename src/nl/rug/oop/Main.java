@@ -9,6 +9,7 @@ public class Main {
         RpgGame game = new RpgGame();
         Controller controller = new Controller(game);
         GameView view = new GameView(controller);
+        game.addListener(view);
         view.setup();
     }
 }
