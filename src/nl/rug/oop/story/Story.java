@@ -5,8 +5,7 @@ import nl.rug.oop.dialogue.DialogueFactory;
 import nl.rug.oop.items.Item;
 import nl.rug.oop.items.ItemFactory;
 import nl.rug.oop.npc.*;
-import nl.rug.oop.player.Classless;
-import nl.rug.oop.player.Player;
+import nl.rug.oop.player.*;
 import nl.rug.oop.scene.*;
 
 import java.util.ArrayList;
@@ -35,6 +34,8 @@ public class Story {
         HashMap<String, Dialogue> possibleAnswers = new HashMap<>();
         possibleAnswers.put("Warrior", null);
         possibleAnswers.put("Mage", null);
+        PlayerFactory.registerPlayer("Warrior", Warrior.class);
+        PlayerFactory.registerPlayer("Mage", Mage.class);
         Dialogue dialogue = new Dialogue("Hero you have arrived and I hope that you will be able to defeat the evil king in my world, as I am unable to interfere more directly with the mortal plane, but before that you need to determine your calling. What path calls out for you?", possibleAnswers, SceneChange.CURRENT_SCENE);
         TalkingNPC firstNPC = new TalkingNPC("Janus", "Deity", 9999, 9999, dialogue, 0,0, new ArrayList<>());
         beginningScene = sceneFactory.createTalkScene("TalkScene", "startBackground", null, null, firstNPC, new Classless());

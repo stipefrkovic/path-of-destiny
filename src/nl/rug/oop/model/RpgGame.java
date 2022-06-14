@@ -2,6 +2,7 @@ package nl.rug.oop.model;
 
 import nl.rug.oop.npc.NPC;
 import nl.rug.oop.player.Player;
+import nl.rug.oop.player.PlayerFactory;
 import nl.rug.oop.scene.Action;
 import nl.rug.oop.scene.NPCScene;
 import nl.rug.oop.scene.Scene;
@@ -83,10 +84,11 @@ public class RpgGame {
      * @param a Name of the given action.
      */
     public void doAction(String a) {
-        scene = scene.takeAction(new Action(a));
         if(a.equals("Warrior") || a.equals("Mage")) {
-            //player = ;
-            //story = story.createStory(player);
+            player = PlayerFactory.createPlayer(a);
+            scene = story.createStory(player);
+        }else{
+            scene = scene.takeAction(new Action(a));
         }
 
         Iterator<OutputEventListener> allListeners = listeners.iterator();
