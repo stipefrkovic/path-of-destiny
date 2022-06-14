@@ -234,7 +234,9 @@ public class GameView extends JFrame implements OutputEventListener {
     private void updateSceneCard(List<String> actions, String description, String image, List<NPC> npcs, Player player) {
         System.out.println("SCENE UPDATED");
 
-        updateNorthPanel(player);
+        if (player != null) {
+            updateNorthPanel(player);
+        }
         updateWestPanel(actions);
         updateCenterPanel(image);
         updateEastPanel(npcs);
