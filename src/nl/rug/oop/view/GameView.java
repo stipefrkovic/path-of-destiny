@@ -1,22 +1,24 @@
 package nl.rug.oop.view;
 
+import nl.rug.oop.controller.Controller;
+import nl.rug.oop.model.OutputEventListener;
+import nl.rug.oop.npc.NPC;
+import nl.rug.oop.player.Player;
+import nl.rug.oop.player.Warrior;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class GameView extends JFrame implements PropertyChangeListener {
+public class GameView extends JFrame implements OutputEventListener {
 
     //TODO load button in the beginning
     //TODO american psycho easter egg
-    //TODO add actions & property change
     //TODO comments
 
+    Controller controller;
     String gameName = "Path of Destiny";
     Color color = new Color(0x353839); // Onyx, https://html-color.codes/grey
     Font font = new Font("Arial", Font.PLAIN, 20);
@@ -34,8 +36,8 @@ public class GameView extends JFrame implements PropertyChangeListener {
     JPanel statsPanel = new JPanel();
     JLabel healthLabel = new JLabel();
     JLabel playerHealth = new JLabel();
-    JLabel manaLabel = new JLabel();
-    JLabel playerMana = new JLabel();
+    JLabel energylabel = new JLabel();
+    JLabel playerEnergy = new JLabel();
     JLabel strengthLabel = new JLabel();
     JLabel playerStrength = new JLabel();
     JLabel goldLabel = new JLabel();
@@ -51,21 +53,22 @@ public class GameView extends JFrame implements PropertyChangeListener {
     JLabel staminaPotionCount = new JLabel();
     JPanel effectsPanel = new JPanel();
     JLabel weakLabel = new JLabel();
-    JLabel poisonLabel = new JLabel();
-    JLabel stunLabel = new JLabel();
+    JLabel poisonedLabel = new JLabel();
+    JLabel stunnedLabel = new JLabel();
     JLabel confusedLabel = new JLabel();
     JPanel westPanel = new JPanel();
     ArrayList<JButton> actionButtons = new ArrayList<>();
     BackgroundPanel centerPanel;
     JPanel eastPanel = new JPanel();
-    ArrayList<JLabel> enemyLabels = new ArrayList<>();
+    ArrayList<JLabel> npcLabels = new ArrayList<>();
     JTextPane southPane = new JTextPane();
 
-    public GameView() {
+    public GameView(Controller controller) {
         setTitle(gameName);
         setLocation(0, 0);
         setSize(1600, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.controller = controller;
     }
 
     public void setup() {
@@ -76,15 +79,10 @@ public class GameView extends JFrame implements PropertyChangeListener {
     }
 
     private void setWelcomeCard() {
-        startButton.setActionCommand("Start"); //setAction could also be used
         startButton.setFont(font);
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.next(contentPane);
-            }
-        });
+        startButton.setActionCommand("Start");
         startButton.setBackground(color);
+        startButton.addActionListener(controller);
 
         welcomeCard.setBackground(color);
         welcomeCard.add(startButton);
@@ -92,43 +90,34 @@ public class GameView extends JFrame implements PropertyChangeListener {
         contentPane.add(welcomeCard);
     }
 
-    private void setSceneCard(){
+    private void setSceneCard() {
         saveButton.setToolTipText("Save game");
         saveButton.setBackground(color);
         saveButton.setFont(font);
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Save game");
-            }
-        });
+        saveButton.addActionListener(controller);
+        saveButton.setActionCommand("Save");
         loadButton.setToolTipText("Load game");
         loadButton.setBackground(color);
         loadButton.setFont(font);
-        loadButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Load game");
-                updateSceneCard();
-            }
-        });
+        loadButton.addActionListener(controller);
+        saveButton.setActionCommand("Load");
 
-        ImageIcon healthIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/heart.png")));
+        ImageIcon healthIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Heart.png")));
         healthLabel.setIcon(healthIcon);
         healthLabel.setToolTipText("Health");
-        ImageIcon manaIcon =  new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/mana.png")));
-        manaLabel.setIcon(manaIcon);
-        manaLabel.setToolTipText("Mana");
-        ImageIcon strengthIcon =  new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/strength.png")));
+        ImageIcon energyIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Energy.png")));
+        energylabel.setIcon(energyIcon);
+        energylabel.setToolTipText("Energy");
+        ImageIcon strengthIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Strength.png")));
         strengthLabel.setIcon(strengthIcon);
         strengthLabel.setToolTipText("Strength");
-        ImageIcon goldIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/gold.png")));
+        ImageIcon goldIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Gold.png")));
         goldLabel.setIcon(goldIcon);
         goldLabel.setToolTipText("Gold");
         playerHealth.setFont(font);
         playerHealth.setForeground(Color.LIGHT_GRAY);
-        playerMana.setFont(font);
-        playerMana.setForeground(Color.LIGHT_GRAY);
+        playerEnergy.setFont(font);
+        playerEnergy.setForeground(Color.LIGHT_GRAY);
         playerStrength.setFont(font);
         playerStrength.setForeground(Color.LIGHT_GRAY);
         playerGold.setFont(font);
@@ -138,8 +127,8 @@ public class GameView extends JFrame implements PropertyChangeListener {
         statsPanel.add(saveButton);
         statsPanel.add(healthLabel);
         statsPanel.add(playerHealth);
-        statsPanel.add(manaLabel);
-        statsPanel.add(playerMana);
+        statsPanel.add(energylabel);
+        statsPanel.add(playerEnergy);
         statsPanel.add(strengthLabel);
         statsPanel.add(playerStrength);
         statsPanel.add(goldLabel);
@@ -147,16 +136,16 @@ public class GameView extends JFrame implements PropertyChangeListener {
 
         inventoryPanel.setLayout(new GridLayout(1, 0));
         inventoryPanel.setBackground(color);
-        ImageIcon healthPotionIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/healthPotion.gif")));
+        ImageIcon healthPotionIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Health Potion.gif")));
         healthPotionLabel.setIcon(healthPotionIcon);
         healthPotionLabel.setToolTipText("Health Potion");
-        ImageIcon manaPotionIcon =  new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/manaPotion.png")));
+        ImageIcon manaPotionIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Mana Potion.gif")));
         manaPotionLabel.setIcon(manaPotionIcon);
         manaPotionLabel.setToolTipText("Mana Potion");
-        ImageIcon clearPotionIcon =  new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/clearPotion.png")));
+        ImageIcon clearPotionIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Clear Effects Potion.gif")));
         clearPotionLabel.setIcon(clearPotionIcon);
         clearPotionLabel.setToolTipText("Clear Effects Potion");
-        ImageIcon staminaPotionIcon =  new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/staminaPotion.png")));
+        ImageIcon staminaPotionIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Stamina Potion.gif")));
         staminaPotionLabel.setIcon(staminaPotionIcon);
         staminaPotionLabel.setToolTipText("Stamina Potion");
         healthPotionCount.setFont(font);
@@ -178,26 +167,26 @@ public class GameView extends JFrame implements PropertyChangeListener {
 
         effectsPanel.setLayout(new GridLayout(1, 4));
         effectsPanel.setBackground(color);
-        ImageIcon weakIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/weak.png")));
+        ImageIcon weakIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Weak.png")));
         weakLabel.setIcon(weakIcon);
         weakLabel.setToolTipText("Effect: Weak");
-        ImageIcon poisonIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/poison.png")));
-        poisonLabel.setIcon(poisonIcon);
-        poisonLabel.setToolTipText("Effect: Poisoned");
-        ImageIcon stunIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/stun.png")));
-        stunLabel.setIcon(stunIcon);
-        stunLabel.setToolTipText("Effect: Stunned");
-        ImageIcon confusedIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/confused.png")));
+        ImageIcon poisonIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Poisoned.png")));
+        poisonedLabel.setIcon(poisonIcon);
+        poisonedLabel.setToolTipText("Effect: Poisoned");
+        ImageIcon stunIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Stunned.png")));
+        stunnedLabel.setIcon(stunIcon);
+        stunnedLabel.setToolTipText("Effect: Stunned");
+        ImageIcon confusedIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Confused.png")));
         confusedLabel.setIcon(confusedIcon);
         confusedLabel.setToolTipText("Effect: Confused");
         effectsPanel.add(weakLabel);
-        effectsPanel.add(poisonLabel);
-        effectsPanel.add(stunLabel);
+        effectsPanel.add(poisonedLabel);
+        effectsPanel.add(stunnedLabel);
         effectsPanel.add(confusedLabel);
         confusedLabel.setVisible(false);
-        stunLabel.setVisible(false);
+        stunnedLabel.setVisible(false);
         weakLabel.setVisible(false);
-        poisonLabel.setVisible(false);
+        poisonedLabel.setVisible(false);
 
         GridBagLayout gridBagLayout = new GridBagLayout();
         GridBagConstraints gbc = new GridBagConstraints();
@@ -217,7 +206,7 @@ public class GameView extends JFrame implements PropertyChangeListener {
         westPanel.setBackground(color);
         westPanel.setLayout(new GridLayout(0, 1, 0, 10));
 
-        ImageIcon backgroundImage =  new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/welcome.png")));
+        ImageIcon backgroundImage = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Welcome.png")));
         centerPanel = new BackgroundPanel(backgroundImage.getImage(), BackgroundPanel.SCALED);
 
         eastPanel.setBackground(color);
@@ -226,6 +215,7 @@ public class GameView extends JFrame implements PropertyChangeListener {
         southPane.setFont(font);
         southPane.setBackground(color);
         southPane.setForeground(Color.LIGHT_GRAY);
+        southPane.setEditable(false);
 
         borderLayout.setHgap(10);
         borderLayout.setVgap(10);
@@ -241,79 +231,104 @@ public class GameView extends JFrame implements PropertyChangeListener {
         contentPane.add(sceneCard);
     }
 
-    private void updateSceneCard() {
-        playerHealth.setText("0");
-        playerMana.setText("0");
-        playerStrength.setText("0");
-        playerGold.setText("0");
+    private void updateSceneCard(List<String> actions, String description, String image, List<NPC> npcs, Player player) {
+        updateNorthPanel(player);
+        updateWestPanel(actions);
+        updateCenterPanel(image);
+        updateEastPanel(npcs);
+        updateSouthPane(description);
 
+        contentPane.revalidate();
+        contentPane.repaint();
+    }
+
+    private void updateNorthPanel(Player player) {
+        String health = String.valueOf(player.getHealth());
+        String energy = String.valueOf(player.getEnergy());
+        String strength = String.valueOf(player.getStrength());
+        String gold = String.valueOf(player.getGold());
+
+        String energyType;
+        ImageIcon energyIcon;
+        if (player instanceof Warrior) {
+            energyType = "Stamina";
+            energyIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Stamina.png")));
+        } else {
+            energyType = "Mana";
+            energyIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Mana.gif")));
+        }
+        energylabel.setIcon(energyIcon);
+        energylabel.setToolTipText(energyType);
+
+        playerHealth.setText(health);
+        playerEnergy.setText(energy);
+        playerStrength.setText(strength);
+        playerGold.setText(gold);
+
+        // get inventoryHashMap and then call getValue for each item
         healthPotionCount.setText("0");
         manaPotionCount.setText("0");
         clearPotionCount.setText("0");
         staminaPotionCount.setText("0");
 
         confusedLabel.setVisible(false);
-        stunLabel.setVisible(false);
+        stunnedLabel.setVisible(false);
         weakLabel.setVisible(false);
-        poisonLabel.setVisible(false);
+        poisonedLabel.setVisible(false);
+        List<String> effects = player.getEffects();
+        for(String s : effects) {
+            switch (s) {
+                case "Confused" -> confusedLabel.setVisible(true);
+                case "Stunned" -> stunnedLabel.setVisible(true);
+                case "Weak" -> weakLabel.setVisible(true);
+                case "Poisoned" -> poisonedLabel.setVisible(true);
+            }
+        }
+    }
 
-        confusedLabel.setVisible(true);
-        stunLabel.setVisible(true);
-        weakLabel.setVisible(true);
-        poisonLabel.setVisible(true);
-
+    private void updateWestPanel(List<String> actions) {
         westPanel.removeAll();
         actionButtons.clear();
-        for(int i=0; i<3; i++) {
-            JButton button = new DepthButton("Action " + i);
+        for (String a : actions) {
+            JButton button = new DepthButton("Action: " + a);
             button.setBackground(color);
             button.setFont(new Font("Arial", Font.PLAIN, 20));
-            //button.setIcon(ImageIcon);
-            button.setActionCommand("Command");
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    System.out.println(button.getActionCommand());
-                }
-            });
+            button.setActionCommand(a);
+            button.addActionListener(controller);
             actionButtons.add(button);
         }
         for (JButton b : actionButtons) {
             westPanel.add(b);
         }
+    }
 
-        ImageIcon backgroundImage =  new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/village.jpeg")));
+    private void updateCenterPanel(String image) {
+        ImageIcon backgroundImage = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/" + image + ".png")));
         centerPanel.setImage(backgroundImage.getImage());
+    }
 
+    private void updateEastPanel(List<NPC> npcs) {
         eastPanel.removeAll();
-        enemyLabels.clear();
-        for(int i=0; i<7; i++) {
-            ImageIcon castleGuardIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/castleGuard.png")));
-            JLabel label = new JLabel(castleGuardIcon);
-            label.setToolTipText("Enemy");
-            enemyLabels.add(label);
+        npcLabels.clear();
+        for (NPC npc: npcs) {
+            ImageIcon npcIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/" + npc.getType() +".png")));
+            JLabel label = new JLabel(npcIcon);
+            label.setToolTipText(npc.getName());
+            npcLabels.add(label);
         }
-        for (JLabel l : enemyLabels) {
+        for (JLabel l : npcLabels) {
             eastPanel.add(l);
             l.setVisible(true);
         }
+    }
 
+    private void updateSouthPane(String description) {
         southPane.removeAll();
-        String sampleText = "The path of the righteous man is beset on all sides by the iniquities of the " +
-                "selfish and the tyranny of the evil men. Blessed is he who, in the name of charity and goodwill, " +
-                "shepherds the weak through the valley of darkness, for he is truly his brother's keeper, and the " +
-                "finder of lost children. And I will strike down upon thee with great vengeance and furious anger " +
-                "those who attempt to poison and destroy my brothers. And you will know my name is the Lord when I " +
-                "lay my vengeance upon thee! PEW PEW!!!";
-        southPane.setText(sampleText);
-
-        contentPane.revalidate();
-        contentPane.repaint();
+        southPane.setText(description);
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("Property change event.");
+    public void updateScene(List<String> actions, String description, String image, List<NPC> npcs, Player player) {
+        updateSceneCard(actions, description, image, npcs, player);
     }
-
 }
