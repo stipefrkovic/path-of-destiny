@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * The class initializes the story flow, the dialogue, scenes, and NPCs.
+ */
 public class Story {
     private Scene beginningScene;
     private ItemFactory itemFactory;
@@ -18,8 +21,10 @@ public class Story {
     private SceneFactory sceneFactory;
     private DialogueFactory dialogueFactory;
 
-    //TODO: make the story
 
+    /**
+     * initializes the start of the different factories and the beginning scene
+     */
     public Story(){
         sceneFactory = new SceneFactory();
         npcFactory = new NPCFactory();
@@ -33,10 +38,18 @@ public class Story {
         beginningScene = sceneFactory.createTalkScene("TalkScene", "startBackground", null, null, firstNPC, new Classless());
     }
 
+    /**
+     * returns the beginning scene
+     * @return the beginning scene
+     */
     public Scene getBeginningScene() {
         return beginningScene;
     }
 
+    /**
+     * makes the price list for the trader
+     * @return the shop dialogue
+     */
     private Dialogue traderDialogue(){
         HashMap<String, Integer> buyPriceList = new HashMap<>();
         HashMap<String, Integer> sellPriceList = new HashMap<>();
@@ -49,6 +62,11 @@ public class Story {
         return dialogueFactory.createShopDialogue(buyPriceList, sellPriceList,itemFactory);
     }
 
+    /**
+     * makes all the scenes, NPCs, dialogue and puts them together to make a story. The start scene here is the village scene.
+     * @param player the player
+     * @return the village scene
+     */
     public Scene createStory(Player player){
         Scene goodEnding = sceneFactory.createSimpleScene("Scene", "GoodEnding", "You have not strayed from the path and this shows in your rule, the land previously withering is now bursting with life. The people are happy with their new king and are celebrating your rule. It is a time of prosperity and wealth, but how long will it last?");
         Scene badEnding = sceneFactory.createSimpleScene("Scene", "BadEnding", "You have killed the evil king by any means possible and through that have managed to supplant him, at first the people are ecstatic, but they soon realize that they have just switch one evil ruler for another. One day while holding a ceremony you suddenly feel a sharp pain in your back and stumble forward. As you fall to the ground and the world grows black you hear the cheering of the gathered people. You draw your last breath and are now forever trapped in hell.");
@@ -121,7 +139,6 @@ public class Story {
         cityScene.addAction(new Action("Sneak into the sewers."), sewerScene);
         Scene forestScene = sceneFactory.createSimpleScene("scene", "forest", "You enter the forest. Before you are two paths. You can see spider webs on the right path, and you hear shady voices on the path to the left. Which path will you take?");
         BossNPC spiderBoss = npcFactory.createBossNPC("SpiderBoss", itemFactory);
-        //TODO:maybe make this scene a talk scene instead
         Scene spiderBossScene = sceneFactory.createTalkScene("FightScene", "forest", cityScene, null, spiderBoss, player);
         ArrayList<NPC> smallSpiderEnemies = new ArrayList<>();
         for(int i = 0; i < 4; i++){
