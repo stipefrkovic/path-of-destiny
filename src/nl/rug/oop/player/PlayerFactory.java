@@ -16,7 +16,7 @@ public class PlayerFactory {
     public static Player createPlayer(String type){
         try {
             Class playerType = register.get(type);
-            return (Player) playerType.getDeclaredConstructor(String.class).newInstance("you");
+            return (Player) playerType.getDeclaredConstructor(String.class).newInstance("You");
         } catch (Exception e) {
             return null;
         }
