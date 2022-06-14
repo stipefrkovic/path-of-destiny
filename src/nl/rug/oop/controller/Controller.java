@@ -16,13 +16,17 @@ public class Controller implements ActionListener {
         String action = e.getActionCommand();
         switch (action) {
             case "Start":
-                game.startGame();break;
+                game.startGame();
+                break;
             case "Load":
-                game.loadGame();break;
+                game.loadGame();
+                break;
             case "Save":
-                RpgGame.saveGame(game);break;
+                RpgGame.saveGame(game);
+                break;
             default:
                 game.doAction(action);
+                break;
         }
     }
 }

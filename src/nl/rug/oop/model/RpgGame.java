@@ -1,20 +1,15 @@
 package nl.rug.oop.model;
 
-import nl.rug.oop.npc.NPC;
 import nl.rug.oop.player.Player;
 import nl.rug.oop.player.PlayerFactory;
 import nl.rug.oop.scene.Action;
 import nl.rug.oop.scene.NPCScene;
 import nl.rug.oop.scene.Scene;
 import nl.rug.oop.story.Story;
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * The main model which keeps track of the relevant RPG game specifics and notifies game view based on the input from
@@ -48,8 +43,12 @@ public class RpgGame implements Serializable{
      * Starts a new game.
      * @return Game (RpgGame object) with the initial scene and picked player class.
      */
-    public RpgGame startGame() {
-        return new RpgGame();
+    public void startGame() {
+        scene = story.getBeginningScene();
+        Iterator<OutputEventListener> allListeners = listeners.iterator();
+        while (allListeners.hasNext()) {
+            allListeners.next().updateScene(scene.getActions(), scene.getDescription(), scene.getImage(), null, player);
+        }
     }
 
     /**
@@ -69,14 +68,16 @@ public class RpgGame implements Serializable{
      * Loads a game (RpgGame object) from a file called game.obj.
      * @return Game loaded from the file
      */
-    public RpgGame loadGame() {
-        RpgGame game = null;
+    public void loadGame() {
+        RpgGame game;
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream("game.obj"))) {
             game = (RpgGame) input.readObject();
+            this.player = game.player;
+            this.scene = game.scene;
+            this.story = game.story;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return game;
     }
 
     /**
