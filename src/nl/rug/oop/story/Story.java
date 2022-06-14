@@ -82,8 +82,8 @@ public class Story implements Serializable {
         conditionedActions.put(new AmountKillsAction("Continue", 1, 3), badEnding);
         conditionedActions.put(new AmountKillsAction("Continue", 4, 4), deadEnding);
         Scene kingDefeatScene = new EvaluatingScene("Throne", "The king draws a last shuddering breath and falls over, the wounds on his body too severe to keep his soul in the mortal realm.",conditionedActions, player);
-        BossNPC king = npcFactory.createBossNPC("BossKing", itemFactory);
-        TalkScene kingScene = sceneFactory.createTalkScene("FightScene", "Throne", kingDefeatScene, fleeEnding, king, player);
+        BossNPC king = npcFactory.createBossNPC("KingBoss", itemFactory);
+        TalkScene kingScene = sceneFactory.createTalkScene("TalkScene", "Throne", kingDefeatScene, fleeEnding, king, player);
         ArrayList<NPC> enemies = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             enemies.add(npcFactory.createSimpleNPC("CastleGuard", itemFactory));
@@ -144,7 +144,7 @@ public class Story implements Serializable {
         cityScene.addAction(new Action("Sneak into the sewers."), sewerScene);
         Scene forestScene = sceneFactory.createSimpleScene("Scene", "Night Forest", "You enter the forest. Before you are two paths. You can see spider webs on the right path, and you hear shady voices on the path to the left. Which path will you take?");
         BossNPC spiderBoss = npcFactory.createBossNPC("SpiderBoss", itemFactory);
-        Scene spiderBossScene = sceneFactory.createTalkScene("FightScene", "Night Forest", cityScene, null, spiderBoss, player);
+        Scene spiderBossScene = sceneFactory.createTalkScene("TalkScene", "Night Forest", cityScene, null, spiderBoss, player);
         ArrayList<NPC> smallSpiderEnemies = new ArrayList<>();
         for(int i = 0; i < 4; i++){
             smallSpiderEnemies.add(npcFactory.createSimpleNPC("Spider", itemFactory));
@@ -162,7 +162,7 @@ public class Story implements Serializable {
         forestScene.addAction(new Action("Take the left path."), forestBanditScene);
         Scene villageScene = sceneFactory.createSimpleScene("Scene", "Village", "You stand in the center of a village. You see a trader, a villager, a guard standing around and at the edge of the village you see some shady figures. What do you want to do?");
         TalkingNPC villageTrader = npcFactory.createTalkingNPC("Trader", traderDialogue(), itemFactory);
-        Scene villageTraderScene = sceneFactory.createTalkScene("Trader", "Village", villageScene, villageScene, villageTrader, player);
+        Scene villageTraderScene = sceneFactory.createTalkScene("TalkScene", "Village", villageScene, villageScene, villageTrader, player);
         ArrayList<NPC> guard = new ArrayList<>();
         guard.add(npcFactory.createSimpleNPC("Guard", itemFactory));
         Scene villageGuardScene = sceneFactory.createFightScene("FightScene", "Village", "You approach the guard. He looks at you suspiciously, as if to estimate if you are dangerous.", player, villageScene, villageScene, guard);

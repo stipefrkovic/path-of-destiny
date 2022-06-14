@@ -84,7 +84,7 @@ public class NPCFactory implements Serializable {
     public BossNPC createBossNPC(String type, ItemFactory factory){
         try {
             Class npcType = register.get(type);
-            return (BossNPC) npcType.getDeclaredConstructor(String.class, ItemFactory.class).newInstance(factory);
+            return (BossNPC) npcType.getDeclaredConstructor(ItemFactory.class).newInstance(factory);
         } catch (Exception e) {
             return null;
         }

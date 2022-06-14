@@ -2,6 +2,7 @@ package nl.rug.oop.items;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -52,7 +53,8 @@ public class ItemFactory implements Serializable {
      */
     public ArrayList<Item> createRandomItems(int numberOfItems){
         ArrayList<Item> items = new ArrayList<>();
-        String[] itemsArray = (String[]) register.keySet().toArray();
+        Object[] objectArray = register.keySet().toArray();
+        String[] itemsArray = Arrays.copyOf(objectArray, objectArray.length, String[].class);
         for (int i = 0; i < numberOfItems; i++) {
             items.add(createItem(itemsArray[(int) (Math.random()*itemsArray.length)]));
         }
