@@ -43,7 +43,7 @@ public class Mage extends Player{
     }
 
     @Override
-    public String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene) {
+    public String fight(Action action, NPC target, List<NPC> allEnemies, Scene scene) {
         return switch (action.getActionName()) {
             case "mana bolt" -> manaBoltAction(target);
             case "heal" -> healAction();

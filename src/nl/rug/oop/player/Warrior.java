@@ -92,10 +92,7 @@ public  class Warrior extends Player{
     }
 
     @Override
-    public String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene) {
-        if(isStunned()){
-            return this.getName() + " is stunned. ";
-        }
+    public String fight(Action action, NPC target, List<NPC> allEnemies, Scene scene) {
         return switch (action.getActionName()) {
             case "hit" -> hitAction(target);
             case "block" -> blockAction();

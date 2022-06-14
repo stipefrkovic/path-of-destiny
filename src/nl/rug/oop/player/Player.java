@@ -78,7 +78,16 @@ public abstract class Player extends Entity implements Serializable {
 
     public abstract List<Action> getFightActions();
 
-    public abstract String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene);
+    public String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene){
+        if(isStunned()){
+            return this.getName() + " is stunned. ";
+        }
+        updateEffects();
+        return fight(action, target, allEnemies, scene);
+    }
+
+    protected abstract String fight(Action action, NPC target, List<NPC> allEnemies, Scene scene);
+
 
     public void addKill(String type){
         if(killCounter.containsKey(type)){
@@ -103,6 +112,7 @@ public abstract class Player extends Entity implements Serializable {
 
 
     public String useItem(String itemName){
+        updateEffects();
         for (Item item:inventoryItems) {
             if(Objects.equals(item.getItemAdjective(), itemName)){
                 inventoryItems.remove(item);
