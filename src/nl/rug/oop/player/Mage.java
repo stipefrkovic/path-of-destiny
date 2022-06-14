@@ -52,17 +52,21 @@ public class Mage extends Player{
         };
     }
 
-    private String manaBoltAction(NPC target){
+    private String manaBoltAction(NPC target) {
         int cost = 5;
         float damage = 1;
-        if(cost > mana){
+        if (cost > mana) {
             return "Not enough mana!";
-        }else{
+        } else {
             mana -= cost;
             damage *= strength;
-            target.takeDamage(this, (int)damage);
+            String description = isConfused((int) damage);
+            if (description.equals("")) {
+                target.takeDamage(this, (int) damage);
+                description = "You used mana bolt on " + target.getName() + " for " + damage + " damage.";
+            }
+            return description;
         }
-        return "You used mana bolt on " + target.getName() + " for " + damage + " damage.";
     }
 
     private String healAction(){
@@ -78,19 +82,23 @@ public class Mage extends Player{
         return "You healed for " + healing + ". Your current health is " + getHealth() + ".";
     }
 
-    private String chainLightningAction(List<NPC> allEnemies){
+    private String chainLightningAction(List<NPC> allEnemies) {
         int cost = 30;
         float damage = 5;
-        if(cost > mana){
+        if (cost > mana) {
             return "Not enough mana!";
-        }else{
+        } else {
             mana -= cost;
             damage *= strength;
-            for (NPC npc:allEnemies) {
-                npc.takeDamage(this, (int)damage);
+            String description = isConfused((int) damage);
+            if (description.equals("")) {
+                for (NPC npc : allEnemies) {
+                    npc.takeDamage(this, (int) damage);
+                }
+                description = "You hit all enemies with lightning chain for " + damage + " damage.";
             }
+            return description;
         }
-        return "You hit all enemies with lightning chain for " + damage + " damage.";
     }
 
     @Override

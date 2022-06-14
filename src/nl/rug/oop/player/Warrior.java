@@ -8,6 +8,7 @@ import nl.rug.oop.scene.Scene;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Class extends the Player class. Implements the possible player class warrior
@@ -40,17 +41,21 @@ public  class Warrior extends Player{
         return fightActions;
     }
 
-    private String hitAction(NPC target){
+    private String hitAction(NPC target) {
         int cost = 5;
         float damage = 1;
-        if(cost > stamina){
+        if (cost > stamina) {
             return "Not enough stamina";
-        }else{
+        } else {
             stamina -= cost;
             damage *= strength;
-            target.takeDamage(this, (int)damage);
+            String description = isConfused((int) damage);
+            if (description.equals("")) {
+                target.takeDamage(this, (int) damage);
+                description = "You hit " + target.getName() + " on the head for " + damage + " damage.";
+            }
+            return description;
         }
-        return "You hit " + target.getName() + " on the head for " + damage + " damage.";
     }
 
     private String blockAction(){
@@ -64,17 +69,21 @@ public  class Warrior extends Player{
         return "You block the next attack.";
     }
 
-    private String slashAction(NPC target){
+    private String slashAction(NPC target) {
         int cost = 30;
         float damage = 6;
-        if(cost > stamina){
+        if (cost > stamina) {
             return "Not enough stamina";
-        } else{
+        } else {
             stamina -= cost;
             damage *= strength;
-            target.takeDamage(this, (int)damage);
+            String description = isConfused((int) damage);
+            if (description.equals("")) {
+                target.takeDamage(this, (int) damage);
+                description = "You slash " + target.getName() + " for " + damage + " damage.";
+            }
+            return description;
         }
-        return "You slash " + target.getName() + " for " + damage + " damage.";
     }
 
     @Override
