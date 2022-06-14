@@ -57,9 +57,9 @@ public class Story {
         Scene deadEnding = sceneFactory.createSimpleScene("Scene", "DeadEnding", "You have killed the evil king, but at what cost? Everywhere you look you see the victims of your ruthless murders to supplant the evil king. You are now the ruler, but where there once was life there is only death. Generations later while your name has already been lost your title \"The ruler of death\" still remains, as a warning for generations to come.");
         Scene fleeEnding = sceneFactory.createSimpleScene("Scene", "FleeEnding", "You have made it to the king, but as you step into the throne hall you can tell with a single glance that you can not defeat the king. So you do the only sensible thing and run. You run without looking back. Now you are living a quiet live in another country and while you still feel guilty about your decision, you are absolutely sure that fighting the king would have only resulted in your death.");
         HashMap<ConditionedAction, Scene> conditionedActions = new HashMap<>();
-        conditionedActions.put(new AmountKillsAction("Continue", 0, 10), goodEnding);
-        conditionedActions.put(new AmountKillsAction("Continue", 11, 20), badEnding);
-        conditionedActions.put(new AmountKillsAction("Continue", 21, 999), deadEnding);
+        conditionedActions.put(new AmountKillsAction("Continue", 0, 0), goodEnding);
+        conditionedActions.put(new AmountKillsAction("Continue", 1, 3), badEnding);
+        conditionedActions.put(new AmountKillsAction("Continue", 4, 4), deadEnding);
         Scene kingDefeatScene = new EvaluatingScene("Castle", "The king draws a last shuddering breath and falls over, the wounds on his body too severe to keep his soul in the mortal realm.",conditionedActions, player);
         BossNPC king = npcFactory.createBossNPC("BossKing", itemFactory);
         TalkScene kingScene = sceneFactory.createTalkScene("FightScene", "Castle", kingDefeatScene, fleeEnding, king, player);
@@ -85,8 +85,8 @@ public class Story {
         TalkingNPC cityTrader = npcFactory.createTalkingNPC("Trader", traderDialogue(), itemFactory);
         Scene cityTraderScene = sceneFactory.createTalkScene("Trader", "city", cityScene, cityScene, cityTrader, player);
         Dialogue helpfulCitizenDialogue = dialogueFactory.createDialogue("Scene", "I think I can help you.", new HashMap<>(), SceneChange.CURRENT_SCENE);
-        helpfulCitizenDialogue.addAnswer("Help me defeat the king?", null);
-        helpfulCitizenDialogue.addAnswer("I have no clue what you are talking about", null);
+        helpfulCitizenDialogue.addAnswer("Help me defeat the king?", new Dialogue(SceneChange.NEXT_SCENE));
+        helpfulCitizenDialogue.addAnswer("I have no clue what you are talking about", new Dialogue(SceneChange.NEXT_SCENE));
         TalkingNPC helpfulCitizen = npcFactory.createTalkingNPC("Villager", helpfulCitizenDialogue, itemFactory);
         Scene helpfulCitizenScene = sceneFactory.createTalkScene("TalkScene", "city", cityScene, cityScene, helpfulCitizen, player);
         List<String> citizenTexts = new ArrayList<>();
@@ -106,8 +106,8 @@ public class Story {
         TalkingNPC citizen = npcFactory.createTalkingNPC("Villager", citizenDialogue, itemFactory);
         Scene citizenScene = sceneFactory.createTalkScene("TalkScene", "city", cityScene, cityScene, citizen, player);
         Dialogue creepyCitizenDialogue = dialogueFactory.createDialogue("Scene", "I'm afraid of ghosts! They are everywhere.", new HashMap<>(), SceneChange.CURRENT_SCENE);
-        creepyCitizenDialogue.addAnswer("....", null);
-        creepyCitizenDialogue.addAnswer("I understand. Salt helps against ghosts where I come from, maybe it does for you too?", null);
+        creepyCitizenDialogue.addAnswer("....", new Dialogue(SceneChange.NEXT_SCENE));
+        creepyCitizenDialogue.addAnswer("I understand. Salt helps against ghosts where I come from, maybe it does for you too?", new Dialogue(SceneChange.NEXT_SCENE));
         TalkingNPC creepyCitizen = npcFactory.createTalkingNPC("Villager", creepyCitizenDialogue, itemFactory);
         Scene creepyCitizenScene = sceneFactory.createTalkScene("TalkScene", "city", cityScene, cityScene, creepyCitizen, player);
         ArrayList<NPC> cityGuards = new ArrayList<>();
@@ -122,10 +122,9 @@ public class Story {
         cityScene.addAction(new Action("Approach the city guards."), cityGuardsScene);
         cityScene.addAction(new Action("Sneak into the sewers."), sewerScene);
         Scene forestScene = sceneFactory.createSimpleScene("scene", "forest", "You enter the forest. Before you are two paths. You can see spider webs on the right path, and you hear shady voices on the path to the left. Which path will you take?");
-        ArrayList<NPC> spiderBoss = new ArrayList<>();
-        spiderBoss.add(npcFactory.createBossNPC("SpiderBoss", itemFactory));
+        BossNPC spiderBoss = npcFactory.createBossNPC("SpiderBoss", itemFactory);
         //TODO:maybe make this scene a talk scene instead
-        Scene spiderBossScene = sceneFactory.createFightScene("FightScene", "forest", "After you have managed to slay the spiders, an even bigger challenge presents itself. A huge spider comes down from the trees and lands before you.", player, null, cityScene, spiderBoss);
+        Scene spiderBossScene = sceneFactory.createTalkScene("FightScene", "forest", cityScene, null, spiderBoss, player);
         ArrayList<NPC> smallSpiderEnemies = new ArrayList<>();
         for(int i = 0; i < 4; i++){
             smallSpiderEnemies.add(npcFactory.createSimpleNPC("Spider", itemFactory));
@@ -148,11 +147,12 @@ public class Story {
         guard.add(npcFactory.createSimpleNPC("Guard", itemFactory));
         Scene villageGuardScene = sceneFactory.createFightScene("FightScene", "village", "You approach the guard. He looks at you suspiciously, as if to estimate if you are dangerous.", player, villageScene, villageScene, guard);
         HashMap<Action, Scene> villageActions = new HashMap<>();
-        villageActions.put(null, null);
+        villageActions.put(new Action("Pick up shiny object"), villageScene);
+        villageActions.put(new Action("Do not pick up the shiny object"), villageScene);
         HashMap<Action, List<Item>> villageLoot = new HashMap<>();
         ArrayList<Item> possibleLoot = new ArrayList<>();
         possibleLoot.add(itemFactory.createItem("Health Potion"));
-        villageLoot.put(null ,possibleLoot);
+        villageLoot.put(new Action("Pick up shiny object"), possibleLoot);
         Scene villageEdge = sceneFactory.createLootScene("LootScene", "village", "After you defeat the bandits you see something shiny on the ground. You move towards it to pick it up.", villageActions, villageLoot, player);
         ArrayList<NPC> bandits = new ArrayList<>();
         for(int i = 0; i < 2; i++){

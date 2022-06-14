@@ -8,6 +8,7 @@ import nl.rug.oop.scene.Scene;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Class extends the Player class. Implements the possible player class warrior
@@ -28,35 +29,37 @@ public  class Warrior extends Player{
         fightActions.add(new Action("slash"));
     }
 
-    public int getStamina() {
+    public int getEnergy() {
         return stamina;
     }
 
-    public void setStamina(int stamina) {
-        this.stamina = stamina;
+    public void setEnergy(int stamina) {
+        this.stamina = Math.min(MAX_STAMINA, stamina);
     }
 
-    @Override
     public List<Action> getFightActions() {
         return fightActions;
     }
 
-    private String hitAction(NPC target){
+    private String hitAction(NPC target) {
         int cost = 5;
-        float damage = 5;
-        if(cost > stamina){
+        float damage = 1;
+        if (cost > stamina) {
             return "Not enough stamina";
-        }else{
+        } else {
             stamina -= cost;
             damage *= strength;
-            target.takeDamage(this, (int)damage);
+            String description = isConfused((int) damage);
+            if (description.equals("")) {
+                target.takeDamage(this, (int) damage);
+                description = "You hit " + target.getName() + " on the head for " + damage + " damage.";
+            }
+            return description;
         }
-        return "You hit " + target.getName() + " on the head for " + damage + " damage.";
     }
 
     private String blockAction(){
         int cost = 10;
-        float damage = 0;
         if(cost > stamina){
             return "Not enough stamina";
         } else{
@@ -66,17 +69,21 @@ public  class Warrior extends Player{
         return "You block the next attack.";
     }
 
-    private String slashAction(NPC target){
-        int cost = 20;
-        float damage = 10;
-        if(cost > stamina){
+    private String slashAction(NPC target) {
+        int cost = 30;
+        float damage = 6;
+        if (cost > stamina) {
             return "Not enough stamina";
-        } else{
+        } else {
             stamina -= cost;
             damage *= strength;
-            target.takeDamage(this, (int)damage);
+            String description = isConfused((int) damage);
+            if (description.equals("")) {
+                target.takeDamage(this, (int) damage);
+                description = "You slash " + target.getName() + " for " + damage + " damage.";
+            }
+            return description;
         }
-        return "You slash " + target.getName() + " for " + damage + " damage.";
     }
 
     @Override
@@ -94,7 +101,7 @@ public  class Warrior extends Player{
     }
 
     @Override
-    public String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene) {
+    public String fight(Action action, NPC target, List<NPC> allEnemies, Scene scene) {
         return switch (action.getActionName()) {
             case "hit" -> hitAction(target);
             case "block" -> blockAction();

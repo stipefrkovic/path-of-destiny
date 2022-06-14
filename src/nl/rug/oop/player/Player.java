@@ -1,5 +1,6 @@
 package nl.rug.oop.player;
 
+import nl.rug.oop.effects.Effect;
 import nl.rug.oop.items.Item;
 import nl.rug.oop.npc.Entity;
 import nl.rug.oop.npc.NPC;
@@ -17,9 +18,6 @@ import java.util.Objects;
  * @author Joni Baarda
  */
 public abstract class Player extends Entity implements Serializable {
-
-    //Just because I put abstract methods in here does not mean that they have to be abstract
-    public abstract List<Action> getFightActions();
     private HashMap<String, Integer> killCounter = new HashMap<>();
     private int totalKills = 0;
     List<Item> inventoryItems = new ArrayList<>();
@@ -56,11 +54,40 @@ public abstract class Player extends Entity implements Serializable {
         return inventoryItems;
     }
 
+    public HashMap<String, Integer> getInventoryCount() {
+        HashMap<String, Integer> inventoryCount = new HashMap<>();
+        List<String> differentItems = new ArrayList<>();
+        for (Item item : inventoryItems) {
+            if(!differentItems.contains(item.getItemAdjective())){
+                differentItems.add(item.getItemAdjective());
+                inventoryCount.put(item.getItemAdjective(), 0);
+            }
+        }
+        for (Item item : inventoryItems) {
+            inventoryCount.put(item.getItemAdjective(), inventoryCount.get(item.getItemAdjective()) + 1);
+        }
+        return inventoryCount;
+    }
+
+    public abstract int getEnergy();
+
+    public abstract void setEnergy(int energy);
     public void update(){
         //TODO:implement update method
     }
 
-    public abstract String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene);
+    public abstract List<Action> getFightActions();
+
+    public String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene){
+        if(isStunned()){
+            return this.getName() + " is stunned. ";
+        }
+        updateEffects();
+        return fight(action, target, allEnemies, scene);
+    }
+
+    protected abstract String fight(Action action, NPC target, List<NPC> allEnemies, Scene scene);
+
 
     public void addKill(String type){
         if(killCounter.containsKey(type)){
@@ -73,11 +100,8 @@ public abstract class Player extends Entity implements Serializable {
 
 
     //The String is supposed to return what actually happened, so for example: You lost 3 Healing potions and 2 Mana potions.
-    //done ish
     public String removeSpecifiedItems(List<Item> itemsToRemove){
         StringBuilder StringItemsToRemove = new StringBuilder();
-        //int counter = 0;
-        //probably do the other for statement to be able to compare items
         for (Item item:itemsToRemove) {
             inventoryItems.remove(item);
             StringItemsToRemove.append(item.getItemAdjective()).append(", ");
@@ -88,6 +112,7 @@ public abstract class Player extends Entity implements Serializable {
 
 
     public String useItem(String itemName){
+        updateEffects();
         for (Item item:inventoryItems) {
             if(Objects.equals(item.getItemAdjective(), itemName)){
                 inventoryItems.remove(item);
@@ -108,9 +133,6 @@ public abstract class Player extends Entity implements Serializable {
 
     public abstract String consumeAppropriately();
 
-    //The String is supposed to return what actually happened, so for example: You gained 12 Gold and 3 Healing potions.
-    //The amount of gold might be negative, so then the message should change
-    //sort the lists
     public String addLoot(int gold, List<Item> items){
         int healthPotionCount = 0; int manaPotionCount = 0; int staminaPotionCount = 0; int removeEffectPotionCount = 0;
         this.gold += gold;
