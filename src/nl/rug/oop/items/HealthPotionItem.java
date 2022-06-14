@@ -9,7 +9,7 @@ import nl.rug.oop.player.Player;
 public class HealthPotionItem implements Item {
     @Override
     public void use(Player player) {
-        player.useItem("health");
+        player.useHealthPotion();
     }
 
     @Override

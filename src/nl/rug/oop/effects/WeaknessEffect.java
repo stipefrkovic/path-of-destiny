@@ -9,11 +9,20 @@ import nl.rug.oop.npc.Entity;
 public class WeaknessEffect implements Effect {
     @Override
     public void update(Entity entity) {
-        entity.executeEffect("weakness");
+        if (lifetime == 0) {
+            entity.removeEffect(this);
+        } else {
+            entity.changeStrengthTemporary(0.5F);
+        }
     }
 
     @Override
     public String getEffectAdjective() {
         return "weakened";
+    }
+
+    @Override
+    public String getName() {
+        return "Weakness";
     }
 }

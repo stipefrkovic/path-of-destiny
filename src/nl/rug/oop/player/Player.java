@@ -110,28 +110,11 @@ public abstract class Player extends Entity implements Serializable {
         return "You lost " + (temp.substring(0, temp.length()-2)) + ".";
     }
 
+    public abstract void useAppropriatePotion();
 
-    public String useItem(String itemName){
-        updateEffects();
-        for (Item item:inventoryItems) {
-            if(Objects.equals(item.getItemAdjective(), itemName)){
-                inventoryItems.remove(item);
-                switch (itemName) {
-                    case "effect":
-                        //removes effect based on user's choice
-                        return "You used an effect remove potion and removed " + "effect" + ".";
-                    case "health":
-                        health = Math.min(health + 10, maxHealth);
-                        return "You used a health potion and gained 10 health";
-                    default:
-                        return consumeAppropriately();
-                }
-            }
-        }
-        return null;
+    public void useHealthPotion() {
+        health = Math.min(health + 10, maxHealth);
     }
-
-    public abstract String consumeAppropriately();
 
     public String addLoot(int gold, List<Item> items){
         int healthPotionCount = 0; int manaPotionCount = 0; int staminaPotionCount = 0; int removeEffectPotionCount = 0;

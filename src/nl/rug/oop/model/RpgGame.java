@@ -3,45 +3,57 @@ package nl.rug.oop.model;
 import nl.rug.oop.npc.NPC;
 import nl.rug.oop.player.Player;
 import nl.rug.oop.scene.Action;
+import nl.rug.oop.scene.NPCScene;
 import nl.rug.oop.scene.Scene;
+import nl.rug.oop.story.Story;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
-public class RpgGame implements OutputEventListener {
+/**
+ * The main model which keeps track of the relevant RPG game specifics and notifies game view based on the input from
+ * the game controller.
+ * @author Andro Erdelez
+ */
+public class RpgGame {
     private Scene scene;
     private Player player;
-    Collection<PropertyChangeListener> listeners = new ArrayList<>();
+    private Story story;
+    Collection<OutputEventListener> listeners = new ArrayList<>();
 
-    public RpgGame(Scene scene, Player player) {
-        this.scene = scene;
-        this.player = player;
+    /**
+     * Initializes the relevant RPG game specifics.
+     */
+    public RpgGame() {
+        story = new Story();
+        scene = story.getBeginningScene();
+        player = null;
     }
 
     /**
-     * Method adds a listener to the array of listeners in the model.
-     * @param listener listener
+     * Adds a listener to the array of listeners in the model.
+     * @param listener Listener.
      */
-    public void addListener(PropertyChangeListener listener) {
+    public void addListener(OutputEventListener listener) {
         listeners.add(listener);
     }
 
     /**
-     * Starts a new game
-     * @param scene Initial scene of a new game
-     * @param player Player class picked by a user
-     * @return Game (RpgGame object) with the initial scene and picked player class
+     * Starts a new game.
+     * @return Game (RpgGame object) with the initial scene and picked player class.
      */
-    public static RpgGame startGame(Scene scene, Player player) {
-        return new RpgGame(scene, player);
+    public RpgGame startGame() {
+        return new RpgGame();
     }
 
     /**
-     * Saves a game (RpgGame object) to a file called game.obj
-     * @param game Game to save
+     * Saves a game (RpgGame object) to a file called game.obj.
+     * @param game Game to save.
      */
     public static void saveGame(RpgGame game) {
         try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("game.obj"))) {
@@ -53,10 +65,10 @@ public class RpgGame implements OutputEventListener {
     }
 
     /**
-     * Loads a game (RpgGame object) from a file called game.obj
+     * Loads a game (RpgGame object) from a file called game.obj.
      * @return Game loaded from the file
      */
-    public static RpgGame loadGame() {
+    public RpgGame loadGame() {
         RpgGame game = null;
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream("game.obj"))) {
             game = (RpgGame) input.readObject();
@@ -66,13 +78,25 @@ public class RpgGame implements OutputEventListener {
         return game;
     }
 
+    /**
+     * Notifies the appropriate listeners based on the name of the action. If
+     * @param a Name of the given action.
+     */
     public void doAction(String a) {
-        scene = scene.takeAction(a);
-        updateScene(scene.getActions(), scene.getDescription(), scene.getImage(), scene.getNPCs());
-    }
+        scene = scene.takeAction(new Action(a));
+        if(a.equals("Warrior") || a.equals("Mage")) {
+            //player = ;
+            //story = story.createStory(player);
+        }
 
-    @Override
-    public void updateScene(List<String> actions, String description, String image, List<NPC> npcs) {
-
+        Iterator<OutputEventListener> allListeners = listeners.iterator();
+        while (allListeners.hasNext()) {
+            if(scene instanceof NPCScene) {
+                NPCScene npcScene = (NPCScene) scene;
+                allListeners.next().updateScene(scene.getActions(), scene.getDescription(), scene.getImage(), npcScene.getNPCs(), player);
+            } else {
+                allListeners.next().updateScene(scene.getActions(), scene.getDescription(), scene.getImage(), null, player);
+            }
+        }
     }
 }

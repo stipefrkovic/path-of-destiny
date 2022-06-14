@@ -9,11 +9,20 @@ import nl.rug.oop.npc.Entity;
 public class PoisonEffect implements Effect{
     @Override
     public void update(Entity entity) {
-        entity.executeEffect("poison");
+        if (lifetime == 0) {
+            entity.removeEffect(this);
+        } else {
+            entity.changeHealth(5);
+        }
     }
 
     @Override
     public String getEffectAdjective() {
         return "poisoned";
+    }
+
+    @Override
+    public String getName() {
+        return "Poison";
     }
 }

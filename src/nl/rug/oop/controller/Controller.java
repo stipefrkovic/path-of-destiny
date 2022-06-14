@@ -13,6 +13,16 @@ public class Controller implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        game.doAction(e.getActionCommand());
+        String action = e.getActionCommand();
+        switch (action) {
+            case "Start":
+                game.startGame();
+            case "Load":
+                game.loadGame();
+            case "Save":
+                RpgGame.saveGame(game);
+            default:
+                game.doAction(action);
+        }
     }
 }

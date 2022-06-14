@@ -9,7 +9,7 @@ import nl.rug.oop.player.Player;
 public class RemoveEffectPotion implements Item {
     @Override
     public void use(Player player) {
-        player.useItem("effect");
+        player.removeAllEffects();
     }
 
     @Override

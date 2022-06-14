@@ -36,7 +36,7 @@ public class GameView extends JFrame implements OutputEventListener {
     JPanel statsPanel = new JPanel();
     JLabel healthLabel = new JLabel();
     JLabel playerHealth = new JLabel();
-    JLabel energylabel = new JLabel();
+    JLabel energyLabel = new JLabel();
     JLabel playerEnergy = new JLabel();
     JLabel strengthLabel = new JLabel();
     JLabel playerStrength = new JLabel();
@@ -106,8 +106,8 @@ public class GameView extends JFrame implements OutputEventListener {
         healthLabel.setIcon(healthIcon);
         healthLabel.setToolTipText("Health");
         ImageIcon energyIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Energy.png")));
-        energylabel.setIcon(energyIcon);
-        energylabel.setToolTipText("Energy");
+        energyLabel.setIcon(energyIcon);
+        energyLabel.setToolTipText("Energy");
         ImageIcon strengthIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Strength.png")));
         strengthLabel.setIcon(strengthIcon);
         strengthLabel.setToolTipText("Strength");
@@ -127,7 +127,7 @@ public class GameView extends JFrame implements OutputEventListener {
         statsPanel.add(saveButton);
         statsPanel.add(healthLabel);
         statsPanel.add(playerHealth);
-        statsPanel.add(energylabel);
+        statsPanel.add(energyLabel);
         statsPanel.add(playerEnergy);
         statsPanel.add(strengthLabel);
         statsPanel.add(playerStrength);
@@ -257,8 +257,8 @@ public class GameView extends JFrame implements OutputEventListener {
             energyType = "Mana";
             energyIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Mana.gif")));
         }
-        energylabel.setIcon(energyIcon);
-        energylabel.setToolTipText(energyType);
+        energyLabel.setIcon(energyIcon);
+        energyLabel.setToolTipText(energyType);
 
         playerHealth.setText(health);
         playerEnergy.setText(energy);

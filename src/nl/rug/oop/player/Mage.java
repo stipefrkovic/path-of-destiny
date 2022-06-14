@@ -102,8 +102,7 @@ public class Mage extends Player{
     }
 
     @Override
-    public String consumeAppropriately() {
-        mana = Math.min(MAX_MANA, mana + 10);
-        return "You used a mana potion and gained 10 mana.";
+    public void useAppropriatePotion() {
+        mana = Math.min(mana + 10, MAX_MANA);
     }
 }

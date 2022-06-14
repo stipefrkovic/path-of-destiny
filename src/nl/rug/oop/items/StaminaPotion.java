@@ -1,6 +1,8 @@
 package nl.rug.oop.items;
 
+import nl.rug.oop.player.Mage;
 import nl.rug.oop.player.Player;
+import nl.rug.oop.player.Warrior;
 
 /**
  *
@@ -9,7 +11,9 @@ import nl.rug.oop.player.Player;
 public class StaminaPotion implements Item {
     @Override
     public void use(Player player) {
-        player.useItem("stamina");
+        if(player instanceof Warrior) {
+            player.useAppropriatePotion();
+        }
     }
 
     @Override
