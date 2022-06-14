@@ -1,7 +1,6 @@
 package nl.rug.oop.scene;
 
 import nl.rug.oop.items.Item;
-import nl.rug.oop.npc.Dialogue;
 import nl.rug.oop.npc.NPC;
 import nl.rug.oop.npc.TalkingNPC;
 import nl.rug.oop.player.Player;

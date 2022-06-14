@@ -1,7 +1,10 @@
-package nl.rug.oop.npc;
+package nl.rug.oop.dialogue;
 
+import nl.rug.oop.dialogue.Dialogue;
+import nl.rug.oop.dialogue.Transaction;
 import nl.rug.oop.items.Item;
 import nl.rug.oop.items.ItemFactory;
+import nl.rug.oop.npc.SceneChange;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +24,8 @@ public class DialogueFactory {
     public DialogueFactory(){
         registerDialogue("Dialogue", Dialogue.class);
         registerDialogue("Transaction", Transaction.class);
+        registerDialogue("IncreaseStrengthDialogue", IncreaseStrengthDialogue.class);
+        registerDialogue("IncreaseMaHealthDialogue", IncreaseMaxHealthDialogue.class);
     }
 
     /**
@@ -62,6 +67,16 @@ public class DialogueFactory {
         try {
             Class dialogueType = register.get(type);
             return (Transaction) dialogueType.getDeclaredConstructor(Dialogue.class, int.class, List.class, List.class).newInstance(nextDialogue, goldTransfer, playerGains, playerLosses);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+
+    public Dialogue createPepTalk(String type, String text, HashMap<String, Dialogue> possibleAnswers, SceneChange whichSceneNext, float value){
+        try {
+            Class dialogueType = register.get(type);
+            return (Dialogue) dialogueType.getDeclaredConstructor(String.class, HashMap.class, SceneChange.class, Float.class).newInstance(text, possibleAnswers, whichSceneNext, value);
         } catch (Exception e) {
             return null;
         }
