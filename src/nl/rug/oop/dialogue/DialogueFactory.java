@@ -25,7 +25,7 @@ public class DialogueFactory {
         registerDialogue("Dialogue", Dialogue.class);
         registerDialogue("Transaction", Transaction.class);
         registerDialogue("IncreaseStrengthDialogue", IncreaseStrengthDialogue.class);
-        registerDialogue("IncreaseMaHealthDialogue", IncreaseMaxHealthDialogue.class);
+        registerDialogue("IncreaseMaxHealthDialogue", IncreaseMaxHealthDialogue.class);
     }
 
     /**
