@@ -87,7 +87,7 @@ public class GameView extends JFrame implements OutputEventListener {
         welcomeCard.setBackground(color);
         welcomeCard.add(startButton);
 
-        contentPane.add(welcomeCard);
+        this.add(welcomeCard, "Welcome");
     }
 
     private void setSceneCard() {
@@ -228,15 +228,19 @@ public class GameView extends JFrame implements OutputEventListener {
         sceneCard.add(eastPanel, BorderLayout.EAST);
         sceneCard.add(southPane, BorderLayout.SOUTH);
 
-        contentPane.add(sceneCard);
+        this.add(sceneCard, "Scene");
     }
 
     private void updateSceneCard(List<String> actions, String description, String image, List<NPC> npcs, Player player) {
+        System.out.println("SCENE UPDATED");
+
         updateNorthPanel(player);
         updateWestPanel(actions);
         updateCenterPanel(image);
         updateEastPanel(npcs);
         updateSouthPane(description);
+
+        cardLayout.show(this, "Scene");
 
         contentPane.revalidate();
         contentPane.repaint();
