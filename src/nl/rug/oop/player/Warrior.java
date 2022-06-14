@@ -28,15 +28,14 @@ public  class Warrior extends Player{
         fightActions.add(new Action("slash"));
     }
 
-    public int getStamina() {
+    public int getEnergy() {
         return stamina;
     }
 
-    public void setStamina(int stamina) {
-        this.stamina = stamina;
+    public void setEnergy(int stamina) {
+        this.stamina = Math.min(MAX_STAMINA, stamina);
     }
 
-    @Override
     public List<Action> getFightActions() {
         return fightActions;
     }

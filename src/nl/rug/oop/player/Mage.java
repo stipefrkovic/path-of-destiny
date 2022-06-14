@@ -27,12 +27,14 @@ public class Mage extends Player{
         fightActions.add(new Action("chain lightning"));
     }
 
-    public int getMana() {
+    @Override
+    public int getEnergy() {
         return mana;
     }
 
-    public void setMana(int mana) {
-        this.mana = mana;
+    @Override
+    public void setEnergy(int mana) {
+        this.mana = Math.min(MAX_MANA, mana);
     }
 
     @Override
@@ -78,7 +80,7 @@ public class Mage extends Player{
 
     private String chainLightningAction(List<NPC> allEnemies){
         int cost = 25;
-        float damage = 25;
+        float damage = 15;
         if(cost > mana){
             return "Not enough mana!";
         }else{
