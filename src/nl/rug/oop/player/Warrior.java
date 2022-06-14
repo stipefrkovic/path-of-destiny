@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Class extends the Player class. Implements the possible player class warrior
+ * Warrior class extends the Player class. Implements the possible player class warrior
  * @author Joni Baarda
  */
 public  class Warrior extends Player{
