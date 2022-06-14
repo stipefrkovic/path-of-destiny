@@ -13,7 +13,7 @@ public class AmountKillsAction implements ConditionedAction{
     private int upperAmountKills;
 
     /**
-     * Sets the name of the action, as well as the lower and upper bound of the amount of kills that satisfy the condition (both ends are inclusive).
+     * Sets the name of the action, as well as the lower and upper bound of the amount of kills of villagers that satisfy the condition (both ends are inclusive).
      * @param actionName The name of the action.
      * @param lowerAmountKills The lower bound of acceptable kills (inclusive).
      * @param upperAmountKills The upper bound of acceptable kills (inclusive).
@@ -25,13 +25,13 @@ public class AmountKillsAction implements ConditionedAction{
     }
 
     /**
-     * Evaluates if the kill count is inside the specified bounds.
+     * Evaluates if the kill count of villagers is inside the specified bounds.
      * @param player The player that plays the game.
      * @return If the kill count is inside the specified bounds.
      */
     @Override
     public boolean evaluateCondition(Player player) {
-        int totalKills = player.getTotalKills();
+        int totalKills = player.getKillsForType("Villager");
         return lowerAmountKills <= totalKills && upperAmountKills >= totalKills;
     }
 

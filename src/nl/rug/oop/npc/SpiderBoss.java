@@ -1,5 +1,7 @@
 package nl.rug.oop.npc;
 
+import nl.rug.oop.dialogue.Dialogue;
+import nl.rug.oop.effects.ConfusionEffect;
 import nl.rug.oop.effects.PoisonEffect;
 import nl.rug.oop.effects.WeaknessEffect;
 import nl.rug.oop.items.ItemFactory;
@@ -48,7 +50,7 @@ public class SpiderBoss extends BossNPC{
      */
     @Override
     protected String onFirstBelow75Health(Player player, Scene currentScene, Action action) {
-        return player.addEffect(new WeaknessEffect());
+        return player.addEffect(new ConfusionEffect());
     }
 
     /**

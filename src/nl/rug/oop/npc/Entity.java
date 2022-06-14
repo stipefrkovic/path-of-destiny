@@ -79,6 +79,14 @@ public abstract class Entity implements Serializable {
         removeEffects.addAll(effects);
     }
 
+    public List<String> getEffects(){
+        List<String> effectsNames = new ArrayList<>();
+        for (Effect effect:effects) {
+            effectsNames.add(effect.getName());
+        }
+        return effectsNames;
+    }
+
     /**
      * Returns the maximal health of the entity.
      * @return The maximal health of the entity.

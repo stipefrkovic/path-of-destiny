@@ -1,5 +1,7 @@
 package nl.rug.oop.test;
 
+import nl.rug.oop.dialogue.Dialogue;
+import nl.rug.oop.dialogue.DialogueFactory;
 import nl.rug.oop.items.ItemFactory;
 import nl.rug.oop.npc.*;
 import nl.rug.oop.player.Classless;

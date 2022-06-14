@@ -1,5 +1,7 @@
 package nl.rug.oop.npc;
 
+import nl.rug.oop.dialogue.Dialogue;
+import nl.rug.oop.dialogue.PepTalk;
 import nl.rug.oop.items.Item;
 import nl.rug.oop.player.Player;
 import nl.rug.oop.scene.Action;
@@ -43,6 +45,10 @@ public class TalkingNPC extends NPC{
     protected String takeNonFightActions(Player player, Scene currentScene, Action action) {
         if(currentDialogue.getActions().contains(action.getActionName())){
             currentDialogue = currentDialogue.answer(action.getActionName());
+            if(currentDialogue instanceof PepTalk){
+                PepTalk pepTalk = (PepTalk) currentDialogue;
+                pepTalk.powerUpPlayer(player);
+            }
             return getCurrentDescription();
         }else{
             throw new IllegalArgumentException("Illegal Action chosen");

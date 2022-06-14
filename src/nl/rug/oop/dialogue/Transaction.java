@@ -1,6 +1,7 @@
-package nl.rug.oop.npc;
+package nl.rug.oop.dialogue;
 
 import nl.rug.oop.items.Item;
+import nl.rug.oop.npc.SceneChange;
 
 import java.util.ArrayList;
 import java.util.HashMap;
