@@ -69,6 +69,7 @@ public class Story {
      * @param player the player
      * @return the village scene
      */
+    //TODO: creepy and helpful citizen dialogue
     public Scene createStory(Player player){
         Scene goodEnding = sceneFactory.createSimpleScene("Scene", "GoodEnding", "You have not strayed from the path and this shows in your rule, the land previously withering is now bursting with life. The people are happy with their new king and are celebrating your rule. It is a time of prosperity and wealth, but how long will it last?");
         Scene badEnding = sceneFactory.createSimpleScene("Scene", "BadEnding", "You have killed the evil king by any means possible and through that have managed to supplant him, at first the people are ecstatic, but they soon realize that they have just switch one evil ruler for another. One day while holding a ceremony you suddenly feel a sharp pain in your back and stumble forward. As you fall to the ground and the world grows black you hear the cheering of the gathered people. You draw your last breath and are now forever trapped in hell.");
