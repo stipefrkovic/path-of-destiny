@@ -52,6 +52,22 @@ public class Scene implements Serializable {
     }
 
     /**
+     * Removes all actions that lead to the specified Scene.
+     * @param scene The scene whose actions should be removed.
+     */
+    public void removeActionsOfScene(Scene scene){
+        List<Action> removeActions = new ArrayList<>();
+        for(Action action:this.actions.keySet()){
+            if(this.actions.get(action).equals(scene)){
+                removeActions.add(action);
+            }
+        }
+        for (Action action:removeActions) {
+            this.actions.remove(action);
+        }
+    }
+
+    /**
      * Gives the enabled actions that the user can choose from.
      * @return The list of enabled action names.
      */

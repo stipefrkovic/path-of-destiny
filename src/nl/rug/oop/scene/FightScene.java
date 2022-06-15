@@ -19,6 +19,7 @@ public class FightScene extends Scene implements Serializable, NPCScene {
     private ArrayList<Item> loot;
     private int lootGold = 0;
     private Scene fleeScene;
+    private Scene winScene;
     private Player player;
     private double retreatChance = 0.25;
 
@@ -50,6 +51,7 @@ public class FightScene extends Scene implements Serializable, NPCScene {
         }
         this.addAction(new Action("Continue", false), winScene);
         this.fleeScene = fleeScene;
+        this.winScene = winScene;
         this.enemies = enemies;
     }
 
@@ -58,7 +60,6 @@ public class FightScene extends Scene implements Serializable, NPCScene {
      * @param fleeScene The scene that the player flees to or null if fleeing should be impossible.
      */
     public void setFleeScene(Scene fleeScene){
-
         this.fleeScene = fleeScene;
         if(fleeScene != null){
             this.addAction(new Action("Flee"), fleeScene);
@@ -74,6 +75,10 @@ public class FightScene extends Scene implements Serializable, NPCScene {
      */
     @Override
     public Scene takeAction(Action action) {
+        if(fleeScene != null){
+            fleeScene.removeActionsOfScene(this);
+        }
+        winScene.removeActionsOfScene(this);
         switch (action.getActionName()){
             case "Fight":
                 List<Action> temp = player.getFightActions();

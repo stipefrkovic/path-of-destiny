@@ -57,6 +57,10 @@ public class TalkScene extends Scene implements Serializable, NPCScene {
     @Override
     public Scene takeAction(Action action) {
         if(action.getActionName().equals("Attack")){
+            if(previousScene != null){
+                previousScene.removeActionsOfScene(this);
+            }
+            nextScene.removeActionsOfScene(this);
             return super.takeAction(action);
         }
         person.takeActions(player, this, action, false);
