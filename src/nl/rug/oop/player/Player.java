@@ -102,11 +102,8 @@ public abstract class Player extends Entity implements Serializable {
     public String useItem(String itemName){
         for (Item item: inventoryItems) {
             if(itemName.equals(item.getItemAdjective())){
-                switch (itemName){
-                    case "Health Potion" -> useHealthPotion();
-                    case "Clear Effects Potion" -> removeAllEffects();
-                    default -> useAppropriatePotion();
-                }
+                System.out.println(item.getItemAdjective());
+                item.use(this);
                 inventoryItems.remove(item);
             }
         }
