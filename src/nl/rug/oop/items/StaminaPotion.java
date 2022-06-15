@@ -18,6 +18,6 @@ public class StaminaPotion implements Item {
 
     @Override
     public String getItemAdjective() {
-        return "stamina potion";
+        return "Stamina Potion";
     }
 }

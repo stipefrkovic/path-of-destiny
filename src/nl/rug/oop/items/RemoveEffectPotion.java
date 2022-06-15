@@ -14,6 +14,6 @@ public class RemoveEffectPotion implements Item {
 
     @Override
     public String getItemAdjective() {
-        return "potion removes an effect";
+        return "Clear Effects Potion";
     }
 }
