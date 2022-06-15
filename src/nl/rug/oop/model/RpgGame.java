@@ -17,6 +17,7 @@ import java.util.Iterator;
  * @author Andro Erdelez
  */
 public class RpgGame implements Serializable {
+
     /**
      * The scene in which the player is currently situated in.
      */
@@ -35,7 +36,7 @@ public class RpgGame implements Serializable {
     /**
      * Listeners which keep track of chosen actions.
      */
-    private Collection<OutputEventListener> listeners = new ArrayList<>();
+    private transient Collection<OutputEventListener> listeners = new ArrayList<>();
 
     /**
      * Initializes the relevant RPG game specifics.
@@ -84,6 +85,7 @@ public class RpgGame implements Serializable {
             this.player = game.player;
             this.scene = game.scene;
             this.story = game.story;
+            this.notifyListeners();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

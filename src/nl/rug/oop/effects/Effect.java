@@ -2,12 +2,14 @@ package nl.rug.oop.effects;
 
 import nl.rug.oop.npc.Entity;
 
+import java.io.Serializable;
+
 /**
  * An abstract class for all the possible effects in the game. It has all the functions necessary for executing
  * the effects on entities.
  * @author Andro Erdelez
  */
-public abstract class Effect {
+public abstract class Effect implements Serializable {
     /**
      * A variable which keeps track of how long the effect lasts.
      */

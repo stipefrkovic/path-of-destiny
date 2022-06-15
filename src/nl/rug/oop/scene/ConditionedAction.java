@@ -2,11 +2,13 @@ package nl.rug.oop.scene;
 
 import nl.rug.oop.player.Player;
 
+import java.io.Serializable;
+
 /**
  * Conditioned Action that is used to determine if the action is available.
  * @author Jonas Scholz
  */
-public interface ConditionedAction {
+public interface ConditionedAction extends Serializable {
 
     /**
      * Evaluate the condition and therefore if the action is available.

@@ -2,12 +2,14 @@ package nl.rug.oop.items;
 
 import nl.rug.oop.player.Player;
 
+import java.io.Serializable;
+
 /**
  * An interface for all the possible items in the game. It has all the functions necessary for the consumption of the
  * items.
  * @author Andro Erdelez
  */
-public interface Item {
+public interface Item extends Serializable {
     /**
      * Player consumes an appropriate item.
      * @param player Player who consumes a given item from their inventory.

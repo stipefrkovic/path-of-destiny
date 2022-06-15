@@ -250,7 +250,7 @@ public class GameView extends JFrame implements OutputEventListener {
         loadButton.setBackground(color);
         loadButton.setFont(font);
         loadButton.addActionListener(controller);
-        saveButton.setActionCommand("Load");
+        loadButton.setActionCommand("Load");
 
         // set player stats (North)
         ImageIcon healthIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Heart.png")));
