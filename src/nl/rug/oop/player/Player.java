@@ -159,9 +159,9 @@ public abstract class Player extends Entity implements Serializable {
         addedItems.append(".");
         String stringAddedItems = addedItems.toString();
         if(gold>=0) {
-            return "You gained " + gold + stringAddedItems;
+            return "You gained " + gold + " gold" + stringAddedItems;
         }else{
-            return "You lost " + gold + "and gained " + stringAddedItems.substring(3);
+            return "You lost " + gold + " gold and gained " + stringAddedItems.substring(3);
         }
     }
 }
