@@ -1,6 +1,7 @@
 package nl.rug.oop.scene;
 
 import nl.rug.oop.npc.NPC;
+import nl.rug.oop.npc.SceneChange;
 import nl.rug.oop.npc.TalkingNPC;
 import nl.rug.oop.player.Player;
 
@@ -59,9 +60,10 @@ public class TalkScene extends Scene implements Serializable, NPCScene {
             return super.takeAction(action);
         }
         person.takeActions(player, this, action, false);
+        SceneChange sceneChange = person.nextScene();
         this.setDescription(this.person.getCurrentDescription());
         updateAvailableActions();
-        return switch (person.nextScene()) {
+        return switch (sceneChange) {
             case PREVIOUS_SCENE -> previousScene;
             case NEXT_SCENE -> nextScene;
             case CURRENT_SCENE -> this;
