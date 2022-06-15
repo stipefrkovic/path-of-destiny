@@ -14,6 +14,6 @@ public class HealthPotionItem implements Item {
 
     @Override
     public String getItemAdjective() {
-        return "health potion";
+        return "Health Potion";
     }
 }

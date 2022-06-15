@@ -17,6 +17,6 @@ public class ManaPotion implements Item {
 
     @Override
     public String getItemAdjective() {
-        return "mana potion";
+        return "Mana Potion";
     }
 }

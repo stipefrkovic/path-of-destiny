@@ -9,6 +9,7 @@ import nl.rug.oop.player.Warrior;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -234,14 +235,10 @@ public class GameView extends JFrame implements OutputEventListener {
     private void updateSceneCard(List<String> actions, String description, String image, List<NPC> npcs, Player player) {
         System.out.println("SCENE UPDATED");
 
-        if (player != null) {
-            updateNorthPanel(player);
-        }
+        updateNorthPanel(player);
         updateWestPanel(actions);
         updateCenterPanel(image);
-        if (npcs != null) {
-            updateEastPanel(npcs);
-        }
+        updateEastPanel(npcs);
         updateSouthPane(description);
 
         cardLayout.last(contentPane);
@@ -251,45 +248,52 @@ public class GameView extends JFrame implements OutputEventListener {
     }
 
     private void updateNorthPanel(Player player) {
-        String health = String.valueOf(player.getHealth());
-        String energy = String.valueOf(player.getEnergy());
-        String strength = String.valueOf(player.getStrength());
-        String gold = String.valueOf(player.getGold());
+        if (player != null) {
+            String health = String.valueOf(player.getHealth());
+            String energy = String.valueOf(player.getEnergy());
+            String strength = String.valueOf(player.getStrength());
+            String gold = String.valueOf(player.getGold());
 
-        String energyType;
-        ImageIcon energyIcon;
-        if (player instanceof Warrior) {
-            energyType = "Stamina";
-            energyIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Stamina.png")));
-        } else {
-            energyType = "Mana";
-            energyIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Mana.gif")));
-        }
-        energyLabel.setIcon(energyIcon);
-        energyLabel.setToolTipText(energyType);
+            String energyType;
+            ImageIcon energyIcon;
+            if (player instanceof Warrior) {
+                energyType = "Stamina";
+                energyIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Stamina.png")));
+            } else {
+                energyType = "Mana";
+                energyIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Mana.gif")));
+            }
+            energyLabel.setIcon(energyIcon);
+            energyLabel.setToolTipText(energyType);
 
-        playerHealth.setText(health);
-        playerEnergy.setText(energy);
-        playerStrength.setText(strength);
-        playerGold.setText(gold);
+            playerHealth.setText(health);
+            playerEnergy.setText(energy);
+            playerStrength.setText(strength);
+            playerGold.setText(gold);
 
-        // get inventoryHashMap and then call getValue for each item
-        healthPotionCount.setText("0");
-        manaPotionCount.setText("0");
-        clearPotionCount.setText("0");
-        staminaPotionCount.setText("0");
 
-        confusedLabel.setVisible(false);
-        stunnedLabel.setVisible(false);
-        weakLabel.setVisible(false);
-        poisonedLabel.setVisible(false);
-        List<String> effects = player.getEffects();
-        for(String s : effects) {
-            switch (s) {
-                case "Confused" -> confusedLabel.setVisible(true);
-                case "Stunned" -> stunnedLabel.setVisible(true);
-                case "Weak" -> weakLabel.setVisible(true);
-                case "Poisoned" -> poisonedLabel.setVisible(true);
+            HashMap<String, Integer> inventory = player.getInventoryCount();
+            Integer healthPotions = Objects.requireNonNullElse(inventory.get("Health Potion"), 0);
+            healthPotionCount.setText(String.valueOf(healthPotions));
+            Integer manaPotions = Objects.requireNonNullElse(inventory.get("Mana Potion"), 0);
+            manaPotionCount.setText(String.valueOf(manaPotions));
+            Integer clearPotions = Objects.requireNonNullElse(inventory.get("Clear Effects Potion"), 0);
+            clearPotionCount.setText(String.valueOf(clearPotions));
+            Integer staminaPotions = Objects.requireNonNullElse(inventory.get("Stamina Potion"), 0);
+            staminaPotionCount.setText(String.valueOf(staminaPotions));
+
+            confusedLabel.setVisible(false);
+            stunnedLabel.setVisible(false);
+            weakLabel.setVisible(false);
+            poisonedLabel.setVisible(false);
+            List<String> effects = player.getEffects();
+            for(String s : effects) {
+                switch (s) {
+                    case "Confused" -> confusedLabel.setVisible(true);
+                    case "Stunned" -> stunnedLabel.setVisible(true);
+                    case "Weak" -> weakLabel.setVisible(true);
+                    case "Poisoned" -> poisonedLabel.setVisible(true);
+                }
             }
         }
     }
@@ -298,9 +302,9 @@ public class GameView extends JFrame implements OutputEventListener {
         westPanel.removeAll();
         actionButtons.clear();
         for (String a : actions) {
-            JButton button = new DepthButton("Action: " + a);
+            JButton button = new DepthButton(a);
             button.setBackground(color);
-            button.setFont(new Font("Arial", Font.PLAIN, 20));
+            button.setFont(font);
             button.setActionCommand(a);
             button.addActionListener(controller);
             actionButtons.add(button);
@@ -318,15 +322,17 @@ public class GameView extends JFrame implements OutputEventListener {
     private void updateEastPanel(List<NPC> npcs) {
         eastPanel.removeAll();
         npcLabels.clear();
-        for (NPC npc: npcs) {
-            ImageIcon npcIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/" + npc.getType() +".png")));
-            JLabel label = new JLabel(npcIcon);
-            label.setToolTipText(npc.getName());
-            npcLabels.add(label);
-        }
-        for (JLabel l : npcLabels) {
-            eastPanel.add(l);
-            l.setVisible(true);
+        if (npcs != null) {
+            for (NPC npc: npcs) {
+                ImageIcon npcIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/" + npc.getType() +".png")));
+                JLabel label = new JLabel(npcIcon);
+                label.setToolTipText(npc.getName());
+                npcLabels.add(label);
+            }
+            for (JLabel l : npcLabels) {
+                eastPanel.add(l);
+                l.setVisible(true);
+            }
         }
     }
 
