@@ -399,8 +399,6 @@ public class GameView extends JFrame implements OutputEventListener {
      * @param player player stats, inventory, and effects
      */
     private void updateGameCard(List<String> actions, String description, String image, List<NPC> npcs, Player player) {
-        System.out.println("SCENE UPDATED");
-
         updateNorthPanel(player);
         updateWestPanel(actions);
         updateCenterPanel(image);

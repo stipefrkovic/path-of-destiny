@@ -16,39 +16,50 @@ import java.util.Iterator;
  * the game controller.
  * @author Andro Erdelez
  */
-public class RpgGame implements Serializable{
+public class RpgGame implements Serializable {
+    /**
+     * The scene in which the player is currently situated in.
+     */
     private Scene scene;
+
+    /**
+     * The player in the game.
+     */
     private Player player;
+
+    /**
+     * The progression of the story.
+     */
     private Story story;
-    Collection<OutputEventListener> listeners = new ArrayList<>();
+
+    /**
+     * Listeners which keep track of chosen actions.
+     */
+    private Collection<OutputEventListener> listeners = new ArrayList<>();
 
     /**
      * Initializes the relevant RPG game specifics.
      */
     public RpgGame() {
         story = new Story();
-        scene = story.getBeginningScene();
+        scene = null;
         player = null;
     }
 
     /**
      * Adds a listener to the array of listeners in the model.
-     * @param listener Listener.
+     * @param listener Java listener.
      */
     public void addListener(OutputEventListener listener) {
         listeners.add(listener);
     }
 
     /**
-     * Starts a new game.
-     * @return Game (RpgGame object) with the initial scene and picked player class.
+     * Starts a new game using a scene for the new game.
      */
     public void startGame() {
         scene = story.getBeginningScene();
-        Iterator<OutputEventListener> allListeners = listeners.iterator();
-        while (allListeners.hasNext()) {
-            allListeners.next().updateScene(scene.getActions(), scene.getDescription(), scene.getImage(), null, player);
-        }
+        notifyListeners();
     }
 
     /**
@@ -60,13 +71,11 @@ public class RpgGame implements Serializable{
             output.writeObject(game);
         } catch (IOException e) {
             e.printStackTrace();
-            System.exit(0);
         }
     }
 
     /**
-     * Loads a game (RpgGame object) from a file called game.obj.
-     * @return Game loaded from the file
+     * Loads a game from a file called game.obj.
      */
     public void loadGame() {
         RpgGame game;
@@ -81,7 +90,8 @@ public class RpgGame implements Serializable{
     }
 
     /**
-     * Notifies the appropriate listeners based on the name of the action. If
+     * Updates the game specifics, namely scene, according to the given action command. If the action command is a
+     * name of a player class, it also creates a player.
      * @param a Name of the given action.
      */
     public void doAction(String a) {
@@ -92,6 +102,14 @@ public class RpgGame implements Serializable{
             scene = scene.takeAction(new Action(a));
         }
 
+        notifyListeners();
+    }
+
+    /**
+     * Notifies the appropriate listeners based on the name of the action. It also checks whether a scene is an NPC
+     * scene in order to see whether NPCs should be included when updating the scene.
+     */
+    public void notifyListeners() {
         Iterator<OutputEventListener> allListeners = listeners.iterator();
         while (allListeners.hasNext()) {
             if(scene instanceof NPCScene) {
