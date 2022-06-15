@@ -81,15 +81,12 @@ public abstract class Player extends Entity implements Serializable {
     public abstract int getEnergy();
 
     public abstract void setEnergy(int energy);
-    public void update(){
-        //TODO:implement update method
-    }
 
     public abstract List<Action> getFightActions();
 
     public String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene){
         if(isStunned()){
-            return this.getName() + " is stunned. ";
+            return this.getName() + " are stunned. ";
         }
         updateEffects();
         return fight(action, target, allEnemies, scene);
