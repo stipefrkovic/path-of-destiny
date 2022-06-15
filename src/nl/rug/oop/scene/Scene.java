@@ -106,6 +106,18 @@ public class Scene implements Serializable {
         actions.remove(action);
     }
 
+    public void removeActions(List<String> actions){
+        List<Action> removeActions = new ArrayList<>();
+        for (Action action:this.actions.keySet()) {
+            if(actions.contains(action.getActionName())){
+                removeActions.add(action);
+            }
+        }
+        for (Action action:removeActions){
+            this.actions.remove(action);
+        }
+    }
+
     /**
      * Returns the image/theme of the Scene.
      * @return The image/theme of the Scene.

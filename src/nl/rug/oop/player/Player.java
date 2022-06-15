@@ -48,7 +48,9 @@ public abstract class Player extends Entity implements Serializable {
     public List<String> getInventory(){
         List<String> inventory = new ArrayList<>();
         for (Item item:inventoryItems) {
-            inventory.add(item.getItemAdjective());
+            if(!inventory.contains(item.getItemAdjective())){
+                inventory.add(item.getItemAdjective());
+            }
         }
         return inventory;
     }

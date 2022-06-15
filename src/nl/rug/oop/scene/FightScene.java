@@ -7,6 +7,7 @@ import nl.rug.oop.player.Player;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -75,6 +76,7 @@ public class FightScene extends Scene implements Serializable, NPCScene {
      */
     @Override
     public Scene takeAction(Action action) {
+        this.updateInventoryOptions();
         if(action.getActionName().equals("Back")){
             System.out.println("Back");
         }
@@ -120,6 +122,14 @@ public class FightScene extends Scene implements Serializable, NPCScene {
             enemiesResponse(player.useItem(action.getActionName()), action);
         }
         return super.takeAction(action);
+    }
+
+    private void updateInventoryOptions(){
+        this.removeActions(this.player.getInventory());
+        List<String> items = this.player.getInventory();
+        for (String item:items) {
+            this.addAction(new Action(item, false), this);
+        }
     }
 
     /**
