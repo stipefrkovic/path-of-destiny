@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- *
+ * DepthButton which is prettier of an extension of JButton
  * @author Romain Guy
  */
 
