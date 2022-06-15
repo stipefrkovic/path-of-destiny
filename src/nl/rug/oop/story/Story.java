@@ -84,7 +84,7 @@ public class Story implements Serializable {
         HashMap<ConditionedAction, Scene> conditionedActions = new HashMap<>();
         conditionedActions.put(new AmountKillsAction("Continue", 0, 0), goodEnding);
         conditionedActions.put(new AmountKillsAction("Continue", 1, 3), badEnding);
-        conditionedActions.put(new AmountKillsAction("Continue", 4, 4), deadEnding);
+        conditionedActions.put(new AmountKillsAction("Continue", 4, 100), deadEnding);
         Scene kingDefeatScene = new EvaluatingScene("Throne", "The king draws a last shuddering breath and falls over, the wounds on his body too severe to keep his soul in the mortal realm.",conditionedActions, player);
         BossNPC king = npcFactory.createBossNPC("KingBoss", itemFactory);
         TalkScene kingScene = sceneFactory.createTalkScene("TalkScene", "Throne", kingDefeatScene, fleeEnding, king, player);
@@ -108,7 +108,7 @@ public class Story implements Serializable {
         Scene cityScene = sceneFactory.createSimpleScene("Scene", "City", "The city before you is bustling with life, you see a trader, a villager, and guards. What do you want to do?");
         sewerScene.addAction(new Action("Go back to the city"), cityScene);
         TalkingNPC cityTrader = npcFactory.createTalkingNPC("Trader", traderDialogue(), itemFactory);
-        Scene cityTraderScene = sceneFactory.createTalkScene("Trader", "City", cityScene, cityScene, cityTrader, player);
+        Scene cityTraderScene = sceneFactory.createTalkScene("TalkScene", "City", cityScene, cityScene, cityTrader, player);
         Dialogue helpfulCitizenDialogue = dialogueFactory.createDialogue("Dialogue", "I think I can help you.", new HashMap<>(), SceneChange.CURRENT_SCENE);
         helpfulCitizenDialogue.addAnswer("Help me defeat the king?", new Dialogue(SceneChange.NEXT_SCENE));
         helpfulCitizenDialogue.addAnswer("I have no clue what you are talking about", new Dialogue(SceneChange.NEXT_SCENE));

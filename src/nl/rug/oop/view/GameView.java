@@ -459,10 +459,10 @@ public class GameView extends JFrame implements OutputEventListener {
             List<String> effects = player.getEffects();
             for(String s : effects) {
                 switch (s) {
-                    case "Confused" -> confusedLabel.setVisible(true);
-                    case "Stunned" -> stunnedLabel.setVisible(true);
-                    case "Weak" -> weakLabel.setVisible(true);
-                    case "Poisoned" -> poisonedLabel.setVisible(true);
+                    case "Confusion" -> confusedLabel.setVisible(true);
+                    case "Stun" -> stunnedLabel.setVisible(true);
+                    case "Weakness" -> weakLabel.setVisible(true);
+                    case "Poison" -> poisonedLabel.setVisible(true);
                 }
             }
         }

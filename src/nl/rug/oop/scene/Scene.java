@@ -58,7 +58,7 @@ public class Scene implements Serializable {
     public void removeActionsOfScene(Scene scene){
         List<Action> removeActions = new ArrayList<>();
         for(Action action:this.actions.keySet()){
-            if(this.actions.get(action).equals(scene)){
+            if(this.actions.get(action) != null && this.actions.get(action).equals(scene)){
                 removeActions.add(action);
             }
         }
