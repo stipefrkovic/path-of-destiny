@@ -83,10 +83,10 @@ public class SceneFactory implements Serializable {
      * @param player The player that plays the game.
      * @return The created LootScene.
      */
-    public FightScene createLootScene(String type, String image, String description, HashMap<Action, Scene> actions, HashMap<Action, List<Item>> possibleLoot, Player player){
+    public LootScene createLootScene(String type, String image, String description, HashMap<Action, Scene> actions, HashMap<Action, List<Item>> possibleLoot, Player player){
         try {
             Class npcType = register.get(type);
-            return (FightScene) npcType.getDeclaredConstructor(String.class, String.class, HashMap.class, HashMap.class, Player.class).newInstance(image, description, actions, possibleLoot, player);
+            return (LootScene) npcType.getDeclaredConstructor(String.class, String.class, HashMap.class, HashMap.class, Player.class).newInstance(image, description, actions, possibleLoot, player);
         } catch (Exception e) {
             return null;
         }
