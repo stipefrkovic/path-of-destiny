@@ -77,6 +77,10 @@ public class Story implements Serializable {
         Scene badEnding = sceneFactory.createSimpleScene("Scene", "BadEnding", "You have killed the evil king by any means possible and through that have managed to supplant him, at first the people are ecstatic, but they soon realize that they have just switch one evil ruler for another. One day while holding a ceremony you suddenly feel a sharp pain in your back and stumble forward. As you fall to the ground and the world grows black you hear the cheering of the gathered people. You draw your last breath and are now forever trapped in hell.");
         Scene deadEnding = sceneFactory.createSimpleScene("Scene", "DeadEnding", "You have killed the evil king, but at what cost? Everywhere you look you see the victims of your ruthless murders to supplant the evil king. You are now the ruler, but where there once was life there is only death. Generations later while your name has already been lost your title \"The ruler of death\" still remains, as a warning for generations to come.");
         Scene fleeEnding = sceneFactory.createSimpleScene("Scene", "FleeEnding", "You have made it to the king, but as you step into the throne hall you can tell with a single glance that you can not defeat the king. So you do the only sensible thing and run. You run without looking back. Now you are living a quiet life in another country and while you still feel guilty about your decision, you are absolutely sure that fighting the king would have only resulted in your death.");
+        goodEnding.addAction(new Action("Exit Game"), null);
+        badEnding.addAction(new Action("Exit Game"), null);
+        deadEnding.addAction(new Action("Exit Game"), null);
+        fleeEnding.addAction(new Action("Exit Game"), null);
         HashMap<ConditionedAction, Scene> conditionedActions = new HashMap<>();
         conditionedActions.put(new AmountKillsAction("Continue", 0, 0), goodEnding);
         conditionedActions.put(new AmountKillsAction("Continue", 1, 3), badEnding);

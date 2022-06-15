@@ -103,7 +103,9 @@ public class FightScene extends Scene implements Serializable, NPCScene {
                 this.onlyShowSpecifiedActionsByName(nextActions);
             }
             if(player.getHealth()<=0){
-                return new Scene("GameOver", "You are struck down, your vision grows hazy. You feel your blood flowing out of your body. You have failed in your quest. YOU DIED!");
+                Scene gameOver = new Scene("GameOver", "You are struck down, your vision grows hazy. You feel your blood flowing out of your body. You have failed in your quest. YOU DIED!");
+                gameOver.addAction(new Action("Exit Game"), null);
+                return  gameOver;
             }
         }
         if(player.getInventory().contains(action.getActionName())){

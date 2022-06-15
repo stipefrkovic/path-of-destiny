@@ -45,6 +45,9 @@ public class Scene implements Serializable {
         if(!action.isEnabled()){
             return null;
         }
+        if(action.getActionName().equals("Exit Game")){
+            System.exit(0);
+        }
         return actions.get(action);
     }
 
