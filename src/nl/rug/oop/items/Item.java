@@ -9,7 +9,7 @@ import nl.rug.oop.player.Player;
  */
 public interface Item {
     /**
-     * Player consumes an appropriate item (potion).
+     * Player consumes an appropriate item.
      * @param player Player who consumes a given item from their inventory.
      */
     void use(Player player);
