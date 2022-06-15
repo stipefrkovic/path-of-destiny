@@ -88,7 +88,7 @@ public class Mage extends Player{
      * @author Joni Baarda
      */
     private String manaBoltAction(NPC target) {
-        int cost = 5;
+        int cost = 0;
         float damage = 1;
         if (cost > mana) {
             return "Not enough mana!";

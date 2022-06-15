@@ -1,6 +1,5 @@
 package nl.rug.oop.items;
 
-import nl.rug.oop.player.Mage;
 import nl.rug.oop.player.Player;
 import nl.rug.oop.player.Warrior;
 

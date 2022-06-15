@@ -21,7 +21,7 @@ public  class Warrior extends Player{
     private List<Action> fightActions;
 
     public Warrior(String name) {
-        super(name, 100, 100, 5, 0);
+        super(name, 120, 120, 5, 0);
         this.stamina = 50;
         fightActions = new ArrayList<>();
         fightActions.add(new Action("Hit"));
@@ -42,7 +42,7 @@ public  class Warrior extends Player{
     }
 
     private String hitAction(NPC target) {
-        int cost = 5;
+        int cost = 0;
         float damage = 1;
         if (cost > stamina) {
             return "Not enough stamina";

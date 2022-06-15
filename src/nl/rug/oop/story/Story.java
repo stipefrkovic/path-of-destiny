@@ -66,6 +66,18 @@ public class Story implements Serializable {
         return dialogueFactory.createShopDialogue(buyPriceList, sellPriceList,itemFactory);
     }
 
+    private Dialogue traderDialogue2(){
+        HashMap<String, Integer> buyPriceList = new HashMap<>();
+        HashMap<String, Integer> sellPriceList = new HashMap<>();
+        buyPriceList.put("HealthPotion", 12);
+        buyPriceList.put("RemoveEffectPotion", 10);
+        buyPriceList.put("StaminaPotion", 8);
+        buyPriceList.put("ManaPotion", 8);
+        sellPriceList.put("StaminaPotion", 6);
+        sellPriceList.put("ManaPotion", 6);
+        return dialogueFactory.createShopDialogue(buyPriceList, sellPriceList,itemFactory);
+    }
+
     /**
      * makes all the scenes, NPCs, dialogue and puts them together to make a story. The start scene here is the village scene.
      * @param player the player
@@ -107,7 +119,7 @@ public class Story implements Serializable {
         sewerScene.addAction(new Action("Walk onwards"), sewerRatsScene);
         Scene cityScene = sceneFactory.createSimpleScene("Scene", "City", "The city before you is bustling with life, you see a trader, a villager, and guards. What do you want to do?");
         sewerScene.addAction(new Action("Go back to the city"), cityScene);
-        TalkingNPC cityTrader = npcFactory.createTalkingNPC("Trader", traderDialogue(), itemFactory);
+        TalkingNPC cityTrader = npcFactory.createTalkingNPC("Trader", traderDialogue2(), itemFactory);
         Scene cityTraderScene = sceneFactory.createTalkScene("TalkScene", "City", cityScene, cityScene, cityTrader, player);
         Dialogue helpfulCitizenDialogue = dialogueFactory.createDialogue("Dialogue", "I think I can help you.", new HashMap<>(), SceneChange.CURRENT_SCENE);
         Dialogue helpKingDefeatAnswer = dialogueFactory.createPepTalk("IncreaseStrengthDialogue", "Not so loud! Here, take this.", new HashMap<>(), SceneChange.CURRENT_SCENE, 5);
