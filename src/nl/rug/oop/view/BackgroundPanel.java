@@ -3,7 +3,7 @@ package nl.rug.oop.view;
 import javax.swing.*;
 import java.awt.*;
 
-// Created by Rob Camick. Source: https://tips4java.wordpress.com/2008/10/12/background-panel/
+// Created by Rob Camick. Source:
 
 /*
  *  Support custom painting on a panel in the form of
@@ -15,6 +15,10 @@ import java.awt.*;
  *  non-opaque so that the custom painting can show through.
  */
 
+/**
+ * BackGround panel which is an extension of JPanel that nicely scales the background
+ * @author Rob camick - <a href="https://tips4java.wordpress.com/2008/10/12/background-panel/">...</a>
+ */
 public class BackgroundPanel extends JPanel
 {
 	public static final int SCALED = 0;
