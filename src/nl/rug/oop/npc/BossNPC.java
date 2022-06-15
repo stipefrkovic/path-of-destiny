@@ -64,7 +64,7 @@ public abstract class BossNPC extends TalkingNPC{
      */
     @Override
     public String getName() {
-        return super.getName() + " the " + getType();
+        return name + " the " + getType();
     }
 
     /**

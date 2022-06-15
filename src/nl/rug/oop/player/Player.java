@@ -217,6 +217,12 @@ public abstract class Player extends Entity implements Serializable {
         health = Math.min(health + 10, maxHealth);
     }
 
+    @Override
+    public String addEffect(Effect effect) {
+        super.addEffect(effect);
+        return getName() + " are " + effect.getEffectAdjective()+ ".";
+    }
+
     /**
      * adds the gold to the player's gold and adds the items to the inventory, then returns a string of what has happened.
      * @param gold the amount of gold that was gained

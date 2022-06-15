@@ -27,9 +27,9 @@ public class Mage extends Player{
         super(name, 100, 100, 5, 0);
         this.mana = 50;
         fightActions = new ArrayList<>();
-        fightActions.add(new Action("mana bolt"));
-        fightActions.add(new Action("heal"));
-        fightActions.add(new Action("chain lightning"));
+        fightActions.add(new Action("Mana bolt"));
+        fightActions.add(new Action("Heal"));
+        fightActions.add(new Action("Chain lightning"));
     }
 
     /**
@@ -74,9 +74,9 @@ public class Mage extends Player{
     @Override
     public String fight(Action action, NPC target, List<NPC> allEnemies, Scene scene) {
         return switch (action.getActionName()) {
-            case "mana bolt" -> manaBoltAction(target);
-            case "heal" -> healAction();
-            case "chain lightning" -> chainLightningAction(allEnemies);
+            case "Mana bolt" -> manaBoltAction(target);
+            case "Heal" -> healAction();
+            case "Chain lightning" -> chainLightningAction(allEnemies);
             default -> "";
         };
     }
