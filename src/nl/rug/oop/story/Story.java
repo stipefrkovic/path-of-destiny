@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * The class initializes the story flow, the dialogue, scenes, and NPCs.
+ * @author Joni Baarda
  */
 public class Story implements Serializable {
     private Scene beginningScene;
@@ -26,6 +27,7 @@ public class Story implements Serializable {
 
     /**
      * initializes the start of the different factories and the beginning scene
+     * @author Joni Baarda
      */
     public Story(){
         sceneFactory = new SceneFactory();
@@ -45,43 +47,19 @@ public class Story implements Serializable {
     /**
      * returns the beginning scene
      * @return the beginning scene
+     * @author Joni Baarda
      */
     public Scene getBeginningScene() {
         return beginningScene;
     }
 
-    /**
-     * makes the price list for the trader
-     * @return the shop dialogue
-     */
-    private Dialogue traderDialogue(){
-        HashMap<String, Integer> buyPriceList = new HashMap<>();
-        HashMap<String, Integer> sellPriceList = new HashMap<>();
-        buyPriceList.put("HealthPotion", 12);
-        buyPriceList.put("RemoveEffectPotion", 10);
-        buyPriceList.put("StaminaPotion", 8);
-        buyPriceList.put("ManaPotion", 8);
-        sellPriceList.put("StaminaPotion", 6);
-        sellPriceList.put("ManaPotion", 6);
-        return dialogueFactory.createShopDialogue(buyPriceList, sellPriceList,itemFactory);
-    }
 
-    private Dialogue traderDialogue2(){
-        HashMap<String, Integer> buyPriceList = new HashMap<>();
-        HashMap<String, Integer> sellPriceList = new HashMap<>();
-        buyPriceList.put("HealthPotion", 12);
-        buyPriceList.put("RemoveEffectPotion", 10);
-        buyPriceList.put("StaminaPotion", 8);
-        buyPriceList.put("ManaPotion", 8);
-        sellPriceList.put("StaminaPotion", 6);
-        sellPriceList.put("ManaPotion", 6);
-        return dialogueFactory.createShopDialogue(buyPriceList, sellPriceList,itemFactory);
-    }
 
     /**
      * makes all the scenes, NPCs, dialogue and puts them together to make a story. The start scene here is the village scene.
      * @param player the player
      * @return the village scene
+     * @author Joni Baarda
      */
     //TODO: creepy and helpful citizen dialogue
     public Scene createStory(Player player){
@@ -119,7 +97,16 @@ public class Story implements Serializable {
         sewerScene.addAction(new Action("Walk onwards"), sewerRatsScene);
         Scene cityScene = sceneFactory.createSimpleScene("Scene", "City", "The city before you is bustling with life, you see a trader, a villager, and guards. What do you want to do?");
         sewerScene.addAction(new Action("Go back to the city"), cityScene);
-        TalkingNPC cityTrader = npcFactory.createTalkingNPC("Trader", traderDialogue2(), itemFactory);
+        HashMap<String, Integer> buyPriceList = new HashMap<>();
+        HashMap<String, Integer> sellPriceList = new HashMap<>();
+        buyPriceList.put("HealthPotion", 12);
+        buyPriceList.put("RemoveEffectPotion", 10);
+        buyPriceList.put("StaminaPotion", 8);
+        buyPriceList.put("ManaPotion", 8);
+        sellPriceList.put("StaminaPotion", 6);
+        sellPriceList.put("ManaPotion", 6);
+        Dialogue cityTraderDialogue = dialogueFactory.createShopDialogue(buyPriceList, sellPriceList,itemFactory);
+        TalkingNPC cityTrader = npcFactory.createTalkingNPC("Trader", cityTraderDialogue, itemFactory);
         Scene cityTraderScene = sceneFactory.createTalkScene("TalkScene", "City", cityScene, cityScene, cityTrader, player);
         Dialogue helpfulCitizenDialogue = dialogueFactory.createDialogue("Dialogue", "I think I can help you.", new HashMap<>(), SceneChange.CURRENT_SCENE);
         Dialogue helpKingDefeatAnswer = dialogueFactory.createPepTalk("IncreaseStrengthDialogue", "Not so loud! Here, take this.", new HashMap<>(), SceneChange.CURRENT_SCENE, 5);
@@ -181,7 +168,8 @@ public class Story implements Serializable {
         forestScene.addAction(new Action("Take the right path."), spiderScene);
         forestScene.addAction(new Action("Take the left path."), forestBanditScene);
         Scene villageScene = sceneFactory.createSimpleScene("Scene", "Village", "You stand in the center of a village. You see a trader, a villager, a guard standing around and at the edge of the village you see some shady figures. What do you want to do?");
-        TalkingNPC villageTrader = npcFactory.createTalkingNPC("Trader", traderDialogue(), itemFactory);
+        Dialogue villageTraderDialogue = dialogueFactory.createShopDialogue(buyPriceList, sellPriceList,itemFactory);
+        TalkingNPC villageTrader = npcFactory.createTalkingNPC("Trader", villageTraderDialogue, itemFactory);
         Scene villageTraderScene = sceneFactory.createTalkScene("TalkScene", "Village", villageScene, villageScene, villageTrader, player);
         ArrayList<NPC> guard = new ArrayList<>();
         guard.add(npcFactory.createSimpleNPC("Guard", itemFactory));
