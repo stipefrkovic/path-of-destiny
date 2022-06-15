@@ -49,10 +49,16 @@ public class Transaction extends Dialogue{
      */
     public void wasTransactionSuccessful(boolean successful){
         this.removeAllAnswers();
-        if (successful || previousDialogue == null){
+        if (successful){
+            this.text = "Here you go.";
             this.addAnswer("Continue", nextDialogue);
         }else{
-            this.addAnswer("Continue", previousDialogue);
+            this.text = "You do not have the required funds or items.";
+            if(previousDialogue == null){
+                this.addAnswer("Continue", nextDialogue);
+            }else{
+                this.addAnswer("Continue", previousDialogue);
+            }
         }
     }
 

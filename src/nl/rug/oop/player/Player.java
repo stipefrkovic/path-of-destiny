@@ -38,7 +38,10 @@ public abstract class Player extends Entity implements Serializable {
     }
 
 
-    public Integer getKillsForType(String type){
+    public int getKillsForType(String type){
+        if (killCounter.get(type)==null){
+            return 0;
+        }
         return killCounter.get(type);
     }
 
@@ -105,6 +108,9 @@ public abstract class Player extends Entity implements Serializable {
 
     //The String is supposed to return what actually happened, so for example: You lost 3 Healing potions and 2 Mana potions.
     public String removeSpecifiedItems(List<Item> itemsToRemove){
+        if(itemsToRemove.size()==0){
+            return "";
+        }
         StringBuilder StringItemsToRemove = new StringBuilder();
         for (Item item:itemsToRemove) {
             inventoryItems.remove(item);

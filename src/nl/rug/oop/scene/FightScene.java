@@ -76,7 +76,9 @@ public class FightScene extends Scene implements Serializable, NPCScene {
     public Scene takeAction(Action action) {
         switch (action.getActionName()){
             case "Fight":
-                onlyShowSpecifiedActions(player.getFightActions());
+                List<Action> temp = player.getFightActions();
+                temp.add(new Action("Back", false));
+                onlyShowSpecifiedActions(temp);
                 break;
             case "Flee":
                 return tryFleeing(action);

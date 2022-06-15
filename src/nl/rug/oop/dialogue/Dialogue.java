@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Dialogue implements Serializable {
 
-    private String text;
+    protected String text;
     private HashMap<String, Dialogue> possibleAnswers;
     private SceneChange whichSceneNext;
 

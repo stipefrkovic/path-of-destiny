@@ -50,7 +50,7 @@ public class Guard extends StandardFighter{
      */
     @Override
     protected String takeFightActions(Player player, Scene currentScene, Action action) {
-        if(player.getKillsForType("Villager") != null && player.getKillsForType("Villager")>=villagerThreshold){
+        if(player.getKillsForType("Villager")>=villagerThreshold){
             this.changeStrengthTemporary(1.5f);
         }
         return super.takeFightActions(player, currentScene, action);

@@ -106,7 +106,7 @@ public  class Warrior extends Player{
             case "hit" -> hitAction(target);
             case "block" -> blockAction();
             case "slash" -> slashAction(target);
-            default -> null;
+            default -> "";
         };
     }
 

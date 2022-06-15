@@ -68,8 +68,7 @@ public class Trader extends TalkingNPC{
         Transaction transaction = (Transaction) currentDialogue;
         if(transaction.getGoldTransfer() <= player.getGold() && hasPlayerRequiredItems(transaction, player)){
             transaction.wasTransactionSuccessful(true);
-            player.removeSpecifiedItems(transaction.getPlayerLosses());
-            return player.addLoot(-1*transaction.getGoldTransfer(), transaction.getPlayerGains());
+            return player.removeSpecifiedItems(transaction.getPlayerLosses()) + " " + player.addLoot(-1*transaction.getGoldTransfer(), transaction.getPlayerGains());
         }
         transaction.wasTransactionSuccessful(false);
         return "You have insufficient funds.";
