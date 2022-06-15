@@ -23,21 +23,45 @@ public abstract class Player extends Entity implements Serializable {
     List<Item> inventoryItems = new ArrayList<>();
 
 
+    /**
+     * creates the player
+     * @param name the name of the player
+     * @param health the start health of the player
+     * @param maxHealth the start max health of the player
+     * @param strength the start strength of the player
+     * @param gold the start gold of the player
+     * @author Joni Baarda
+     */
     protected Player(String name, int health, int maxHealth, float strength, int gold) {
         super(name, maxHealth, strength);
         this.health = health;
         this.gold = gold;
     }
 
+    /**
+     * returns the hashmap of the types of npc and how many the player has killed
+     * @return the hashmap of the types of npc and how many the player has killed
+     * @author Joni Baarda
+     */
     public HashMap<String, Integer> getKillCounter() {
         return killCounter;
     }
 
+    /**
+     * returns the total kills the player made
+     * @return the total kills the player made
+     * @author Joni Baarda
+     */
     public int getTotalKills() {
         return totalKills;
     }
 
-
+    /**
+     * gets the amount of kills for a specific type of npc
+     * @param type the type of npc
+     * @return the amount of kills
+     * @author Joni Baarda
+     */
     public int getKillsForType(String type){
         if (killCounter.get(type)==null){
             return 0;
@@ -45,6 +69,11 @@ public abstract class Player extends Entity implements Serializable {
         return killCounter.get(type);
     }
 
+    /**
+     * converts the items in the inventory to strings
+     * @return the inventory as a list of strings
+     * @author Joni Baarda
+     */
     public List<String> getInventory(){
         List<String> inventory = new ArrayList<>();
         for (Item item:inventoryItems) {
@@ -55,14 +84,30 @@ public abstract class Player extends Entity implements Serializable {
         return inventory;
     }
 
+    /**
+     * gets the list of items in the inventory
+     * @return the list of items in the inventory
+     * @author Joni Baarda
+     */
     public List<Item> getInventoryItems(){
         return inventoryItems;
     }
 
+    /**
+     * use item calls the right method to execute the item effect and deletes the item from inventory. Then returns what has happened.
+     * @param itemName the name of the item that is used
+     * @return the explanation of what happened
+     * @author Joni Baarda
+     */
     public String useItem(String itemName){
         return "";
     }
 
+    /**
+     * counts how many times each item is in the inventory and returns a hashmap of this count.
+     * @return a hashmap of the different items and how many times they exist in the inventory
+     * @author Joni Baarda
+     */
     public HashMap<String, Integer> getInventoryCount() {
         HashMap<String, Integer> inventoryCount = new HashMap<>();
         List<String> differentItems = new ArrayList<>();
@@ -78,12 +123,36 @@ public abstract class Player extends Entity implements Serializable {
         return inventoryCount;
     }
 
+    /**
+     * returns the amount of energy a player has
+     * @return the amount of energy a player has
+     * @author Joni Baarda
+     */
     public abstract int getEnergy();
 
+    /**
+     * sets the energy level of the player
+     * @param energy the new amount of energy of the player
+     * @author Joni Baarda
+     */
     public abstract void setEnergy(int energy);
 
+    /**
+     * gets back a list of the fight actions available to the player
+     * @return a list of actions
+     * @author Joni Baarda
+     */
     public abstract List<Action> getFightActions();
 
+    /**
+     * checks if the player is stunned, updates the effects and then calls the fight method.
+     * @param action the action
+     * @param target the current target of the player
+     * @param allEnemies all available enemies in a scene
+     * @param scene the current scene
+     * @return a string of what has happened
+     * @author Joni Baarda
+     */
     public String attack(Action action, NPC target, List<NPC> allEnemies, Scene scene){
         if(isStunned()){
             return this.getName() + " are stunned. ";
@@ -92,9 +161,22 @@ public abstract class Player extends Entity implements Serializable {
         return fight(action, target, allEnemies, scene);
     }
 
+    /**
+     * Calls one of the fight actions the player can take and returns what has happened.
+     * @param action
+     * @param target the current target of the player
+     * @param allEnemies all available enemies in a scene
+     * @param scene the current scene
+     * @return a string of what has happened
+     * @author Joni Baarda
+     */
     protected abstract String fight(Action action, NPC target, List<NPC> allEnemies, Scene scene);
 
-
+    /**
+     * adds the kill to the type of npc in the hashmap and adds the kill to the total amount of kills.
+     * @param type the type of npc the player has killed
+     * @author Joni Baarda
+     */
     public void addKill(String type){
         if(killCounter.containsKey(type)){
             killCounter.put(type, killCounter.get(type) + 1);
@@ -104,8 +186,12 @@ public abstract class Player extends Entity implements Serializable {
         totalKills += 1;
     }
 
-
-    //The String is supposed to return what actually happened, so for example: You lost 3 Healing potions and 2 Mana potions.
+    /**
+     * removes the items to be removed from the inventory and returns the string of items that were removed
+     * @param itemsToRemove the list of items that should be removed from the inventory
+     * @return a string of which items were removed from the inventory
+     * @author Joni Baarda
+     */
     public String removeSpecifiedItems(List<Item> itemsToRemove){
         if(itemsToRemove.size()==0){
             return "";
@@ -119,12 +205,25 @@ public abstract class Player extends Entity implements Serializable {
         return "You lost " + (temp.substring(0, temp.length()-2)) + ".";
     }
 
+    /**
+     * consumes the appropriate potion
+     */
     public abstract void useAppropriatePotion();
 
+    /**
+     * adds the health of a potion to the player's health
+     */
     public void useHealthPotion() {
         health = Math.min(health + 10, maxHealth);
     }
 
+    /**
+     * adds the gold to the player's gold and adds the items to the inventory, then returns a string of what has happened.
+     * @param gold the amount of gold that was gained
+     * @param items the items that were gained
+     * @return the string of what happened
+     * @author Joni Baarda
+     */
     public String addLoot(int gold, List<Item> items){
         int healthPotionCount = 0; int manaPotionCount = 0; int staminaPotionCount = 0; int removeEffectPotionCount = 0;
         this.gold += gold;
