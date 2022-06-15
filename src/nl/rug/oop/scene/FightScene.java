@@ -83,7 +83,9 @@ public class FightScene extends Scene implements Serializable, NPCScene {
         if(fleeScene != null){
             fleeScene.removeActionsOfScene(this);
         }
-        winScene.removeActionsOfScene(this);
+        if(winScene != null){
+            winScene.removeActionsOfScene(this);
+        }
         switch (action.getActionName()){
             case "Fight":
                 List<Action> temp = player.getFightActions();
@@ -115,7 +117,7 @@ public class FightScene extends Scene implements Serializable, NPCScene {
             if(player.getHealth()<=0){
                 Scene gameOver = new Scene("GameOver", "You are struck down, your vision grows hazy. You feel your blood flowing out of your body. You have failed in your quest. YOU DIED!");
                 gameOver.addAction(new Action("Exit Game"), null);
-                return  gameOver;
+                return gameOver;
             }
         }
         if(player.getInventory().contains(action.getActionName())){
@@ -153,6 +155,7 @@ public class FightScene extends Scene implements Serializable, NPCScene {
      */
     private void enemiesResponse(String newDescription, Action action){
         StringBuilder descriptionBuilder = new StringBuilder(newDescription);
+        descriptionBuilder.append("\n");
         descriptionBuilder.append(isEnemyDefeated());
         if(enemies.size()==0){
             descriptionBuilder.append(player.addLoot(lootGold, loot));
@@ -163,6 +166,7 @@ public class FightScene extends Scene implements Serializable, NPCScene {
         }
         for (NPC enemy:enemies) {
             descriptionBuilder.append(enemy.takeActions(player, this, action, true));
+            descriptionBuilder.append("\n");
         }
         setDescription(descriptionBuilder.toString());
     }

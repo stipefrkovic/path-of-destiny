@@ -15,12 +15,12 @@ import java.util.List;
 public class Mage extends Player{
     //health = 80; strength = 5; mana = 50
     private int mana;
-    private final int MAX_MANA = 50000;
+    private final int MAX_MANA = 50;
     private List<Action> fightActions;
 
     public Mage(String name) {
-        super(name, 80000, 80000, 5, 0);
-        this.mana = 50000;
+        super(name, 80, 80, 5, 0);
+        this.mana = 50;
         fightActions = new ArrayList<>();
         fightActions.add(new Action("mana bolt"));
         fightActions.add(new Action("heal"));
