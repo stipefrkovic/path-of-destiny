@@ -24,9 +24,9 @@ public  class Warrior extends Player{
         super(name, 100, 100, 5, 0);
         this.stamina = 50;
         fightActions = new ArrayList<>();
-        fightActions.add(new Action("hit"));
-        fightActions.add(new Action("block"));
-        fightActions.add(new Action("slash"));
+        fightActions.add(new Action("Hit"));
+        fightActions.add(new Action("Block"));
+        fightActions.add(new Action("Slash"));
     }
 
     public int getEnergy() {
@@ -103,9 +103,9 @@ public  class Warrior extends Player{
     @Override
     public String fight(Action action, NPC target, List<NPC> allEnemies, Scene scene) {
         return switch (action.getActionName()) {
-            case "hit" -> hitAction(target);
-            case "block" -> blockAction();
-            case "slash" -> slashAction(target);
+            case "Hit" -> hitAction(target);
+            case "Block" -> blockAction();
+            case "Slash" -> slashAction(target);
             default -> "";
         };
     }

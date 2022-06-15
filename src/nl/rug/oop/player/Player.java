@@ -125,6 +125,12 @@ public abstract class Player extends Entity implements Serializable {
         health = Math.min(health + 10, maxHealth);
     }
 
+    @Override
+    public String addEffect(Effect effect) {
+        super.addEffect(effect);
+        return getName() + " are " + effect.getEffectAdjective()+ ".";
+    }
+
     public String addLoot(int gold, List<Item> items){
         int healthPotionCount = 0; int manaPotionCount = 0; int staminaPotionCount = 0; int removeEffectPotionCount = 0;
         this.gold += gold;
