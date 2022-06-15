@@ -171,7 +171,7 @@ public class Story implements Serializable {
         villageActions.put(new Action("Do not pick up the shiny object"), villageScene);
         HashMap<Action, List<Item>> villageLoot = new HashMap<>();
         ArrayList<Item> possibleLoot = new ArrayList<>();
-        possibleLoot.add(itemFactory.createItem("Health Potion"));
+        possibleLoot.add(itemFactory.createItem("HealthPotion"));
         villageLoot.put(new Action("Pick up shiny object"), possibleLoot);
         Scene villageEdge = sceneFactory.createLootScene("LootScene", "Village", "After you defeat the bandits you see something shiny on the ground. You move towards it to pick it up.", villageActions, villageLoot, player);
         ArrayList<NPC> bandits = new ArrayList<>();

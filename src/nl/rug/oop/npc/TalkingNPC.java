@@ -45,9 +45,6 @@ public class TalkingNPC extends NPC{
      */
     @Override
     protected String takeNonFightActions(Player player, Scene currentScene, Action action) {
-        if(currentDialogue.getWhichSceneNext() == SceneChange.NEXT_SCENE || currentDialogue.getWhichSceneNext() == SceneChange.PREVIOUS_SCENE){
-            currentDialogue = initialDialogue;
-        }
         if(currentDialogue.getActions().contains(action.getActionName())){
             currentDialogue = currentDialogue.answer(action.getActionName());
             if(currentDialogue instanceof PepTalk){
@@ -81,6 +78,14 @@ public class TalkingNPC extends NPC{
      * @return One of the values of the SceneChange enum which dictates which scene is shown next.
      */
     public SceneChange nextScene(){
+        if(currentDialogue.getWhichSceneNext() == SceneChange.NEXT_SCENE){
+            currentDialogue = initialDialogue;
+            return SceneChange.NEXT_SCENE;
+        }
+        if(currentDialogue.getWhichSceneNext() == SceneChange.PREVIOUS_SCENE){
+            currentDialogue = initialDialogue;
+            return SceneChange.PREVIOUS_SCENE;
+        }
         return currentDialogue.getWhichSceneNext();
     }
 }

@@ -38,7 +38,9 @@ public class LootScene extends Scene{
     public Scene takeAction(Action action) {
         if(possibleLoot.containsKey(action)){
             setDescription(getDescription()+" "+player.addLoot(0, possibleLoot.get(action)));
+            Scene nextScene = super.takeAction(action);
             removeAction(action);
+            return nextScene;
         }
         return super.takeAction(action);
     }
