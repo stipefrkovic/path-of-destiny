@@ -60,7 +60,9 @@ public class TalkScene extends Scene implements Serializable, NPCScene {
             if(previousScene != null){
                 previousScene.removeActionsOfScene(this);
             }
-            nextScene.removeActionsOfScene(this);
+            if(nextScene != null){
+                nextScene.removeActionsOfScene(this);
+            }
             return super.takeAction(action);
         }
         person.takeActions(player, this, action, false);
