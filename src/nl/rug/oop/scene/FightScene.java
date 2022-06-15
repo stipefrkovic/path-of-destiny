@@ -75,6 +75,9 @@ public class FightScene extends Scene implements Serializable, NPCScene {
      */
     @Override
     public Scene takeAction(Action action) {
+        if(action.getActionName().equals("Back")){
+            System.out.println("Back");
+        }
         if(fleeScene != null){
             fleeScene.removeActionsOfScene(this);
         }

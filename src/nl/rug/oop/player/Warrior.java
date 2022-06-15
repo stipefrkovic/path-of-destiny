@@ -38,7 +38,7 @@ public  class Warrior extends Player{
     }
 
     public List<Action> getFightActions() {
-        return fightActions;
+        return new ArrayList<>(fightActions);
     }
 
     private String hitAction(NPC target) {

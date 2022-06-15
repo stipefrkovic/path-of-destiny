@@ -39,7 +39,7 @@ public class Mage extends Player{
 
     @Override
     public List<Action> getFightActions() {
-        return fightActions;
+        return new ArrayList<>(fightActions);
     }
 
     @Override
