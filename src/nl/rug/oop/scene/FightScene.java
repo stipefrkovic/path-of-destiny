@@ -138,6 +138,8 @@ public class FightScene extends Scene implements Serializable, NPCScene {
             descriptionBuilder.append(player.addLoot(lootGold, loot));
             lootGold = 0;
             loot.clear();
+            this.player.setEnergy(10000);
+            this.player.changeHealth(-10000);
         }
         for (NPC enemy:enemies) {
             descriptionBuilder.append(enemy.takeActions(player, this, action, true));
