@@ -79,6 +79,10 @@ public abstract class Entity implements Serializable {
         this.effects.clear();
     }
 
+    /**
+     * Returns the effects of the entity.
+     * @return The effects of the entity.
+     */
     public List<String> getEffects(){
         List<String> effectsNames = new ArrayList<>();
         for (Effect effect:effects) {
@@ -203,8 +207,8 @@ public abstract class Entity implements Serializable {
     }
 
     /**
-     * Sets the confusion chance, to a value between 0 and 1.
-     * @param confusionChance A value between
+     * Sets the confusion chance, to a value between 0 and 1, which is the new confusion chance.
+     * @param confusionChance A value between 0 and 1.
      */
     public void setConfusionChance(double confusionChance) {
         this.confusionChance = Math.min(Math.max(confusionChance, 0), 1);
@@ -212,7 +216,7 @@ public abstract class Entity implements Serializable {
 
     /**
      * Sets the stun chance, to a value between 0 and 1.
-     * @param stunnedChance
+     * @param stunnedChance A value between 0 and 1, which is the new stun chance.
      */
     public void setStunnedChance(double stunnedChance) {
         this.stunnedChance = Math.min(Math.max(stunnedChance, 0), 1);
