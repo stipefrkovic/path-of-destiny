@@ -11,15 +11,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 /**
- * Abstract class that defines the basic features of the player
+ * Abstract class that defines the basic features of the player. Extends from the class Entity and is the superclass of Mage and Warrior
  * @author Joni Baarda
  */
 public abstract class Player extends Entity implements Serializable {
     private HashMap<String, Integer> killCounter = new HashMap<>();
-    private int totalKills = 0;
     List<Item> inventoryItems = new ArrayList<>();
 
 
@@ -38,23 +36,6 @@ public abstract class Player extends Entity implements Serializable {
         this.gold = gold;
     }
 
-    /**
-     * returns the hashmap of the types of npc and how many the player has killed
-     * @return the hashmap of the types of npc and how many the player has killed
-     * @author Joni Baarda
-     */
-    public HashMap<String, Integer> getKillCounter() {
-        return killCounter;
-    }
-
-    /**
-     * returns the total kills the player made
-     * @return the total kills the player made
-     * @author Joni Baarda
-     */
-    public int getTotalKills() {
-        return totalKills;
-    }
 
     /**
      * gets the amount of kills for a specific type of npc
@@ -175,7 +156,7 @@ public abstract class Player extends Entity implements Serializable {
 
     /**
      * Calls one of the fight actions the player can take and returns what has happened.
-     * @param action
+     * @param action the action that is chosen by the player
      * @param target the current target of the player
      * @param allEnemies all available enemies in a scene
      * @param scene the current scene
@@ -185,7 +166,7 @@ public abstract class Player extends Entity implements Serializable {
     protected abstract String fight(Action action, NPC target, List<NPC> allEnemies, Scene scene);
 
     /**
-     * adds the kill to the type of npc in the hashmap and adds the kill to the total amount of kills.
+     * adds the kill to the type of npc in the hashmap.
      * @param type the type of npc the player has killed
      * @author Joni Baarda
      */
@@ -195,7 +176,6 @@ public abstract class Player extends Entity implements Serializable {
         } else{
             killCounter.put(type, 1);
         }
-        totalKills += 1;
     }
 
     /**
@@ -224,14 +204,14 @@ public abstract class Player extends Entity implements Serializable {
 
     /**
      * consumes the appropriate potion
-     * @author
+     * @author Joni Baarda
      */
     public abstract void useAppropriatePotion();
 
     /**
      * adds the health of a potion to the player's health
      * @param amount The amount of health to be added
-     * @author
+     * @author Joni Baarda
      */
     public void useHealthPotion(int amount) {
         health = Math.min(health + amount, maxHealth);
@@ -241,7 +221,7 @@ public abstract class Player extends Entity implements Serializable {
      * Adds an effect to the player.
      * @param effect The effect that is supposed to be added to the entity.
      * @return A description of what effect was added.
-     * @author
+     * @author Joni Baarda
      */
     @Override
     public String addEffect(Effect effect) {

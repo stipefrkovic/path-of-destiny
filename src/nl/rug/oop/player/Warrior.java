@@ -1,6 +1,5 @@
 package nl.rug.oop.player;
 
-import nl.rug.oop.items.Item;
 import nl.rug.oop.npc.Entity;
 import nl.rug.oop.npc.NPC;
 import nl.rug.oop.scene.Action;
@@ -8,7 +7,6 @@ import nl.rug.oop.scene.Scene;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Warrior class extends the Player class. Implements the possible player class warrior
@@ -159,8 +157,8 @@ public  class Warrior extends Player{
     }
 
     /**
-     *
-     * @author
+     * consumes the stamina potion and takes the minimum of the current stamina plus 10 stamina or the maximum stamina the player can have to be the new stamina amount.
+     * @author Joni Baarda
      */
     @Override
     public void useAppropriatePotion() {

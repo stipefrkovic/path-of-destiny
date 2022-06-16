@@ -1,6 +1,5 @@
 package nl.rug.oop.player;
 
-import nl.rug.oop.items.Item;
 import nl.rug.oop.npc.NPC;
 import nl.rug.oop.scene.Action;
 import nl.rug.oop.scene.Scene;
@@ -144,8 +143,8 @@ public class Mage extends Player{
     }
 
     /**
-     *
-     * @author
+     * consumes the mana potion and takes the minimum of the current mana plus 10 mana or the maximum mana the player can have to be the new mana amount.
+     * @author Joni Baarda
      */
     @Override
     public void useAppropriatePotion() {
