@@ -77,10 +77,7 @@ public class FightScene extends Scene implements Serializable, NPCScene {
     @Override
     public Scene takeAction(Action action) {
         this.updateInventoryOptions();
-        if(fleeScene != null){
-            fleeScene.removeActionsOfScene(this);
-        }
-        if(winScene != null){
+        if(winScene != null && fleeScene != winScene){
             winScene.removeActionsOfScene(this);
         }
         switch (action.getActionName()){
