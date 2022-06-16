@@ -73,10 +73,10 @@ public abstract class Entity implements Serializable {
     }
 
     /**
-     * Removes all effects, by adding them to the removal queue.
+     * Removes all effects.
      */
     public void removeAllEffects(){
-        removeEffects.addAll(effects);
+        this.effects.clear();
     }
 
     public List<String> getEffects(){
