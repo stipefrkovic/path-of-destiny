@@ -73,7 +73,15 @@ public class DialogueFactory implements Serializable {
         }
     }
 
-
+    /**
+     * Creates a PepTalk, which can depending on the type can increase a value of the player permanently such as maximum health or base strength.
+     * @param type The String under which the class was registered.
+     * @param text What the npc says for this dialogue.
+     * @param possibleAnswers The possible answers the player can give.
+     * @param whichSceneNext Which scene is next after this dialogue.
+     * @param value The amount by which the player value should be increased.
+     * @return
+     */
     public Dialogue createPepTalk(String type, String text, HashMap<String, Dialogue> possibleAnswers, SceneChange whichSceneNext, float value){
         try {
             Class dialogueType = register.get(type);

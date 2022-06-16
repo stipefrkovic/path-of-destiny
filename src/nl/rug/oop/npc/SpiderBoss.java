@@ -22,7 +22,7 @@ public class SpiderBoss extends BossNPC{
      * @param factory The item factory which is used to set the loot.
      */
     public SpiderBoss(ItemFactory factory) {
-        super("Wren", "Weaver", 200, 6, new Dialogue("You will never defeat me.", new HashMap<>(), SceneChange.CURRENT_SCENE), 10, 30, factory.createRandomItems(2,4));
+        super("Wren", "Weaver", 150, 6, new Dialogue("You will never defeat me.", new HashMap<>(), SceneChange.CURRENT_SCENE), 10, 30, factory.createRandomItems(2,4));
     }
 
     /**
