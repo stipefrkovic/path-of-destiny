@@ -99,12 +99,12 @@ public class Story implements Serializable {
         sewerScene.addAction(new Action("Go back to the city"), cityScene);
         HashMap<String, Integer> buyPriceList = new HashMap<>();
         HashMap<String, Integer> sellPriceList = new HashMap<>();
-        buyPriceList.put("HealthPotion", 12);
-        buyPriceList.put("RemoveEffectPotion", 10);
-        buyPriceList.put("StaminaPotion", 8);
-        buyPriceList.put("ManaPotion", 8);
-        sellPriceList.put("StaminaPotion", 6);
-        sellPriceList.put("ManaPotion", 6);
+        buyPriceList.put("Health Potion", 12);
+        buyPriceList.put("Clear Effect Potion", 10);
+        buyPriceList.put("Stamina Potion", 8);
+        buyPriceList.put("Mana Potion", 8);
+        sellPriceList.put("Stamina Potion", 6);
+        sellPriceList.put("Mana Potion", 6);
         Dialogue cityTraderDialogue = dialogueFactory.createShopDialogue(buyPriceList, sellPriceList,itemFactory);
         TalkingNPC cityTrader = npcFactory.createTalkingNPC("Trader", cityTraderDialogue, itemFactory);
         Scene cityTraderScene = sceneFactory.createTalkScene("TalkScene", "City", cityScene, cityScene, cityTrader, player);
@@ -179,7 +179,7 @@ public class Story implements Serializable {
         villageActions.put(new Action("Do not pick up the shiny object"), villageScene);
         HashMap<Action, List<Item>> villageLoot = new HashMap<>();
         ArrayList<Item> possibleLoot = new ArrayList<>();
-        possibleLoot.add(itemFactory.createItem("HealthPotion"));
+        possibleLoot.add(itemFactory.createItem("Health Potion"));
         villageLoot.put(new Action("Pick up shiny object"), possibleLoot);
         Scene villageEdge = sceneFactory.createLootScene("LootScene", "Village", "After you defeat the bandits you see something shiny on the ground. You move towards it to pick it up.", villageActions, villageLoot, player);
         ArrayList<NPC> bandits = new ArrayList<>();

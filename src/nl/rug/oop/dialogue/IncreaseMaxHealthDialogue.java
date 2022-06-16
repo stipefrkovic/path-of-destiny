@@ -13,9 +13,9 @@ public class IncreaseMaxHealthDialogue extends Dialogue implements PepTalk{
 
     private int increaseMaxHealthValue;
 
-    public IncreaseMaxHealthDialogue(String text, HashMap<String, Dialogue> possibleAnswers, SceneChange whichSceneNext, float increaseValue) {
+    public IncreaseMaxHealthDialogue(String text, HashMap<String, Dialogue> possibleAnswers, SceneChange whichSceneNext, Float increaseValue) {
         super(text, possibleAnswers, whichSceneNext);
-        this.increaseMaxHealthValue = (int) increaseValue;
+        this.increaseMaxHealthValue = increaseValue.intValue();
     }
 
     @Override

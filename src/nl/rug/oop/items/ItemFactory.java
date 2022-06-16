@@ -17,10 +17,10 @@ public class ItemFactory implements Serializable {
      * Registers all the standard Items of the game (Health-, Mana-, Stamina- and RemoveEffectPotions).
      */
     public ItemFactory(){
-        registerItemType("HealthPotion", HealthPotionItem.class);
-        registerItemType("ManaPotion", ManaPotion.class);
-        registerItemType("StaminaPotion", StaminaPotion.class);
-        registerItemType("RemoveEffectPotion", RemoveEffectPotion.class);
+        registerItemType("Health Potion", HealthPotionItem.class);
+        registerItemType("Mana Potion", ManaPotion.class);
+        registerItemType("Stamina Potion", StaminaPotion.class);
+        registerItemType("Clear Effect Potion", RemoveEffectPotion.class);
     }
 
     /**

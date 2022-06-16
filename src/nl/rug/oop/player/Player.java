@@ -100,12 +100,17 @@ public abstract class Player extends Entity implements Serializable {
      * @author Joni Baarda
      */
     public String useItem(String itemName){
+        Item removeItem = null;
         for (Item item: inventoryItems) {
             if(itemName.equals(item.getItemAdjective())){
                 System.out.println(item.getItemAdjective());
                 item.use(this);
-                inventoryItems.remove(item);
+                removeItem = item;
+                break;
             }
+        }
+        if(removeItem!=null){
+            this.inventoryItems.remove(removeItem);
         }
         return "";
     }
@@ -205,8 +210,13 @@ public abstract class Player extends Entity implements Serializable {
         }
         StringBuilder StringItemsToRemove = new StringBuilder();
         for (Item item:itemsToRemove) {
-            inventoryItems.remove(item);
-            StringItemsToRemove.append(item.getItemAdjective()).append(", ");
+            for (int i = inventoryItems.size()-1; i >= 0; i--) {
+                if(item.getItemAdjective().equals(inventoryItems.get(i).getItemAdjective())){
+                    inventoryItems.remove(i);
+                    StringItemsToRemove.append(item.getItemAdjective()).append(", ");
+                    break;
+                }
+            }
         }
         String temp = StringItemsToRemove.toString();
         return "You lost " + (temp.substring(0, temp.length()-2)) + ".";
@@ -219,11 +229,17 @@ public abstract class Player extends Entity implements Serializable {
 
     /**
      * adds the health of a potion to the player's health
+     * @param amount The amount of health to be added
      */
-    public void useHealthPotion() {
-        health = Math.min(health + 10, maxHealth);
+    public void useHealthPotion(int amount) {
+        health = Math.min(health + amount, maxHealth);
     }
 
+    /**
+     * Adds an effect to the player.
+     * @param effect The effect that is supposed to be added to the entity.
+     * @return A description of what effect was added.
+     */
     @Override
     public String addEffect(Effect effect) {
         super.addEffect(effect);
@@ -242,10 +258,10 @@ public abstract class Player extends Entity implements Serializable {
         this.gold += gold;
         for (Item item:items) {
             switch (item.getItemAdjective()) {
-                case "health potion" -> healthPotionCount += 1;
-                case "mana potion" -> manaPotionCount += 1;
-                case "stamina potion" -> staminaPotionCount += 1;
-                case "potion removes an effect" -> removeEffectPotionCount += 1;
+                case "Health Potion" -> healthPotionCount += 1;
+                case "Mana Potion" -> manaPotionCount += 1;
+                case "Stamina Potion" -> staminaPotionCount += 1;
+                case "Clear Effects Potion" -> removeEffectPotionCount += 1;
                 default -> {
                 }
             }

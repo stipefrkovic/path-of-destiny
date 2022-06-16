@@ -13,7 +13,7 @@ public class HealthPotionItem implements Item {
      */
     @Override
     public void use(Player player) {
-        player.useHealthPotion();
+        player.useHealthPotion(40);
     }
 
     /**

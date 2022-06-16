@@ -9,7 +9,7 @@ public class IncreaseStrengthDialogue extends Dialogue implements PepTalk{
 
     private float increaseStrength;
 
-    public IncreaseStrengthDialogue(String text, HashMap<String, Dialogue> possibleAnswers, SceneChange whichSceneNext, float increaseStrength) {
+    public IncreaseStrengthDialogue(String text, HashMap<String, Dialogue> possibleAnswers, SceneChange whichSceneNext, Float increaseStrength) {
         super(text, possibleAnswers, whichSceneNext);
         this.increaseStrength = increaseStrength;
     }

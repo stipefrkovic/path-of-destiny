@@ -165,6 +165,7 @@ public class FightScene extends Scene implements Serializable, NPCScene {
             this.player.changeHealth(-10000);
         }
         for (NPC enemy:enemies) {
+            descriptionBuilder.append(enemy.getName()).append(" has ").append(enemy.getHealth()).append(" health left. ");
             descriptionBuilder.append(enemy.takeActions(player, this, action, true));
             descriptionBuilder.append("\n");
         }

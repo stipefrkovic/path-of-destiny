@@ -153,7 +153,7 @@ public class DialogueFactory implements Serializable {
     private String getPriceListString(HashMap<String, Integer> priceList){
         StringBuilder text = new StringBuilder();
         for (String item:priceList.keySet()) {
-            text.append(item).append(" for ").append(priceList.get(item)).append(", ");
+            text.append(item).append(" for ").append(priceList.get(item)).append(" gold").append(", ");
         }
         text = new StringBuilder(text.substring(0, text.length() - 2));
         text.append(".");

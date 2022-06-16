@@ -84,7 +84,12 @@ public class Trader extends TalkingNPC{
         if(transaction.getPlayerLosses().size()>0) {
             List<Item> paymentItems = new ArrayList<>(transaction.getPlayerLosses());
             for (Item item:player.getInventoryItems()) {
-                paymentItems.remove(item);
+                for (int i = paymentItems.size()-1; i >= 0; i--) {
+                    if(paymentItems.get(i).getItemAdjective().equals(item.getItemAdjective())){
+                        paymentItems.remove(i);
+                        break;
+                    }
+                }
             }
             return paymentItems.size() == 0;
         }
