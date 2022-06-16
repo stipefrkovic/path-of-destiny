@@ -15,7 +15,7 @@ public class StunEffect extends Effect {
     public void update(Entity entity) {
         if (lifetime == 0) {
             entity.removeEffect(this);
-        } else if(lifetime == 3) {
+        } else {
             entity.setStunnedChance(0.3);
         }
         lifetime--;

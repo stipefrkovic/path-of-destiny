@@ -15,7 +15,7 @@ public class ConfusionEffect extends Effect {
     public void update(Entity entity) {
         if(lifetime == 0) {
             entity.removeEffect(this);
-        } else if(lifetime == 3) {
+        } else {
             entity.setConfusionChance(0.3);
         }
         lifetime--;
