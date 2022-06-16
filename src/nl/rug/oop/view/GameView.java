@@ -19,10 +19,6 @@ import java.util.Objects;
  */
 public class GameView extends JFrame implements OutputEventListener {
 
-    //TODO load button in the beginning
-    //TODO american psycho easter egg
-    //TODO comments
-
     /**
      * Controller (OutputEventListener) for the View and rpg game
      */
