@@ -192,7 +192,7 @@ public class Story implements Serializable {
         for(int i = 0; i < 2; i++){
             bandits.add(npcFactory.createSimpleNPC("Bandit", itemFactory));
         }
-        Scene banditScene = sceneFactory.createFightScene("FightScene", "Village", "The shady figure immediately draw a knife when they see you coming towards them. This will not be a friendly encounter.", player, villageScene, villageEdge, bandits);
+        Scene banditScene = sceneFactory.createFightScene("FightScene", "Village", "The shady figures immediately draw their knives when they see you coming towards them. This will not be a friendly encounter.", player, villageScene, villageEdge, bandits);
         List<String> villagerTexts = new ArrayList<>();
         List<String> playerAnswersVillage = new ArrayList<>();
         villagerTexts.add("The evil king originally set out to save us, but instead he just replaced the last ruler with himself.");
@@ -212,7 +212,7 @@ public class Story implements Serializable {
         villageScene.addAction(new Action("Talk to the villager."), villagerScene);
         villageScene.addAction(new Action("Go to the trader."), villageTraderScene);
         villageScene.addAction(new Action("Approach the guard."), villageGuardScene);
-        villageScene.addAction(new Action("Approach the shady figure."), banditScene);
+        villageScene.addAction(new Action("Approach the shady figures."), banditScene);
         villageScene.addAction(new Action("Take the path to the forest"), forestScene);
         forestScene.addAction(new Action("Go back to the village"), villageScene);
 

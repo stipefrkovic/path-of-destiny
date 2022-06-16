@@ -20,6 +20,11 @@ public  class Warrior extends Player{
     private boolean blockAction = false;
     private List<Action> fightActions;
 
+    /**
+     * initializes the warrior class with the initial values of the class
+     * @param name the name of the player
+     * @author Joni Baarda
+     */
     public Warrior(String name) {
         super(name, 140, 140, 5, 0);
         this.stamina = 60;
@@ -29,18 +34,39 @@ public  class Warrior extends Player{
         fightActions.add(new Action("Slash"));
     }
 
+    /**
+     * returns the current stamina of the player if the player is a warrior
+     * @return the current stamina of the player
+     * @author Joni Baarda
+     */
     public int getEnergy() {
         return stamina;
     }
 
+    /**
+     * sets the stamina of the player to the minimum of the maximum stamina and the new amount of stamina
+     * @param stamina the new amount of stamina for the player
+     * @author Joni Baarda
+     */
     public void setEnergy(int stamina) {
         this.stamina = Math.min(MAX_STAMINA, stamina);
     }
 
+    /**
+     * returns the available fight actions for a warrior
+     * @return the available fight actions
+     * @author Joni Baarda
+     */
     public List<Action> getFightActions() {
         return new ArrayList<>(fightActions);
     }
 
+    /**
+     *
+     * @param target the player's target
+     * @return the description of what happened in the action
+     * @author Joni Baarda
+     */
     private String hitAction(NPC target) {
         int cost = 0;
         float damage = 1;
@@ -71,7 +97,7 @@ public  class Warrior extends Player{
 
     private String slashAction(NPC target) {
         int cost = 30;
-        float damage = 6;
+        float damage = 7;
         if (cost > stamina) {
             return "Not enough stamina";
         } else {
@@ -90,7 +116,7 @@ public  class Warrior extends Player{
     public String takeDamage(Entity attacker, int damage){
         if(blockAction){
             blockAction = false;
-            return "You have successfully blocked the damage!";
+            return "You have successfully blocked the damage! ";
         } else{
             health -= damage;
             if(health<0){
