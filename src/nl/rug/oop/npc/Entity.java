@@ -19,7 +19,7 @@ public abstract class Entity implements Serializable {
     protected int gold;
 
     private float baseStrength;
-    private double confusionChance;
+    protected double confusionChance;
     private double stunnedChance;
     private ArrayList<Effect> effects;
     private ArrayList<Effect> removeEffects;

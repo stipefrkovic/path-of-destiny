@@ -47,8 +47,8 @@ public  class Warrior extends Player{
         if (cost > stamina) {
             return "Not enough stamina";
         } else {
-            stamina -= cost;
             damage *= strength;
+            damage += 2;
             String description = isConfused((int) damage);
             if (description.equals("")) {
                 target.takeDamage(this, (int) damage);

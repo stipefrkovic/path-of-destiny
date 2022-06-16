@@ -93,7 +93,6 @@ public class Mage extends Player{
         if (cost > mana) {
             return "Not enough mana!";
         } else {
-            mana -= cost;
             damage *= strength;
             String description = isConfused((int) damage);
             if (description.equals("")) {

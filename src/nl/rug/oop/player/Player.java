@@ -247,6 +247,23 @@ public abstract class Player extends Entity implements Serializable {
     }
 
     /**
+     * Determines if the player is confused and therefore attacks itself and sets the confusion chance to 0.
+     * @param damage The amount of damage the entity will deal to itself or an ally, in case it is confused.
+     * @param allies A List of allies, which might be targeted, if the entity is confused.
+     * @return the description how much damage the player has done to themselves
+     */
+    @Override
+    protected String isConfused(int damage, List<NPC> allies){
+        String description = "";
+        if(Math.random()<confusionChance){
+            this.takeDamage(this, damage);
+            description = "You have attacked yourself for " + damage + " damage.";
+        }
+        confusionChance = 0;
+        return description;
+    }
+
+    /**
      * adds the gold to the player's gold and adds the items to the inventory, then returns a string of what has happened.
      * @param gold the amount of gold that was gained
      * @param items the items that were gained
