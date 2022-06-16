@@ -103,7 +103,6 @@ public abstract class Player extends Entity implements Serializable {
         Item removeItem = null;
         for (Item item: inventoryItems) {
             if(itemName.equals(item.getItemAdjective())){
-                System.out.println(item.getItemAdjective());
                 item.use(this);
                 removeItem = item;
                 break;

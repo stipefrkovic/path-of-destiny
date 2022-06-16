@@ -77,9 +77,6 @@ public class FightScene extends Scene implements Serializable, NPCScene {
     @Override
     public Scene takeAction(Action action) {
         this.updateInventoryOptions();
-        if(action.getActionName().equals("Back")){
-            System.out.println("Back");
-        }
         if(fleeScene != null){
             fleeScene.removeActionsOfScene(this);
         }
@@ -126,11 +123,22 @@ public class FightScene extends Scene implements Serializable, NPCScene {
         return super.takeAction(action);
     }
 
+    /**
+     * Updates the items that the user can attempt to use.
+     */
     private void updateInventoryOptions(){
-        this.removeActions(this.player.getInventory());
         List<String> items = this.player.getInventory();
+        this.removeActions(items);
+        List<String> actions = this.getActions();
+        boolean itemsEnabled = false;
+        for(String action:actions){
+            if(items.contains(action)){
+                itemsEnabled = true;
+                break;
+            }
+        }
         for (String item:items) {
-            this.addAction(new Action(item, false), this);
+            this.addAction(new Action(item, itemsEnabled), this);
         }
     }
 
@@ -197,8 +205,10 @@ public class FightScene extends Scene implements Serializable, NPCScene {
         }
         if(deleteEnemies.size()>1){
             defeatMessage.append(" were defeated. ");
+            defeatMessage.append("\n");
         }else if(deleteEnemies.size()==1){
             defeatMessage.append(" was defeated.");
+            defeatMessage.append("\n");
         }
         enemies.removeAll(deleteEnemies);
         return defeatMessage.toString();
