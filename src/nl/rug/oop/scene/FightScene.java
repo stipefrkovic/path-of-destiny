@@ -119,6 +119,11 @@ public class FightScene extends Scene implements Serializable, NPCScene {
         }
         if(player.getInventory().contains(action.getActionName())){
             enemiesResponse(player.useItem(action.getActionName()), action);
+            if(player.getHealth()<=0){
+                Scene gameOver = new Scene("GameOver", "You are struck down, your vision grows hazy. You feel your blood flowing out of your body. You have failed in your quest. YOU DIED!");
+                gameOver.addAction(new Action("Exit Game"), null);
+                return gameOver;
+            }
         }
         return super.takeAction(action);
     }
@@ -153,6 +158,11 @@ public class FightScene extends Scene implements Serializable, NPCScene {
             return fleeScene;
         }
         enemiesResponse("You tried to flee, but you failed. ", action);
+        if(player.getHealth()<=0){
+            Scene gameOver = new Scene("GameOver", "You are struck down, your vision grows hazy. You feel your blood flowing out of your body. You have failed in your quest. YOU DIED!");
+            gameOver.addAction(new Action("Exit Game"), null);
+            return gameOver;
+        }
         return this;
     }
 

@@ -19,6 +19,7 @@ public class TalkScene extends Scene implements Serializable, NPCScene {
     private Scene nextScene;
     private Scene previousScene;
     private Player player;
+    private boolean talkOnce;
 
     /**
      * Creates a new instance of the TalkScene and sets the relevant fields for this class.
@@ -39,6 +40,27 @@ public class TalkScene extends Scene implements Serializable, NPCScene {
         this.addAction(new Action("Attack"), new FightScene(image, "You have initiated the fight, you are fighting against "+person.getName(), player, previousScene, nextScene, enemies));
         this.updateAvailableActions();
         this.setDescription(this.person.getCurrentDescription());
+        talkOnce = false;
+    }
+
+    /**
+     * Set if the talk should only be happening once and therefore if the scene should remove itself.
+     * @param talkOnce If the talk should only happen once.
+     */
+    public void setTalkOnce(boolean talkOnce) {
+        this.talkOnce = talkOnce;
+    }
+
+    /**
+     * Removes the scene from being accessed from the previous and next scene, it will not have an effect on other scenes, as this is not a recursive call.
+     */
+    private void removeActionsToSelf(){
+        if(previousScene != null){
+            previousScene.removeActionsOfScene(this);
+        }
+        if(nextScene != null){
+            nextScene.removeActionsOfScene(this);
+        }
     }
 
     /**
@@ -57,13 +79,11 @@ public class TalkScene extends Scene implements Serializable, NPCScene {
     @Override
     public Scene takeAction(Action action) {
         if(action.getActionName().equals("Attack")){
-            if(previousScene != null){
-                previousScene.removeActionsOfScene(this);
-            }
-            if(nextScene != null){
-                nextScene.removeActionsOfScene(this);
-            }
+            this.removeActionsToSelf();
             return super.takeAction(action);
+        }
+        if(talkOnce){
+            this.removeActionsToSelf();
         }
         person.takeActions(player, this, action, false);
         SceneChange sceneChange = person.nextScene();

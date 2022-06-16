@@ -110,11 +110,15 @@ public class Story implements Serializable {
         Scene cityTraderScene = sceneFactory.createTalkScene("TalkScene", "City", cityScene, cityScene, cityTrader, player);
         Dialogue helpfulCitizenDialogue = dialogueFactory.createDialogue("Dialogue", "I think I can help you.", new HashMap<>(), SceneChange.CURRENT_SCENE);
         Dialogue helpKingDefeatAnswer = dialogueFactory.createPepTalk("IncreaseStrengthDialogue", "Not so loud! Here, take this.", new HashMap<>(), SceneChange.CURRENT_SCENE, 5);
+        helpKingDefeatAnswer.addAnswer("Thanks", new Dialogue(SceneChange.NEXT_SCENE));
         Dialogue playDumbAnswer = dialogueFactory.createPepTalk("IncreaseStrengthDialogue", "Ah, of course not. You should indeed be careful.", new HashMap<>(), SceneChange.CURRENT_SCENE, 10);
+        playDumbAnswer.addAnswer("Thanks", new Dialogue(SceneChange.NEXT_SCENE));
         helpfulCitizenDialogue.addAnswer("Help me defeat the king?", helpKingDefeatAnswer);
         helpfulCitizenDialogue.addAnswer("I have no clue what you are talking about", playDumbAnswer);
+        helpfulCitizenDialogue.addAnswer("Leave", new Dialogue(SceneChange.NEXT_SCENE));
         TalkingNPC helpfulCitizen = npcFactory.createTalkingNPC("Villager", helpfulCitizenDialogue, itemFactory);
-        Scene helpfulCitizenScene = sceneFactory.createTalkScene("TalkScene", "City", cityScene, cityScene, helpfulCitizen, player);
+        TalkScene helpfulCitizenScene = sceneFactory.createTalkScene("TalkScene", "City", cityScene, cityScene, helpfulCitizen, player);
+        helpfulCitizenScene.setTalkOnce(true);
         List<String> citizenTexts = new ArrayList<>();
         List<String> playerAnswersCitizen = new ArrayList<>();
         citizenTexts.add("I can't talk freely, but the guards are trying their best.");
@@ -133,11 +137,13 @@ public class Story implements Serializable {
         Scene citizenScene = sceneFactory.createTalkScene("TalkScene", "City", cityScene, cityScene, citizen, player);
         Dialogue noAnswer = dialogueFactory.createPepTalk("IncreaseMaxHealthDialogue", "A ghost! Please don't hurt me!", new HashMap<>(), SceneChange.CURRENT_SCENE, 10);
         Dialogue niceAnswer = dialogueFactory.createPepTalk("IncreaseMaxHealthDialogue", "Such a nice young person. Please take this as a thank you.", new HashMap<>(), SceneChange.CURRENT_SCENE, 20);
+        niceAnswer.addAnswer("Thanks", new Dialogue(SceneChange.NEXT_SCENE));
         Dialogue creepyCitizenDialogue = dialogueFactory.createDialogue("Dialogue", "I'm afraid of ghosts! They are everywhere.", new HashMap<>(), SceneChange.CURRENT_SCENE);
         creepyCitizenDialogue.addAnswer("....", noAnswer);
         creepyCitizenDialogue.addAnswer("I understand. Salt helps against ghosts where I come from, maybe it does for you too?", niceAnswer);
         TalkingNPC creepyCitizen = npcFactory.createTalkingNPC("Villager", creepyCitizenDialogue, itemFactory);
-        Scene creepyCitizenScene = sceneFactory.createTalkScene("TalkScene", "City", cityScene, cityScene, creepyCitizen, player);
+        TalkScene creepyCitizenScene = sceneFactory.createTalkScene("TalkScene", "City", cityScene, cityScene, creepyCitizen, player);
+        creepyCitizenScene.setTalkOnce(true);
         ArrayList<NPC> cityGuards = new ArrayList<>();
         for(int i = 0; i < 4; i++){
             cityGuards.add(npcFactory.createSimpleNPC("Guard", itemFactory));

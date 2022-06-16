@@ -100,6 +100,7 @@ public abstract class Player extends Entity implements Serializable {
      * @author Joni Baarda
      */
     public String useItem(String itemName){
+        updateEffects();
         Item removeItem = null;
         for (Item item: inventoryItems) {
             if(itemName.equals(item.getItemAdjective())){

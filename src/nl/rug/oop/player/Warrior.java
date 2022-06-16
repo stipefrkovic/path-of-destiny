@@ -16,13 +16,13 @@ import java.util.Objects;
  */
 public  class Warrior extends Player{
     private int stamina;
-    private final int MAX_STAMINA = 50;
+    private final int MAX_STAMINA = 60;
     private boolean blockAction = false;
     private List<Action> fightActions;
 
     public Warrior(String name) {
-        super(name, 120, 120, 5, 0);
-        this.stamina = 50;
+        super(name, 140, 140, 5, 0);
+        this.stamina = 60;
         fightActions = new ArrayList<>();
         fightActions.add(new Action("Hit"));
         fightActions.add(new Action("Block"));
@@ -112,6 +112,6 @@ public  class Warrior extends Player{
 
     @Override
     public void useAppropriatePotion() {
-        stamina = Math.min(stamina + 10, MAX_STAMINA);
+        stamina = Math.min(stamina + 20, MAX_STAMINA);
     }
 }

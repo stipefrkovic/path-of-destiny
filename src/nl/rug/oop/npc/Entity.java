@@ -151,6 +151,7 @@ public abstract class Entity implements Serializable {
      */
     public void setBaseStrength(float baseStrength) {
         this.baseStrength = baseStrength;
+        this.strength = baseStrength;
     }
 
     /**
