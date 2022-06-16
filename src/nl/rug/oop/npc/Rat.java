@@ -14,6 +14,6 @@ public class Rat extends StandardFighter{
      * @param factory An itemFactory that is used to generate the loot.
      */
     public Rat(String name, ItemFactory factory) {
-        super(name, "Rat", 15, 3, 0, 1, factory.createRandomItems(0));
+        super(name, "Rat", 60, 3, 0, 1, factory.createRandomItems(0));
     }
 }

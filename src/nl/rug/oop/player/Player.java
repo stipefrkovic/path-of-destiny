@@ -224,7 +224,7 @@ public abstract class Player extends Entity implements Serializable {
 
     /**
      * consumes the appropriate potion
-     * @author 
+     * @author
      */
     public abstract void useAppropriatePotion();
 
