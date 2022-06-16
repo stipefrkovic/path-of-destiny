@@ -224,12 +224,14 @@ public abstract class Player extends Entity implements Serializable {
 
     /**
      * consumes the appropriate potion
+     * @author 
      */
     public abstract void useAppropriatePotion();
 
     /**
      * adds the health of a potion to the player's health
      * @param amount The amount of health to be added
+     * @author
      */
     public void useHealthPotion(int amount) {
         health = Math.min(health + amount, maxHealth);
@@ -239,6 +241,7 @@ public abstract class Player extends Entity implements Serializable {
      * Adds an effect to the player.
      * @param effect The effect that is supposed to be added to the entity.
      * @return A description of what effect was added.
+     * @author
      */
     @Override
     public String addEffect(Effect effect) {
@@ -251,6 +254,7 @@ public abstract class Player extends Entity implements Serializable {
      * @param damage The amount of damage the entity will deal to itself or an ally, in case it is confused.
      * @param allies A List of allies, which might be targeted, if the entity is confused.
      * @return the description how much damage the player has done to themselves
+     * @author Joni Baarda
      */
     @Override
     protected String isConfused(int damage, List<NPC> allies){

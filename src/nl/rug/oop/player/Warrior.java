@@ -62,28 +62,28 @@ public  class Warrior extends Player{
     }
 
     /**
-     *
+     * The basic action of the warrior. They do they deal damage to themselves (possible if confused) or the target
      * @param target the player's target
-     * @return the description of what happened in the action
+     * @return the string that the player attacked themselves or a target for damage
      * @author Joni Baarda
      */
     private String hitAction(NPC target) {
-        int cost = 0;
         float damage = 1;
-        if (cost > stamina) {
-            return "Not enough stamina";
-        } else {
-            damage *= strength;
-            damage += 2;
-            String description = isConfused((int) damage);
-            if (description.equals("")) {
-                target.takeDamage(this, (int) damage);
-                description = "You hit " + target.getName() + " on the head for " + damage + " damage.";
-            }
-            return description;
+        damage *= strength;
+        damage += 3;
+        String description = isConfused((int) damage);
+        if (description.equals("")) {
+            target.takeDamage(this, (int) damage);
+            description = "You hit " + target.getName() + " on the head for " + damage + " damage.";
         }
+        return description;
     }
 
+    /**
+     * Checks if the player has enough stamina and if so, sets blockAction to true so the player blocks the next enemy attack
+     * @return the string with the description of what happened
+     * @author Joni Baarda
+     */
     private String blockAction(){
         int cost = 10;
         if(cost > stamina){
@@ -95,9 +95,15 @@ public  class Warrior extends Player{
         return "You block the next attack.";
     }
 
+    /**
+     * Checks if the player has enough stamina and if they have they either attack themselves (if confused) or the target for damage that is multiplied by the player's strength.
+     * @param target the player's target
+     * @return the string with the description of what happened
+     * @author Joni Baarda
+     */
     private String slashAction(NPC target) {
         int cost = 30;
-        float damage = 7;
+        float damage = 6;
         if (cost > stamina) {
             return "Not enough stamina";
         } else {
@@ -112,6 +118,13 @@ public  class Warrior extends Player{
         }
     }
 
+    /**
+     * Checks if the player blocks the next action, in which case the boolean if set to false and a string is returned, otherwise does damage to the player
+     * @param attacker The entity that attacked this entity.
+     * @param damage The amount of damage that was inflicted.
+     * @return The string of what happened
+     * @author Joni Baarda
+     */
     @Override
     public String takeDamage(Entity attacker, int damage){
         if(blockAction){
@@ -126,6 +139,15 @@ public  class Warrior extends Player{
         }
     }
 
+    /**
+     * Checks which action is taken and calls the right method to execute that action
+     * @param action the action that is chosen
+     * @param target the current target of the player
+     * @param allEnemies all available enemies in a scene
+     * @param scene the current scene
+     * @return a string with the description of what happened
+     * @author Joni Baarda
+     */
     @Override
     public String fight(Action action, NPC target, List<NPC> allEnemies, Scene scene) {
         return switch (action.getActionName()) {
@@ -136,6 +158,10 @@ public  class Warrior extends Player{
         };
     }
 
+    /**
+     *
+     * @author
+     */
     @Override
     public void useAppropriatePotion() {
         stamina = Math.min(stamina + 20, MAX_STAMINA);

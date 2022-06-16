@@ -82,26 +82,23 @@ public class Mage extends Player{
     }
 
     /**
-     * the basic action of a mage. It checks if the player has enough mana, if they do they deal damage to themselves (possible if confused) or the target
+     * the basic action of a mage. They deal damage to themselves (possible if confused) or the target
      * @param target the player's target
      * @return a string of who was attacked for how much damage
      * @author Joni Baarda
      */
     private String manaBoltAction(NPC target) {
-        int cost = 0;
         float damage = 1;
-        if (cost > mana) {
-            return "Not enough mana!";
-        } else {
-            damage *= strength;
-            String description = isConfused((int) damage);
-            if (description.equals("")) {
-                target.takeDamage(this, (int) damage);
-                description = "You used mana bolt on " + target.getName() + " for " + damage + " damage.";
-            }
-            return description;
+        damage *= strength;
+        damage += 1;
+        String description = isConfused((int) damage);
+        if (description.equals("")) {
+            target.takeDamage(this, (int) damage);
+            description = "You used mana bolt on " + target.getName() + " for " + damage + " damage.";
         }
+        return description;
     }
+
 
     /**
      * Heals the player if the player has enough mana
@@ -147,7 +144,8 @@ public class Mage extends Player{
     }
 
     /**
-     * 
+     *
+     * @author
      */
     @Override
     public void useAppropriatePotion() {

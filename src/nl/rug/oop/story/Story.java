@@ -95,6 +95,9 @@ public class Story implements Serializable {
         Scene secondSewerRatsScene = sceneFactory.createFightScene("FightScene", "Sewers", "You are surrounded by small rats. They seem not afraid and try to bite you. Fight them off or flee.", player, sewerScene, castleScene, moreRats);
         Scene sewerRatsScene = sceneFactory.createFightScene("FightScene", "Sewers", "You are surrounded by small rats. They seem not afraid and try to bite you. Fight them off or flee.", player, sewerScene, secondSewerRatsScene, sewerRats);
         sewerScene.addAction(new Action("Walk onwards"), sewerRatsScene);
+        if(sewerRats.size() == 0){
+            sewerScene.addAction(new Action("Walk Onwards"), castleScene);
+        }
         Scene cityScene = sceneFactory.createSimpleScene("Scene", "City", "The city before you is bustling with life, you see a trader, a villager, and guards. What do you want to do?");
         sewerScene.addAction(new Action("Go back to the city"), cityScene);
         HashMap<String, Integer> buyPriceList = new HashMap<>();
@@ -138,6 +141,7 @@ public class Story implements Serializable {
         Dialogue noAnswer = dialogueFactory.createPepTalk("IncreaseMaxHealthDialogue", "A ghost! Please don't hurt me!", new HashMap<>(), SceneChange.CURRENT_SCENE, 10);
         Dialogue niceAnswer = dialogueFactory.createPepTalk("IncreaseMaxHealthDialogue", "Such a nice young person. Please take this as a thank you.", new HashMap<>(), SceneChange.CURRENT_SCENE, 20);
         niceAnswer.addAnswer("Thanks", new Dialogue(SceneChange.NEXT_SCENE));
+        noAnswer.addAnswer("...", new Dialogue(SceneChange.NEXT_SCENE));
         Dialogue creepyCitizenDialogue = dialogueFactory.createDialogue("Dialogue", "I'm afraid of ghosts! They are everywhere.", new HashMap<>(), SceneChange.CURRENT_SCENE);
         creepyCitizenDialogue.addAnswer("....", noAnswer);
         creepyCitizenDialogue.addAnswer("I understand. Salt helps against ghosts where I come from, maybe it does for you too?", niceAnswer);
