@@ -36,6 +36,6 @@ public class PoisonEffect extends Effect {
      */
     @Override
     public String getName() {
-        return "Poison";
+        return "Poisoned";
     }
 }

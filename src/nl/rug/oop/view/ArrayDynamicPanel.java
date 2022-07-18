@@ -5,10 +5,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DynamicPanel extends Panel {
+public class ArrayDynamicPanel extends DynamicPanel {
 
 
-    public DynamicPanel(LayoutManager layout, Font font, Color backgroundColor, Color foregroundColor) {
+    public ArrayDynamicPanel(LayoutManager layout, Font font, Color backgroundColor, Color foregroundColor) {
         super(layout, font, backgroundColor, foregroundColor);
     }
 

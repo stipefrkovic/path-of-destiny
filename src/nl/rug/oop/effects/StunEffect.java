@@ -36,6 +36,6 @@ public class StunEffect extends Effect {
      */
     @Override
     public String getName() {
-        return "Stun";
+        return "Stunned";
     }
 }

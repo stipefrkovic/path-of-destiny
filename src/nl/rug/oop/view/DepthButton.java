@@ -1,5 +1,7 @@
 package nl.rug.oop.view;
 
+import nl.rug.oop.controller.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,6 +17,14 @@ public class DepthButton extends JButton {
         super(text);
         setContentAreaFilled(false);
         setFocusPainted(false);
+    }
+
+    public DepthButton(String text, Font font, Color color, Controller controller) {
+        this(text);
+        setActionCommand(text);
+        setFont(font);
+        setBackground(color);
+        addActionListener(controller);
     }
 
     @Override

@@ -31,13 +31,13 @@ public class Controller implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
         switch (action) {
-            case "Start":
+            case "Start game":
                 game.startGame();
                 break;
-            case "Load":
+            case "Load game":
                 game.loadGame();
                 break;
-            case "Save":
+            case "Save game":
                 RpgGame.saveGame(game);
                 break;
             default:

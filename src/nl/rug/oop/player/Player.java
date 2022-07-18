@@ -117,6 +117,26 @@ public abstract class Player extends Entity implements Serializable {
     }
 
     /**
+     * TODO
+     * @return
+     * @author sfrkovic
+     */
+    public HashMap<String, String> getPlayerInformation() {
+        HashMap<String, String> playerInformation = new HashMap<>();
+        playerInformation.put("Health", String.valueOf(getHealth()));
+        String energyType = "Energy";
+        if (this instanceof Warrior) {
+            energyType = "Stamina";
+        } else if (this instanceof Mage) {
+            energyType = "Mana";
+        }
+        playerInformation.put(energyType, String.valueOf(getEnergy()));
+        playerInformation.put("Strength", String.valueOf(getStrength()));
+        playerInformation.put("Gold", String.valueOf(getGold()));
+        return playerInformation;
+    }
+
+    /**
      * returns the amount of energy a player has
      * @return the amount of energy a player has
      * @author Joni Baarda

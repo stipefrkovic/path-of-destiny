@@ -36,6 +36,6 @@ public class WeaknessEffect extends Effect {
      */
     @Override
     public String getName() {
-        return "Weakness";
+        return "Weak";
     }
 }

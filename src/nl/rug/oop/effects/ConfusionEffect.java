@@ -36,6 +36,6 @@ public class ConfusionEffect extends Effect {
      */
     @Override
     public String getName() {
-        return "Confusion";
+        return "Confused";
     }
 }

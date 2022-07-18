@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DictionaryPanel extends Panel {
+public class DictionaryDynamicPanel extends DynamicPanel {
 
-    public DictionaryPanel(LayoutManager layout, Font font, Color backgroundColor, Color foregroundColor) {
+    public DictionaryDynamicPanel(LayoutManager layout, Font font, Color backgroundColor, Color foregroundColor) {
         super(layout, font, backgroundColor, foregroundColor);
     }
 

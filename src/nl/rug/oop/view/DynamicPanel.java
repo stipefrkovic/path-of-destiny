@@ -5,13 +5,13 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-abstract public class Panel extends JPanel {
+abstract public class DynamicPanel extends JPanel {
     protected final LayoutManager layout;
     protected final Font font;
     protected final Color backgroundColor;
     protected final Color foregroundColor;
 
-    public Panel(LayoutManager layout, Font font, Color backgroundColor, Color foregroundColor) {
+    public DynamicPanel(LayoutManager layout, Font font, Color backgroundColor, Color foregroundColor) {
         super(layout);
 
         this.layout = layout;

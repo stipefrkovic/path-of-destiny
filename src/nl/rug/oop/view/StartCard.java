@@ -1,4 +1,19 @@
-package nl.rug.oop.view.resources;
+package nl.rug.oop.view;
 
-public class StartCard {
+import nl.rug.oop.controller.Controller;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class StartCard extends Card {
+
+    public StartCard(Font font, Color color, Controller controller) {
+        super(new GridBagLayout(), font, color, controller);
+    }
+
+    @Override
+    public void setup() {
+        JButton startButton = new DepthButton("Start game", font, color, controller);
+        add(startButton);
+    }
 }
