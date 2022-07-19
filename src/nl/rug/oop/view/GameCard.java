@@ -6,199 +6,212 @@ import nl.rug.oop.player.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 
+/**
+ * Class GameCard which is an extension of Card.
+ * It has a BorderLayout and the corresponding 5 panels:
+ *  North - playerPanel which holds the start and load buttons and player information, inventory, and effects
+ *  West - actionPanel which holds the actions a player can take
+ *  Center - backgroundPanel which shows the background of the scene
+ *  East - npcPanel which holds the NPCs in the current scene
+ *  South - descriptionPane which holds the description of the scene
+ * @author sfrkovic
+ */
 public class GameCard extends Card {
     /**
-     * North panel of the game card - displays 2 buttons, inventory, player stats, and effects
+     * Player panel added to North of GameCard's BorderLayout.
+     * It contains: saveButton, loadButton, informationPanel, inventoryPanel, effectsPanel.
      */
-    JPanel northPanel;
+    private JPanel playerPanel;
     /**
-     * Button saves the game
+     * Button that saves the current state of the game.
      */
-    JButton saveButton;
+    private JButton saveButton;
     /**
-     * Button loads the previous game
+     * Button that loads the saved state of the game.
      */
-    JButton loadButton;
+    private JButton loadButton;
     /**
-     * Panel that holds labels for the player stats
+     * DictionaryPanel that shows the player information:
+     *  labels and amounts of health, energy(mana/stamina), strength, gold.
      */
-    DictionaryDynamicPanel statsPanel;
+    private DictionaryDynamicPanel informationPanel;
     /**
-     * Panel that holds the player inventory
+     * DictionaryPanel that shows the labels and amounts of items in the player inventory:
+     *  possible items are health, mana, stamina, and remove effects potions.
      */
-    DictionaryDynamicPanel inventoryPanel;
+    private DictionaryDynamicPanel inventoryPanel;
+    /**
+     * ArrayDynamicPanel that shows the labels of effects the player is experiencing:
+     *  possible effects are confused, poisoned, stunned, and weak.
+     */
+    private ArrayDynamicPanel effectsPanel;
+    /**
+     * ArrayDynamicPanel that shows the actions (buttons) a player can take.
+     */
+    private ArrayDynamicPanel actionsPanel;
+    /**
+     * BackGround panel that displays the background image of the current scene.
+     */
+    private BackgroundPanel backgroundPanel;
+    /**
+     * ArrayDynamicPanel that shows the NPCs (labels) in the current scene.
+     */
+    private ArrayDynamicPanel npcPanel;
+    /**
+     * TextPane that shows the description of the current scene.
+     */
+    private JTextPane descriptionPane;
 
-    ArrayDynamicPanel effectsPanel;
     /**
-     * Panel that holds the player's action
+     * Constructor for GameCard that calls Card constructor with BorderLayout and given parameter values.
+     * @param font Font for GameCard
+     * @param backgroundColor background Color for GameCard
+     * @param foregroundColor foreground Color for GameCard
+     * @param controller Controller for buttons in GameCard
      */
-    ArrayDynamicPanel westPanel;
-    /**
-     * BackGround panel that displays the background of the scene
-     */
-    BackgroundPanel centerPanel;
-    /**
-     * Panel that holds the npcs in the scene
-     */
-    ArrayDynamicPanel eastPanel;
-    /**
-     * TextPane that shows the description of thescene
-     */
-    JTextPane southPane = new JTextPane();
-
-    public GameCard(Font font, Color color, Controller controller) {
-        super(new BorderLayout(10, 10), font, color, controller);
+    public GameCard(Font font, Color backgroundColor, Color foregroundColor,Controller controller) {
+        super(new BorderLayout(10, 10), font, backgroundColor, foregroundColor, controller);
     }
 
     /**
-     * Method sets the basics of the GameCard which has a BorderLayout.
-     * North - save button, load button, player stats, player inventory, player effects
-     * West - player's action buttons
-     * Center - background
-     * East - labels of npcs in the scnee
-     * South - TextPane with scene description
+     * Method sets up the GameCard with a BorderLayout and its panels:
+     *  North - playerPanel which holds the start and load buttons and player information, inventory, and effects
+     *  West - actionPanel which holds the actions a player can take
+     *  Center - backgroundPanel which shows the background of the scene
+     *  East - npcPanel which holds the NPCs in the current scene
+     *  South - descriptionPane which holds the description of the scene
      */
     @Override
     public void setup() {
-        saveButton = new DepthButton("Save game", font, color, controller);
-        loadButton = new DepthButton("Load game", font, color, controller);
-        statsPanel = new DictionaryDynamicPanel(new GridLayout(1, 0), font, color, Color.LIGHT_GRAY);
-        inventoryPanel = new DictionaryDynamicPanel(new GridLayout(1, 0), font, color, Color.LIGHT_GRAY);
-        effectsPanel = new ArrayDynamicPanel(new GridLayout(1, 0), font, color, Color.LIGHT_GRAY);
-        northPanel = new JPanel();
+        saveButton = new DepthButton("Save game", font, backgroundColor, controller);
+        loadButton = new DepthButton("Load game", font, backgroundColor, controller);
+        informationPanel = new DictionaryDynamicPanel(new GridLayout(1, 0), font, backgroundColor, foregroundColor, controller);
+        inventoryPanel = new DictionaryDynamicPanel(new GridLayout(1, 0), font, backgroundColor, foregroundColor, controller);
+        effectsPanel = new ArrayDynamicPanel(new GridLayout(1, 0), font, backgroundColor, foregroundColor, controller);
+        playerPanel = new JPanel();
         GridBagLayout gridBagLayout = new GridBagLayout();
-        northPanel.setLayout(gridBagLayout);
-        northPanel.setBackground(color);
+        playerPanel.setLayout(gridBagLayout);
+        playerPanel.setBackground(backgroundColor);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.weightx = 1;
         gbc.ipadx = 40;
         gbc.ipady = 5;
         gbc.anchor = GridBagConstraints.WEST;
-        northPanel.add(saveButton, gbc);
-        northPanel.add(loadButton, gbc);
+        playerPanel.add(saveButton, gbc);
+        playerPanel.add(loadButton, gbc);
         gbc.anchor = GridBagConstraints.EAST;
-        northPanel.add(statsPanel, gbc);
-        northPanel.add(inventoryPanel, gbc);
-        northPanel.add(effectsPanel, gbc);
+        playerPanel.add(informationPanel, gbc);
+        playerPanel.add(inventoryPanel, gbc);
+        playerPanel.add(effectsPanel, gbc);
 
-        westPanel = new ArrayDynamicPanel(new GridLayout(0, 1, 0, 10), font, color, Color.LIGHT_GRAY);
+        actionsPanel = new ArrayDynamicPanel(new GridLayout(0, 1, 0, 10), font, backgroundColor, foregroundColor, controller);
 
+        // NullPointerException is thrown if the resource can't be found
         ImageIcon backgroundImage = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/Welcome.png")));
-        centerPanel = new BackgroundPanel(backgroundImage.getImage(), BackgroundPanel.SCALED);
+        backgroundPanel = new BackgroundPanel(backgroundImage.getImage(), BackgroundPanel.SCALED);
 
-        eastPanel = new ArrayDynamicPanel(new GridLayout(5, 2), font, color, Color.LIGHT_GRAY);
+        npcPanel = new ArrayDynamicPanel(new GridLayout(5, 2), font, backgroundColor, foregroundColor, controller);
 
-        // set southPane for scene description that will be added later
-        southPane.setFont(font);
-        southPane.setBackground(color);
-        southPane.setForeground(Color.LIGHT_GRAY);
-        southPane.setEditable(false);
+        descriptionPane = new JTextPane();
+        descriptionPane.setFont(font);
+        descriptionPane.setBackground(backgroundColor);
+        descriptionPane.setForeground(foregroundColor);
+        descriptionPane.setEditable(false);
 
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        setBackground(color);
-        add(northPanel, BorderLayout.NORTH);
-        add(westPanel, BorderLayout.WEST);
-        add(centerPanel, BorderLayout.CENTER);
-        add(eastPanel, BorderLayout.EAST);
-        add(southPane, BorderLayout.SOUTH);
-
+        setBackground(backgroundColor);
+        add(playerPanel, BorderLayout.NORTH);
+        add(actionsPanel, BorderLayout.WEST);
+        add(backgroundPanel, BorderLayout.CENTER);
+        add(npcPanel, BorderLayout.EAST);
+        add(descriptionPane, BorderLayout.SOUTH);
     }
 
     /**
-     * Update the game card with the given state from the game model
-     * @param actions actions available to the player
-     * @param description description of the scene
-     * @param image image for the background
-     * @param npcs npcs in the scene
-     * @param player player stats, inventory, and effects
+     * Update the GameCard by calling the update methods of the GameCard's panels
+     *  and passing the corresponding information obtained from the game.
+     * @param actions ArrayList of String actions available to the player
+     * @param description String description of the scene
+     * @param image String of the background image
+     * @param NPCs ArrayList of String NPCs in the scene
+     * @param player Player object containing current information, inventory, and effects of a player
      */
-    public void updateElements(List<String> actions, String description, String image, List<NPC> npcs, Player player) {
-        updateNorthPanel(player);
-        updateWestPanel(actions);
-        updateCenterPanel(image);
-        updateEastPanel(npcs);
-        updateSouthPane(description);
+    public void updateElements(ArrayList<String> actions, String description, String image, ArrayList<NPC> NPCs, Player player) {
+        updatePlayerPanel(player);
+        updateActionsPanel(actions);
+        updateBackgroundPanel(image);
+        updateNpcPanel(NPCs);
+        updateDescriptionPane(description);
     }
 
     /**
-     * Update player's stats, inventory, and effects
-     * @param player player
+     * Update playerPanel by updating Labels in informationPanel, inventoryPanel, and effectsPanel
+     * @param player Player object containing current information, inventory, and effects of a player
      */
-    private void updateNorthPanel(Player player) {
+    private void updatePlayerPanel(Player player) {
         if (player != null) {
             HashMap<String, String> playerInformation = player.getPlayerInformation();
-            statsPanel.updateComponents(playerInformation);
+            informationPanel.createComponents(playerInformation);
 
-            HashMap<String, Integer> inventoryCount = player.getInventoryCount();
-            HashMap<String, String> playerInventory = new HashMap(inventoryCount);
-            inventoryPanel.updateComponents(playerInventory);
+            // casting is needed
+            HashMap<String, String> playerInventory = new HashMap(player.getInventoryCount());
+            inventoryPanel.createComponents(playerInventory);
 
-            // set player effects based on the given list
-            ArrayList<JComponent> components = new ArrayList<>();
-            List<String> effects = player.getEffects();
-            if (effects != null) {
-                for (String e : effects) {
-                    ImageIcon effectIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/" + e + ".png")));
-                    JLabel effectLabel = new JLabel(effectIcon);
-                    effectLabel.setToolTipText("Effect: " + e);
-                    components.add(effectLabel);
-                }
+            ArrayList<String> effectsIcons = player.getEffects();
+            ArrayList<String> effectsToolTips = new ArrayList<>();
+            for (String l : effectsIcons) {
+                effectsToolTips.add("Effect: " + l);
             }
-            effectsPanel.updateComponents(components);
+            effectsPanel.createLabels(effectsIcons, effectsToolTips);
         }
     }
 
     /**
-     * Update west panel with actions player can do in the scene
-     * @param actions actions the player can do in the scene
+     * Update actionsPanel panel with Buttons i.e. actions the player can take.
+     * @param actions ArrayList of String actions available to the player
      */
-    private void updateWestPanel(List<String> actions) {
-        ArrayList<JComponent> components = new ArrayList<>();
-        if (actions != null) {
-            for (String a : actions) {
-                JButton button = new DepthButton(a, font, color, controller);
-                components.add(button);
-            }
+    private void updateActionsPanel(ArrayList<String> actions) {
+        actionsPanel.createButtons(actions);
+    }
+
+    /**
+     * Update backgroundPanel to display the background image of the scene.
+     * @param image String of the background image
+     */
+    private void updateBackgroundPanel(String image) {
+        if (image != null) {
+            // NullPointerException is thrown if the resource can't be found
+            ImageIcon backgroundImage = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/" + image + ".png")));
+            backgroundPanel.setImage(backgroundImage.getImage());
         }
-        westPanel.updateComponents(components);
     }
 
     /**
-     * Update centerPanel to display the given image string
-     * @param image string of the image to be displayed
+     * Update npcPanel with the Labels of NPCs in the current scene.
+     * @param NPCs ArrayList of String NPCs in the scene
      */
-    private void updateCenterPanel(String image) {
-        // get image from resources and set the centerPanel to it
-        ImageIcon backgroundImage = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/" + image + ".png")));
-        centerPanel.setImage(backgroundImage.getImage());
-    }
-
-    /**
-     * Update eastPanel with the NPCs in the current scene
-     * @param NPCs NPCs in the current scene
-     */
-    private void updateEastPanel(List<NPC> NPCs) {
-        ArrayList<JComponent> components = new ArrayList<>();
+    private void updateNpcPanel(ArrayList<NPC> NPCs) {
+        ArrayList<String> npcIcons = new ArrayList<>();
+        ArrayList<String> npcToolTips = new ArrayList<>();
         if (NPCs != null) {
             for (NPC npc : NPCs) {
-                ImageIcon npcIcon = new ImageIcon(Objects.requireNonNull(GameView.class.getResource("resources/" + npc.getType() + ".png")));
-                JLabel label = new JLabel(npcIcon);
-                label.setToolTipText(npc.getName());
-                components.add(label);
+                npcIcons.add(npc.getType());
+                npcToolTips.add(npc.getName());
             }
         }
-        eastPanel.updateComponents(components);
+        npcPanel.createLabels(npcIcons, npcToolTips);
     }
 
     /**
-     * Update southPane with the current description
-     * @param description description of the current scene
+     * Update southPane with the current description.
+     * @param description String description of the scene
      */
-    private void updateSouthPane(String description) {
-        southPane.removeAll();
-        southPane.setText(description);
+    private void updateDescriptionPane(String description) {
+        descriptionPane.removeAll();
+        descriptionPane.setText(description);
     }
 }

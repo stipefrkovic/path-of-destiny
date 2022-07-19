@@ -7,7 +7,6 @@ import nl.rug.oop.player.Player;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -243,11 +242,12 @@ public class FightScene extends Scene implements Serializable, NPCScene {
 
     /**
      * Returns all the non-defeated enemies in the scene.
+     *
      * @return All non-defeated enemies in this scene.
      */
     @Override
-    public List<NPC> getNPCs() {
-        List<NPC> npcs = new ArrayList<>();
+    public ArrayList<NPC> getNPCs() {
+        ArrayList<NPC> npcs = new ArrayList<>();
         for (NPC enemy:enemies) {
             npcs.add(enemy.clone());
         }

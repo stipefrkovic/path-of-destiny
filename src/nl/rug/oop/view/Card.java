@@ -5,24 +5,51 @@ import nl.rug.oop.controller.Controller;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A Card (JPanel) meant for a JFrame with a CardLayout.
+ * @author sfrkovic
+ */
 abstract public class Card extends JPanel {
-    protected final LayoutManager layout;
-    protected final Font font;
-    protected final Color color;
-    protected final Controller controller;
+    /**
+     * Primary font of Card.
+     */
+    protected Font font;
+    /**
+     * Primary background color of Card.
+     */
+    protected Color backgroundColor;
+    /**
+     * Primary foreground color of Card.
+     */
+    protected Color foregroundColor;
+    /**
+     * Controller for the buttons in Card.
+     */
+    protected Controller controller;
 
-    public Card(LayoutManager layout, Font font, Color color, Controller controller) {
+    /**
+     * Constructor for Card that calls the JPanel constructor and sets Card class variables.
+     * @param layout LayoutManager for the Card
+     * @param font Font for the Card
+     * @param backgroundColor background Color for the Card
+     * @param foregroundColor foreground Color for the Card
+     * @param controller Controller for the buttons in the Card
+     */
+    public Card(LayoutManager layout, Font font, Color backgroundColor, Color foregroundColor, Controller controller) {
         super(layout);
 
-        this.layout = layout;
         this.font = font;
-        this.color = color;
+        this.backgroundColor = backgroundColor;
+        this.foregroundColor = foregroundColor;
         this.controller = controller;
 
         setFont(font);
-        setBackground(color);
+        setBackground(backgroundColor);
     }
 
+    /**
+     * Initializes the elements of an instance of a Card.
+     */
     abstract public void setup();
 
 }

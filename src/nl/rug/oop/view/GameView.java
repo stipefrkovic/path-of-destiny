@@ -7,44 +7,55 @@ import nl.rug.oop.player.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
- * The GameView (JFrame extended class with OutputEventListener) class for the RPG game.
+ * The GameView class for the RPG game (extension of JFrame with OutputEventListener).
  * @author sfrkovic
  */
 public class GameView extends JFrame implements OutputEventListener {
 
     /**
-     * Primary font for the text of the game
+     * Primary font for the text of the game.
      */
-    private Font font = new Font("Arial", Font.PLAIN, 20);
+    private final Font font = new Font("Arial", Font.PLAIN, 20);
     /**
-     * Primary color for the background and buttons
+     * Primary background color.
      */
-    private Color color = new Color(0x353839); // Onyx, https://html-color.codes/grey
+    private final Color backgroundColor = new Color(0x353839); // Onyx, https://html-color.codes/grey
     /**
-     * Name of the game displayed on the title bar
+     * Primary foreground color.
      */
-    private String gameName = "Path of Destiny";
+    private final Color foregroundColor = Color.LIGHT_GRAY;
     /**
-     * Layout manager for the GameView (JFrame)
+     * Name/title of the game.
      */
-    private CardLayout cardLayout = new CardLayout();
+    private final String gameName = "Path of Destiny";
     /**
-     * The content pane of the GameView (JFrame)
+     * Layout manager for GameView.
      */
-    private Container contentPane = getContentPane();
+    private final CardLayout cardLayout = new CardLayout();
+    /**
+     * The GameView ContentPane.
+     */
+    private final Container contentPane = getContentPane();
+    /**
+     * (Start)Card which launches the game.
+     */
     private StartCard startCard;
+    /**
+     * (Game)Card which displays the game.
+     */
     private GameCard gameCard;
     /**
-     * Controller (OutputEventListener) for the View and rpg game
+     * Controller (OutputEventListener) for the GameView and RpgGame.
      */
     private Controller controller;
 
     /**
-     * Constructor for GameView object
-     * @param controller controller that acts as an ActionListener for the buttons
+     * Constructor for GameView.
+     * Sets default values and adds controller.
+     * @param controller controller (listener) for the buttons
      */
     public GameView(Controller controller) {
         setTitle(gameName);
@@ -55,16 +66,16 @@ public class GameView extends JFrame implements OutputEventListener {
     }
 
     /**
-     * Method sets up the view and its 2 cards: startCard and gameCard
+     * Sets up the GameView: its layout, startCard, and GameCard.
      */
     public void setup() {
         setLayout(cardLayout);
 
-        startCard = new StartCard(font, color, controller);
+        startCard = new StartCard(font, backgroundColor, foregroundColor, controller);
         startCard.setup();
         this.add(startCard, "Start Card");
 
-        gameCard = new GameCard(font, color, controller);
+        gameCard = new GameCard(font, backgroundColor, foregroundColor, controller);
         gameCard.setup();
         this.add(gameCard, "Game Card");
 
@@ -72,17 +83,15 @@ public class GameView extends JFrame implements OutputEventListener {
     }
 
     /**
-     * The updateScene method which is activated when there is a change in the model
-     * and calls appropriate view update method (updateScene)
-     *
-     * @param actions     A list of possible valid actions that can be chosen.
+     * Method is activated when there is a change in the game and appropriate more specific update methods are called.
+     * @param actions     A list of actions the player can make
      * @param description The description of the current scene.
-     * @param image       The image/theme of the current scene.
+     * @param image       The image of the current scene.
      * @param NPCs        The NPCs in the current scene, can be empty if no NPCs are in the current scene.
      * @param player      The player that plays the game.
      */
     @Override
-    public void updateScene(List<String> actions, String description, String image, List<NPC> NPCs, Player player) {
+    public void updateScene(ArrayList<String> actions, String description, String image, ArrayList<NPC> NPCs, Player player) {
         gameCard.updateElements(actions, description, image, NPCs, player);
         contentPane.revalidate();
         contentPane.repaint();

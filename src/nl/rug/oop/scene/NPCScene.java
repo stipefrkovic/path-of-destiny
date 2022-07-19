@@ -2,7 +2,7 @@ package nl.rug.oop.scene;
 
 import nl.rug.oop.npc.NPC;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * This interface should be implemented by every scene that includes npcs.
@@ -12,7 +12,8 @@ public interface NPCScene {
 
     /**
      * Returns the npcs of the scene.
+     *
      * @return A list of npcs that are in the scene.
      */
-    List<NPC> getNPCs();
+    ArrayList<NPC> getNPCs();
 }

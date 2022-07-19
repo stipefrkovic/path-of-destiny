@@ -4,7 +4,6 @@ import nl.rug.oop.player.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * A scene that allows for actions that are only available under certain conditions.
@@ -33,8 +32,8 @@ public class EvaluatingScene extends Scene{
      * @return The list of action names of actions whose condition is fulfilled.
      */
     @Override
-    public List<String> getActions() {
-        List<String> actionStrings = new ArrayList<>();
+    public ArrayList<String> getActions() {
+        ArrayList<String> actionStrings = new ArrayList<>();
         for (ConditionedAction action:this.conditionedActions.keySet()) {
             if(action.evaluateCondition(player)){
                 actionStrings.add(action.getActionName());

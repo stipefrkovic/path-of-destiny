@@ -83,10 +83,10 @@ public abstract class Entity implements Serializable {
      * Returns the effects of the entity.
      * @return The effects of the entity.
      */
-    public List<String> getEffects(){
-        List<String> effectsNames = new ArrayList<>();
+    public ArrayList<String> getEffects(){
+        ArrayList<String> effectsNames = new ArrayList<>();
         for (Effect effect:effects) {
-            effectsNames.add(effect.getName());
+            effectsNames.add((String) effect.getName());
         }
         return effectsNames;
     }

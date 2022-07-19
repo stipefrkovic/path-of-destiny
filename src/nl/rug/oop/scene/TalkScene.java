@@ -7,7 +7,6 @@ import nl.rug.oop.player.Player;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Creates a Scene that handles the dialogue between an npc and the player.
@@ -110,11 +109,12 @@ public class TalkScene extends Scene implements Serializable, NPCScene {
 
     /**
      * Returns the NPC the player is talking to.
+     *
      * @return A List with the singular npc the player is talking to.
      */
     @Override
-    public List<NPC> getNPCs() {
-        List<NPC> npcs = new ArrayList<>();
+    public ArrayList<NPC> getNPCs() {
+        ArrayList<NPC> npcs = new ArrayList<>();
         npcs.add(person.clone());
         return npcs;
     }

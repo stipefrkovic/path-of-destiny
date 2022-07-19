@@ -71,8 +71,8 @@ public class Scene implements Serializable {
      * Gives the enabled actions that the user can choose from.
      * @return The list of enabled action names.
      */
-    public List<String> getActions(){
-        List<String> actionStrings = new ArrayList<>();
+    public ArrayList<String> getActions(){
+        ArrayList<String> actionStrings = new ArrayList<>();
         for (Action action:this.actions.keySet()) {
             if(action.isEnabled()){
                 actionStrings.add(action.getActionName());

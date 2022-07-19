@@ -117,8 +117,8 @@ public abstract class Player extends Entity implements Serializable {
     }
 
     /**
-     * TODO
-     * @return
+     * Returns the player information about health, energy (mana/stamina), strength, and gold in the form of key-value pairs
+     * @return HashMap<String, String> containing the player information key-value pairs
      * @author sfrkovic
      */
     public HashMap<String, String> getPlayerInformation() {

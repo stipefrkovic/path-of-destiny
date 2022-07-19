@@ -6,8 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * DepthButton which is prettier of an extension of JButton
+ * DepthButton which is prettier of an extension of JButton.
+ * Originally created by Romain guy.
  * @author Romain Guy
+ * Expanded by sfrkovic (added a new constructor).
+ * @author sfrkovic
  */
 
 public class DepthButton extends JButton {
@@ -19,6 +22,14 @@ public class DepthButton extends JButton {
         setFocusPainted(false);
     }
 
+    /**
+     * Expanded constructor for DepthButton
+     * @param text text for the button text and the button action command
+     * @param font font of the button text
+     * @param color color of the button
+     * @param controller controller for the button action command
+     * @author sfrkovic
+     */
     public DepthButton(String text, Font font, Color color, Controller controller) {
         this(text);
         setActionCommand(text);
