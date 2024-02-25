@@ -1,4 +1,4 @@
-# Path of Desinty
+# Path of Destiny
 
 Final project of the Object Oriented Programming course at the University of Groningen: a role playing game called Path of Destiny.
 
